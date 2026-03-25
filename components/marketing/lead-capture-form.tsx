@@ -201,7 +201,7 @@ export default function LeadCaptureForm() {
         />
       ) : null}
 
-      <div className="grid gap-3">
+      <div className="grid gap-2">
         <input
           type="text"
           name="company"
@@ -225,7 +225,7 @@ export default function LeadCaptureForm() {
           readOnly
         />
 
-        <label className="grid gap-2">
+        <label className="grid gap-1">
           <span className="text-sm font-medium text-foreground">Your Name</span>
           <input
             required
@@ -239,7 +239,7 @@ export default function LeadCaptureForm() {
             }}
             aria-invalid={Boolean(errors.name)}
             aria-describedby="lead-name-error"
-            className={`h-11 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+            className={`h-10 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
               errors.name ? "border-red-400" : "border-(--color-border)"
             }`}
           />
@@ -250,7 +250,7 @@ export default function LeadCaptureForm() {
           ) : null}
         </label>
 
-        <label className="grid gap-2">
+        <label className="grid gap-1">
           <span className="text-sm font-medium text-foreground">Email Address</span>
           <input
             required
@@ -264,7 +264,7 @@ export default function LeadCaptureForm() {
             }}
             aria-invalid={Boolean(errors.email)}
             aria-describedby="lead-email-error"
-            className={`h-11 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+            className={`h-10 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
               errors.email ? "border-red-400" : "border-(--color-border)"
             }`}
           />
@@ -275,14 +275,14 @@ export default function LeadCaptureForm() {
           ) : null}
         </label>
 
-        <label className="grid gap-2">
+        <label className="grid gap-1">
           <span className="text-sm font-medium text-foreground">
             Biggest challenge right now
           </span>
           <textarea
             required
             name="challenge"
-            rows={3}
+            rows={2}
             value={form.challenge}
             onChange={(event) => {
               setForm({ ...form, challenge: event.target.value });
@@ -302,7 +302,7 @@ export default function LeadCaptureForm() {
           ) : null}
         </label>
 
-        <label className="grid gap-2">
+        <label className="grid gap-1">
           <span className="text-sm font-medium text-foreground">Primary goal</span>
           <select
             required
@@ -314,7 +314,7 @@ export default function LeadCaptureForm() {
             }}
             aria-invalid={Boolean(errors.goal)}
             aria-describedby="lead-goal-error"
-            className={`h-11 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+            className={`h-10 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
               errors.goal ? "border-red-400" : "border-(--color-border)"
             }`}
           >
@@ -331,7 +331,7 @@ export default function LeadCaptureForm() {
           ) : null}
         </label>
 
-        <label className="grid gap-2">
+        <label className="grid gap-1">
           <span className="text-sm font-medium text-foreground">Time available per day</span>
           <select
             required
@@ -343,7 +343,7 @@ export default function LeadCaptureForm() {
             }}
             aria-invalid={Boolean(errors.timePerDay)}
             aria-describedby="lead-time-error"
-            className={`h-11 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+            className={`h-10 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
               errors.timePerDay ? "border-red-400" : "border-(--color-border)"
             }`}
           >
@@ -372,14 +372,14 @@ export default function LeadCaptureForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex h-12 items-center justify-center rounded-full bg-(--color-brand) px-6 text-sm font-semibold text-(--color-on-brand) transition hover:bg-(--color-brand-strong) disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-brand)"
+          className="cta-button inline-flex h-12 w-full items-center justify-center px-6 text-sm font-semibold"
         >
           {status === "loading" ? "Sending..." : "Send my application →"}
         </button>
       </div>
 
       <p
-        className={`mt-4 text-sm ${
+        className={`mt-3 text-sm ${
           status === "error" ? "text-red-700" : "text-(--color-muted)"
         }`}
         role="status"
@@ -387,7 +387,7 @@ export default function LeadCaptureForm() {
       >
         {message}
       </p>
-      <p className="mt-2 text-xs text-(--color-muted)">
+      <p className="mt-1 text-xs text-(--color-muted)">
         No spam. Unsubscribe anytime.
       </p>
     </form>

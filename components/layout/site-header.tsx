@@ -19,9 +19,17 @@ export function SiteHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -72,9 +80,12 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-(--color-border) bg-(--color-bg)/90 backdrop-blur">
+    <header className={cn(
+      "sticky top-0 z-30 bg-(--color-bg)/90 backdrop-blur transition-[border-color,box-shadow] duration-300",
+      scrolled ? "border-b border-(--color-border) shadow-sm" : "border-b border-transparent",
+    )}>
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-        <Link href="/" className="font-display text-2xl text-foreground">
+        <Link href="/" className="font-display text-2xl text-foreground transition-colors duration-200 hover:text-(--color-brand)">
           Fit Parent Plan
         </Link>
         <nav className="hidden items-center gap-3 lg:flex">
@@ -104,10 +115,7 @@ export function SiteHeader() {
               {loadingAuth ? null : user ? (
                 <Button href="/dashboard" variant="ghost">Dashboard</Button>
               ) : (
-                <a
-                  href="#apply"
-                  className="rounded-full bg-(--color-brand) px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-(--color-brand-strong) hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand) focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                >
+                <a href="#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
                   See if it fits you
                 </a>
               )}
@@ -143,10 +151,7 @@ export function SiteHeader() {
                   <Button href="/login" variant="ghost">
                     Login
                   </Button>
-                  <a
-                    href="/#apply"
-                    className="rounded-full bg-(--color-brand) px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-(--color-brand-strong) hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand) focus-visible:ring-offset-2 focus-visible:ring-offset-background xl:text-sm"
-                  >
+                  <a href="/#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
                     See if it fits you
                   </a>
                 </>
@@ -263,10 +268,7 @@ export function SiteHeader() {
                 <Button href="/login" variant="secondary" className="flex-1">
                   Login
                 </Button>
-                <a
-                  href="/#apply"
-                  className="flex flex-1 items-center justify-center rounded-full bg-(--color-brand) px-4 py-2 text-sm font-semibold text-white transition hover:bg-(--color-brand-strong)"
-                >
+                <a href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-2 text-sm font-semibold">
                   See if it fits you
                 </a>
               </>

@@ -5,39 +5,39 @@ html {
 }
 
 :root {
-  --color-bg: #f3f8f8;
+  --color-bg: #f5f7f9;
   --color-bg-soft: #ffffff;
-  --color-ink: #1a2e2f;
-  --color-muted: #4a6568;
-  --color-brand: #1a4f54;
-  --color-brand-strong: #123b3f;
-  --color-secondary: #e85c3a;
-  --color-secondary-strong: #d44828;
-  --color-accent: #38b2ac;
+  --color-ink: #191a1e;
+  --color-muted: #6b6f76;
+  --color-brand: #1b5afb;
+  --color-brand-strong: #1449d4;
+  --color-secondary: #f59038;
+  --color-secondary-strong: #e07b20;
+  --color-accent: #3b82f6;
   --color-on-brand: #ffffff;
-  --color-cream: #fdf8f3;
-  --color-melon-soft: #fde9e5;
-  --color-melon-glow: #fbd5cf;
-  --color-cream-glow: #eef4f4;
-  --color-mint-soft: #e4f5f5;
-  --color-mint-glow: #d0eeee;
-  --color-sky-soft: #e2eef0;
-  --color-sky-glow: #cce6e9;
-  --color-rose-soft: #fde6e1;
-  --color-rose-glow: #fbd2cc;
-  --color-lavender-soft: #e9eef6;
-  --color-lavender-glow: #dce5f0;
-  --color-sand-soft: #eef4f4;
-  --color-sage-soft: #e4eeed;
-  --color-lilac-soft: #edf4f5;
-  --color-border: #cde4e5;
-  --shadow-soft: 0 24px 60px -38px rgba(0, 0, 0, 0.25);
-  --accent-neon: #38b2ac;
-  --accent-neon-strong: #2d9e98;
-  --button-grad-start: #1a4f54;
-  --button-grad-mid: #1a5a60;
-  --button-grad-end: #1b6b72;
-  --button-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.35);
+  --color-cream: #eef2ff;
+  --color-melon-soft: #fef3e8;
+  --color-melon-glow: #fde8cc;
+  --color-cream-glow: #e8effe;
+  --color-mint-soft: #ebf0ff;
+  --color-mint-glow: #d6e4ff;
+  --color-sky-soft: #eef2ff;
+  --color-sky-glow: #e0e7ff;
+  --color-rose-soft: #fee2e2;
+  --color-rose-glow: #fecaca;
+  --color-lavender-soft: #ede9fe;
+  --color-lavender-glow: #ddd6fe;
+  --color-sand-soft: #f5f7f9;
+  --color-sage-soft: #ecfdf5;
+  --color-lilac-soft: #f0effe;
+  --color-border: #e5e7eb;
+  --shadow-soft: 0 24px 60px -38px rgba(0, 0, 0, 0.15);
+  --accent-neon: #3b82f6;
+  --accent-neon-strong: #2563eb;
+  --button-grad-start: #1b5afb;
+  --button-grad-mid: #2563eb;
+  --button-grad-end: #3b82f6;
+  --button-shadow: 0 24px 50px -28px rgba(27, 90, 251, 0.4);
   --motion-fast: 220ms;
   --motion-normal: 520ms;
   --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -52,9 +52,9 @@ html {
 
 body {
   background:
-    radial-gradient(circle at 85% 12%, rgba(26, 79, 84, 0.14) 0%, transparent 28%),
-    radial-gradient(circle at 15% 18%, rgba(56, 178, 172, 0.14) 0%, transparent 26%),
-    radial-gradient(circle at 50% 0%, rgba(232, 92, 58, 0.12) 0%, transparent 34%),
+    radial-gradient(circle at 85% 12%, rgba(27, 90, 251, 0.07) 0%, transparent 28%),
+    radial-gradient(circle at 15% 18%, rgba(59, 130, 246, 0.06) 0%, transparent 26%),
+    radial-gradient(circle at 50% 0%, rgba(27, 90, 251, 0.05) 0%, transparent 34%),
     linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%);
   color: var(--color-ink);
   font-family: var(--font-sans), "Segoe UI", sans-serif;

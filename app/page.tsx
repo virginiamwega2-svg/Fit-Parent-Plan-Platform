@@ -1,8 +1,11 @@
 import dynamicImport from "next/dynamic";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import { CountUp } from "@/components/ui/count-up";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
+import { TestimonialsSection } from "@/components/marketing/testimonials-section";
 
 export const dynamic = "force-static";
 
@@ -110,43 +113,6 @@ const FAQ = [
 
 const REVEAL_DELAYS_MS = [80, 120, 160, 200, 240, 280, 300, 320] as const;
 
-function TestimonialCard({
-  quote,
-  name,
-  result,
-  photo,
-  className,
-}: {
-  quote: string;
-  name: string;
-  result: string;
-  photo?: string;
-  className?: string;
-}) {
-  return (
-    <blockquote
-      className={`rounded-2xl border border-(--color-border) bg-white p-5 shadow-[0_14px_30px_-22px_rgba(0,0,0,0.35)]${className ? ` ${className}` : ""}`}
-    >
-      <p className="text-sm text-amber-400" aria-label="5 out of 5 stars">★★★★★</p>
-      <p className="mt-2 leading-7 text-foreground/80">&ldquo;{quote}&rdquo;</p>
-      <footer className="mt-4 flex items-center gap-3">
-        {photo ? (
-          <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full border border-(--color-border)">
-            <Image src={photo} alt={name} width={36} height={36} quality={75} loading="lazy" className="object-cover" />
-          </div>
-        ) : (
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-(--color-border) bg-(--color-mint-soft)">
-            <span className="text-xs font-semibold text-(--color-brand-strong)">{name.charAt(0)}</span>
-          </div>
-        )}
-        <div>
-          <p className="text-sm font-semibold text-foreground">{name}</p>
-          <p className="text-xs font-medium text-teal-700">{result}</p>
-        </div>
-      </footer>
-    </blockquote>
-  );
-}
 
 export default function Home() {
   return (
@@ -182,7 +148,7 @@ export default function Home() {
                 <div className="mt-6">
                   <a
                     href="#apply"
-                    className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-(--color-brand-strong) shadow-[0_18px_35px_-20px_rgba(0,0,0,0.5)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_22px_45px_-22px_rgba(0,0,0,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                    className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-(--color-brand-strong) shadow-[0_18px_35px_-20px_rgba(0,0,0,0.5)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_22px_45px_-22px_rgba(0,0,0,0.55)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                   >
                     Apply now
                     <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
@@ -204,37 +170,40 @@ export default function Home() {
         <Reveal delayMs={REVEAL_DELAYS_MS[0]}>
           <section className="rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">How it works</p>
-            <div className="mt-4 grid gap-6 sm:grid-cols-3">
+            <div className="relative mt-4 grid gap-6 sm:grid-cols-3">
+              {/* Connecting line between circles — desktop only */}
+              <div className="absolute left-4 right-4 top-4 hidden h-px bg-gradient-to-r from-(--color-border)/0 via-(--color-border) to-(--color-border)/0 sm:block" aria-hidden="true" />
               {([
                 { n: "1", title: "Apply in 2 minutes", body: "Tell us about your schedule and goals. No payment needed." },
                 { n: "2", title: "Vee reviews within 24 h", body: "You'll get a personal reply — not an automated sequence." },
                 { n: "3", title: "Start Monday", body: "Your first workout and meal plan land the same week." },
-              ] as const).map(({ n, title, body }) => (
-                <div key={n} className="flex gap-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--color-brand) text-xs font-bold text-white">{n}</div>
-                  <div>
-                    <p className="font-semibold text-foreground">{title}</p>
-                    <p className="mt-1 text-sm text-(--color-muted)">{body}</p>
+              ] as const).map(({ n, title, body }, i) => (
+                <Reveal key={n} delayMs={i * 100}>
+                  <div className="flex gap-4">
+                    <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--color-brand) text-xs font-bold text-white ring-4 ring-(--color-bg-soft)">{n}</div>
+                    <div>
+                      <p className="font-semibold text-foreground">{title}</p>
+                      <p className="mt-1 text-sm text-(--color-muted)">{body}</p>
+                    </div>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </section>
         </Reveal>
 
-        <Reveal delayMs={REVEAL_DELAYS_MS[0]}>
-          <section className="grid gap-6">
+        <section className="grid gap-6">
+          <Reveal delayMs={REVEAL_DELAYS_MS[0]}>
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">Why it works</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">Three things that make this stick</h2>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-              {PILLARS.map((item) => (
-                <article
-                  key={item.title}
-                  className="overflow-hidden rounded-3xl border border-(--color-border) bg-white/85 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:-translate-y-0.5"
-                >
-                  <div className="relative aspect-[4/3] w-full">
+          </Reveal>
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+            {PILLARS.map((item, i) => (
+              <Reveal key={item.title} delayMs={REVEAL_DELAYS_MS[0] + i * 90}>
+                <article className="group h-full overflow-hidden rounded-3xl border border-(--color-border) bg-white/85 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.45)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_48px_-28px_rgba(0,0,0,0.55)]">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -248,7 +217,7 @@ export default function Home() {
                         item.image.includes("nutrition") ? BLUR.nutrition :
                         BLUR.accountability
                       }
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="p-5">
@@ -256,10 +225,10 @@ export default function Home() {
                     <p className="mt-2 leading-7 text-(--color-muted)">{item.description}</p>
                   </div>
                 </article>
-              ))}
-            </div>
-          </section>
-        </Reveal>
+              </Reveal>
+            ))}
+          </div>
+        </section>
 
         <Reveal delayMs={REVEAL_DELAYS_MS[1]}>
           <section className="rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8">
@@ -308,21 +277,8 @@ export default function Home() {
         <Reveal delayMs={REVEAL_DELAYS_MS[3]}>
           <section className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">What parents say</h2>
-            <p className="mt-1 text-sm text-(--color-muted)">50+ parents have completed the 12 weeks.</p>
-
-            <div className="relative mt-4 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 px-4 sm:mx-0 sm:hidden">
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white/80 to-transparent" aria-hidden="true" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white/80 to-transparent" aria-hidden="true" />
-              {TESTIMONIALS.map((item) => (
-                <TestimonialCard key={item.name} {...item} className="snap-center shrink-0 basis-[90%]" />
-              ))}
-            </div>
-
-            <div className="mt-4 hidden gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3">
-              {TESTIMONIALS.map((item) => (
-                <TestimonialCard key={item.name} {...item} />
-              ))}
-            </div>
+            <p className="mt-1 text-sm text-(--color-muted)"><CountUp target={50} suffix="+" /> parents have completed the 12 weeks.</p>
+            <TestimonialsSection items={TESTIMONIALS} />
           </section>
         </Reveal>
 
@@ -335,51 +291,51 @@ export default function Home() {
               What&apos;s included
             </h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
-                  {/* dumbbell */}
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="1.5" y="8.5" width="2.5" height="3" rx="1"/>
-                    <rect x="4" y="6.5" width="3" height="7" rx="1.5"/>
-                    <line x1="7" y1="10" x2="13" y2="10"/>
-                    <rect x="13" y="6.5" width="3" height="7" rx="1.5"/>
-                    <rect x="16" y="8.5" width="2.5" height="3" rx="1"/>
-                  </svg>
+              <Reveal delayMs={0}>
+                <div className="h-full rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-(--color-brand)/20 hover:shadow-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="1.5" y="8.5" width="2.5" height="3" rx="1"/>
+                      <rect x="4" y="6.5" width="3" height="7" rx="1.5"/>
+                      <line x1="7" y1="10" x2="13" y2="10"/>
+                      <rect x="13" y="6.5" width="3" height="7" rx="1.5"/>
+                      <rect x="16" y="8.5" width="2.5" height="3" rx="1"/>
+                    </svg>
+                  </div>
+                  <p className="mt-3 font-semibold text-foreground">Training</p>
+                  <p className="mt-1 text-sm text-(--color-muted)">3 home workouts a week, 20 minutes each. No gym.</p>
                 </div>
-                <p className="mt-3 font-semibold text-foreground">Training</p>
-                <p className="mt-1 text-sm text-(--color-muted)">3 home workouts a week, 20 minutes each. No gym.</p>
-              </div>
-              <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
-                  {/* leaf / nutrition */}
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M4 16c0 0 1-6 6-9 3-1.5 6-1 6-1s0 3-2 5.5C12 14 9 14.5 7 14.5"/>
-                    <path d="M4 16l3-4"/>
-                  </svg>
+              </Reveal>
+              <Reveal delayMs={80}>
+                <div className="h-full rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-(--color-brand)/20 hover:shadow-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M4 16c0 0 1-6 6-9 3-1.5 6-1 6-1s0 3-2 5.5C12 14 9 14.5 7 14.5"/>
+                      <path d="M4 16l3-4"/>
+                    </svg>
+                  </div>
+                  <p className="mt-3 font-semibold text-foreground">Nutrition</p>
+                  <p className="mt-1 text-sm text-(--color-muted)">One meal for the whole family. Simple grocery list included.</p>
                 </div>
-                <p className="mt-3 font-semibold text-foreground">Nutrition</p>
-                <p className="mt-1 text-sm text-(--color-muted)">One meal for the whole family. Simple grocery list included.</p>
-              </div>
-              <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
-                  {/* calendar check */}
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="3" y="4" width="14" height="13" rx="2"/>
-                    <path d="M3 8.5h14"/>
-                    <path d="M7 2.5v3M13 2.5v3"/>
-                    <path d="M7 12.5l2 2 4-4"/>
-                  </svg>
+              </Reveal>
+              <Reveal delayMs={160}>
+                <div className="h-full rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-(--color-brand)/20 hover:shadow-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="3" y="4" width="14" height="13" rx="2"/>
+                      <path d="M3 8.5h14"/>
+                      <path d="M7 2.5v3M13 2.5v3"/>
+                      <path d="M7 12.5l2 2 4-4"/>
+                    </svg>
+                  </div>
+                  <p className="mt-3 font-semibold text-foreground">Check-ins</p>
+                  <p className="mt-1 text-sm text-(--color-muted)">Weekly adjustments when life gets in the way.</p>
                 </div>
-                <p className="mt-3 font-semibold text-foreground">Check-ins</p>
-                <p className="mt-1 text-sm text-(--color-muted)">Weekly adjustments when life gets in the way.</p>
-              </div>
+              </Reveal>
             </div>
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-sm text-(--color-muted)">$199/month · 3 months · 14-day money-back guarantee</p>
-              <a
-                href="#apply"
-                className="inline-flex items-center justify-center rounded-full bg-(--color-brand) px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-(--color-brand-strong)"
-              >
+              <a href="#apply" className="cta-button inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold">
                 Apply now →
               </a>
             </div>
@@ -394,20 +350,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               Common questions
             </h2>
-            <div className="mt-6 space-y-2">
-              {FAQ.map((item) => (
-                <details
-                  key={item.question}
-                  className="group rounded-2xl border border-(--color-border) bg-white px-4 py-3 transition-[border-color,box-shadow] duration-200 hover:border-(--color-brand)/30 hover:shadow-sm"
-                >
-                  <summary className="flex cursor-pointer items-center justify-between gap-3 text-left font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand) focus-visible:ring-offset-2 focus-visible:rounded-sm">
-                    <span>{item.question}</span>
-                    <svg className="shrink-0 text-(--color-muted) transition-transform group-open:rotate-180" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
-                  </summary>
-                  <p className="mt-2 pb-1 text-sm leading-7 text-(--color-muted)">{item.answer}</p>
-                </details>
-              ))}
-            </div>
+            <FaqAccordion items={FAQ} />
           </section>
         </Reveal>
 
@@ -418,7 +361,7 @@ export default function Home() {
           >
             <h2 className="text-xl font-semibold tracking-tight">Apply for a spot</h2>
             <p className="mt-1 text-sm text-(--color-muted)">Takes 2 minutes. We reply within 24 hours.</p>
-            <div className="mt-4">
+            <div className="mt-3">
               <LeadCaptureForm />
             </div>
           </section>

@@ -5,6 +5,7 @@ import type React from "react";
 import Analytics from "@/components/analytics/analytics";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { ScrollProgressBar } from "@/components/ui/scroll-progress-bar";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
@@ -94,6 +95,7 @@ export default function RootLayout({
           </>
         ) : null}
         <Analytics />
+        <ScrollProgressBar />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:rounded-md focus:bg-(--color-bg-soft) focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-foreground"
