@@ -3,8 +3,9 @@ export const siteConfig = {
   description:
     "20-minute home workouts and family-friendly meal plans for busy parents.",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  ogImage: "/og-image.svg",
+  ogImage: "/images/hero.jpg",
   contactEmail: "support@fitparentplan.com",
+  instagramUrl: "https://instagram.com/fitparentplan",
 };
 
 export const navLinks = [

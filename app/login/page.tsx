@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AuthForm } from "@/components/auth/auth-form";
-import { SectionHeader } from "@/components/ui/section-header";
 import { buildMetadata } from "@/lib/metadata";
 import { getCurrentUser } from "@/lib/session";
 
@@ -16,13 +15,10 @@ export default async function LoginPage() {
 
   return (
     <div className="pb-12">
-      <SectionHeader
-        eyebrow="Login"
-        title="Welcome back"
-        description="Access your dashboard, today's workout, and weekly plan."
-        align="center"
-      />
-      <div className="mx-auto mt-8 max-w-md">
+      <div className="mx-auto max-w-md pt-6 text-center">
+        <h1 className="text-3xl font-bold">Welcome back</h1>
+      </div>
+      <div className="mx-auto mt-6 max-w-md">
         <AuthForm mode="login" />
         <p className="mt-4 text-center text-sm text-(--color-muted)">
           Forgot your password?{" "}

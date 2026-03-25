@@ -36,12 +36,12 @@ export default async function DashboardPage() {
               </IconWrapper>
               <div>
                 <Badge>Today&apos;s 20-minute workout</Badge>
-                <h2 className="mt-3 text-xl font-semibold text-[var(--color-ink)]">
+                <h2 className="mt-3 text-xl font-semibold text-foreground">
                   {todayWorkout.title}
                 </h2>
               </div>
             </div>
-            <p className="mt-3 text-sm text-[var(--color-muted)]">{todayWorkout.description}</p>
+            <p className="mt-3 text-sm text-(--color-muted)">{todayWorkout.description}</p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Button href={`/workouts/${todayWorkout.slug}`} className="w-full sm:w-auto">
                 Start now
@@ -57,7 +57,7 @@ export default async function DashboardPage() {
               <IconWrapper>
                 <ProgressSketch />
               </IconWrapper>
-              <Badge className="bg-[var(--color-sky-soft)]">Weekly progress tracker</Badge>
+              <Badge className="bg-(--color-sky-soft)">Weekly progress tracker</Badge>
             </div>
             {snapshot.weeklyProgress.every((item) => item.percent === 0) ? (
               <div className="mt-4">
@@ -72,14 +72,14 @@ export default async function DashboardPage() {
               <div className="mt-4 grid gap-3" aria-label="Weekly workout completion" role="group">
                 {snapshot.weeklyProgress.map((item) => (
                   <div key={item.day} className="grid grid-cols-[40px_1fr_44px] items-center gap-3 text-sm">
-                    <span className="font-semibold text-[var(--color-ink)]">{item.day}</span>
-                    <div className="h-2 rounded-full bg-[var(--color-border)]" role="progressbar" aria-valuenow={item.percent} aria-valuemin={0} aria-valuemax={100} aria-label={`${item.day} progress`}>
+                    <span className="font-semibold text-foreground">{item.day}</span>
+                    <div className="h-2 rounded-full bg-(--color-border)" role="progressbar" aria-valuenow={item.percent} aria-valuemin={0} aria-valuemax={100} aria-label={`${item.day} progress`}>
                       <div
-                        className="h-2 rounded-full bg-[var(--color-brand)]"
+                        className="h-2 rounded-full bg-(--color-brand)"
                         style={{ width: `${item.percent}%` }}
                       />
                     </div>
-                    <span className="text-[var(--color-muted)]">{item.percent}%</span>
+                    <span className="text-(--color-muted)">{item.percent}%</span>
                   </div>
                 ))}
               </div>
@@ -95,22 +95,22 @@ export default async function DashboardPage() {
               <IconWrapper>
                 <PlateSketch />
               </IconWrapper>
-              <Badge className="bg-[var(--color-melon-soft)]">Meal plan summary</Badge>
+              <Badge className="bg-(--color-melon-soft)">Meal plan summary</Badge>
             </div>
             {snapshot.mealSummary ? (
               <>
-                <p className="mt-3 text-sm text-[var(--color-muted)]">
+                <p className="mt-3 text-sm text-(--color-muted)">
                   You completed {snapshot.mealSummary.completedMeals} of {snapshot.mealSummary.plannedMeals} planned meals this week. Best adherence:{" "}
                   {snapshot.mealSummary.bestMealType}.
                 </p>
-                <ul className="mt-3 grid gap-1 text-sm text-[var(--color-muted)]">
+                <ul className="mt-3 grid gap-1 text-sm text-(--color-muted)">
                   <li>Prep sessions done: {snapshot.mealSummary.prepSessions}</li>
                   <li>Shopping list completion: {snapshot.mealSummary.shoppingCompletionPercent}%</li>
                   <li>Kid-approved meals this week: {snapshot.mealSummary.kidApprovedMeals}</li>
                 </ul>
               </>
             ) : (
-              <p className="mt-3 text-sm text-[var(--color-muted)]">
+              <p className="mt-3 text-sm text-(--color-muted)">
                 You haven&apos;t started a meal plan yet. When you follow a plan, your weekly adherence and prep stats will appear here.
               </p>
             )}
@@ -128,10 +128,10 @@ export default async function DashboardPage() {
             </div>
             {snapshot.lastWorkoutSlug ? (
               <>
-                <h3 className="mt-3 text-lg font-semibold text-[var(--color-ink)]">
+                <h3 className="mt-3 text-lg font-semibold text-foreground">
                   {snapshot.lastWorkoutTitle}
                 </h3>
-                <p className="mt-2 text-sm text-[var(--color-muted)]">
+                <p className="mt-2 text-sm text-(--color-muted)">
                   {snapshot.lastWorkoutDescription}{" "}
                   {snapshot.lastWorkoutAgeDays != null
                     ? `• Last completed ${snapshot.lastWorkoutAgeDays} day${snapshot.lastWorkoutAgeDays === 1 ? "" : "s"} ago`
@@ -143,8 +143,8 @@ export default async function DashboardPage() {
               </>
             ) : (
               <>
-                <h3 className="mt-3 text-lg font-semibold text-[var(--color-ink)]">No recent workouts yet</h3>
-                <p className="mt-2 text-sm text-[var(--color-muted)]">
+                <h3 className="mt-3 text-lg font-semibold text-foreground">No recent workouts yet</h3>
+                <p className="mt-2 text-sm text-(--color-muted)">
                   Once you complete a workout, we&apos;ll surface it here so you can pick up where you left off in one click.
                 </p>
                 <Button href={`/workouts/${todayWorkout.slug}`} className="mt-5 w-full sm:w-fit">

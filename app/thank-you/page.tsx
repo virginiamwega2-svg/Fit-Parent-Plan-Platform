@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Thank You",
-  description: "Your request has been received.",
+  title: "Application received — Fit Parent Plan",
+  description: "Your application has been received.",
   robots: {
     index: false,
     follow: false,
@@ -45,19 +46,13 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
           We&apos;ll email you within 24 hours with your next steps and a secure checkout link.
         </p>
         <p className="mt-3 text-sm text-(--color-muted)">
-          While you wait — browse the workout library to see exactly what sessions look like.
+          Check your inbox — including your spam folder — for a message from {siteConfig.contactEmail}.
         </p>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link
-            href="/workouts"
-            className="inline-flex h-11 items-center justify-center rounded-full bg-(--color-brand) px-5 text-sm font-semibold text-(--color-on-brand) hover:bg-(--color-brand-strong)"
-          >
-            Browse workouts
-          </Link>
+        <div className="mt-8">
           <Link
             href="/"
-            className="inline-flex h-11 items-center justify-center rounded-full border border-(--color-secondary) bg-(--color-bg-soft) px-5 text-sm font-semibold text-(--color-secondary) hover:bg-(--color-secondary)/10"
+            className="inline-flex h-11 items-center justify-center rounded-full bg-(--color-brand) px-6 text-sm font-semibold text-(--color-on-brand) hover:bg-(--color-brand-strong)"
           >
             Back to home
           </Link>

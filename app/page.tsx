@@ -2,6 +2,7 @@ import dynamicImport from "next/dynamic";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/ui/reveal";
+import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
 
 export const dynamic = "force-static";
 
@@ -12,7 +13,6 @@ const BLUR = {
   accountability: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAYEAADAQEAAAAAAAAAAAAAAAAAAQIRQf/EABQBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwChpPFTp4+OMAAB/9k=",
   sarah:          "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAdEAACAQQDAAAAAAAAAAAAAAABAgADBBESMUGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAv/aAAwDAQACEQMRAD8ApUboNeFChDa4Y7dgZ49iIlJCn//Z",
   coach:          "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAcEAACAgIDAAAAAAAAAAAAAAAAAQITBBEiMUH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALmTFXWaamuPXgAIP//Z",
-  offer:          "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAP/xAAcEAADAAEFAAAAAAAAAAAAAAAAAQMRAgQSIaH/xAAUAQEAAAAAAAAAAAAAAAAAAAAE/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAEhAhH/2gAMAwEAAhEDEQA/ALbaUJ0o+TWe0tWfAAD012oSlIf/2Q==",
 } as const;
 
 const LeadCaptureForm = dynamicImport(
@@ -173,7 +173,7 @@ export default function Home() {
                 <p className="inline-flex items-center rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
                   12-week fitness coaching for parents
                 </p>
-                <h1 className="mt-5 font-display text-[clamp(2.4rem,4.4vw+1rem,3.9rem)] font-bold leading-tight tracking-tight text-white">
+                <h1 className="mt-5 text-[clamp(2.4rem,4.4vw+1rem,3.9rem)] font-bold text-white">
                   Lose fat. Build strength.<br className="hidden sm:block" /> 20 minutes a day.
                 </h1>
                 <p className="mt-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
@@ -197,6 +197,27 @@ export default function Home() {
                   ))}
                 </div>
               </div>
+            </div>
+          </section>
+        </Reveal>
+
+        <Reveal delayMs={REVEAL_DELAYS_MS[0]}>
+          <section className="rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">How it works</p>
+            <div className="mt-4 grid gap-6 sm:grid-cols-3">
+              {([
+                { n: "1", title: "Apply in 2 minutes", body: "Tell us about your schedule and goals. No payment needed." },
+                { n: "2", title: "Vee reviews within 24 h", body: "You'll get a personal reply — not an automated sequence." },
+                { n: "3", title: "Start Monday", body: "Your first workout and meal plan land the same week." },
+              ] as const).map(({ n, title, body }) => (
+                <div key={n} className="flex gap-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--color-brand) text-xs font-bold text-white">{n}</div>
+                  <div>
+                    <p className="font-semibold text-foreground">{title}</p>
+                    <p className="mt-1 text-sm text-(--color-muted)">{body}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         </Reveal>
@@ -287,6 +308,7 @@ export default function Home() {
         <Reveal delayMs={REVEAL_DELAYS_MS[3]}>
           <section className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">What parents say</h2>
+            <p className="mt-1 text-sm text-(--color-muted)">50+ parents have completed the 12 weeks.</p>
 
             <div className="relative mt-4 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 px-4 sm:mx-0 sm:hidden">
               <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white/80 to-transparent" aria-hidden="true" />
@@ -406,6 +428,7 @@ export default function Home() {
           <div className="h-2" />
         </Reveal>
       </div>
+      <StickyApplyCta />
     </div>
   );
 }
