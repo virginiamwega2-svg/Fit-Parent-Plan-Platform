@@ -188,9 +188,14 @@ export default function Home() {
                     <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                   </a>
                 </div>
-                <p className="mt-3 text-sm text-white/55">
-                  14-day money-back guarantee · No contract · Cancel anytime
-                </p>
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+                  {["14-day guarantee", "No contract", "Cancel anytime"].map((item) => (
+                    <span key={item} className="flex items-center gap-1.5 text-sm text-white/60">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 6.5l2.5 2.5 5.5-5.5"/></svg>
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
@@ -203,7 +208,7 @@ export default function Home() {
               <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">Three things that make this stick</h2>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-              {PILLARS.map((item, index) => (
+              {PILLARS.map((item) => (
                 <article
                   key={item.title}
                   className="overflow-hidden rounded-3xl border border-(--color-border) bg-white/85 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:-translate-y-0.5"
@@ -309,15 +314,41 @@ export default function Home() {
             </h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
-                <p className="font-semibold text-foreground">Training</p>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
+                  {/* dumbbell */}
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="1.5" y="8.5" width="2.5" height="3" rx="1"/>
+                    <rect x="4" y="6.5" width="3" height="7" rx="1.5"/>
+                    <line x1="7" y1="10" x2="13" y2="10"/>
+                    <rect x="13" y="6.5" width="3" height="7" rx="1.5"/>
+                    <rect x="16" y="8.5" width="2.5" height="3" rx="1"/>
+                  </svg>
+                </div>
+                <p className="mt-3 font-semibold text-foreground">Training</p>
                 <p className="mt-1 text-sm text-(--color-muted)">3 home workouts a week, 20 minutes each. No gym.</p>
               </div>
               <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
-                <p className="font-semibold text-foreground">Nutrition</p>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
+                  {/* leaf / nutrition */}
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 16c0 0 1-6 6-9 3-1.5 6-1 6-1s0 3-2 5.5C12 14 9 14.5 7 14.5"/>
+                    <path d="M4 16l3-4"/>
+                  </svg>
+                </div>
+                <p className="mt-3 font-semibold text-foreground">Nutrition</p>
                 <p className="mt-1 text-sm text-(--color-muted)">One meal for the whole family. Simple grocery list included.</p>
               </div>
               <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
-                <p className="font-semibold text-foreground">Check-ins</p>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--color-mint-soft) text-(--color-brand)">
+                  {/* calendar check */}
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="3" y="4" width="14" height="13" rx="2"/>
+                    <path d="M3 8.5h14"/>
+                    <path d="M7 2.5v3M13 2.5v3"/>
+                    <path d="M7 12.5l2 2 4-4"/>
+                  </svg>
+                </div>
+                <p className="mt-3 font-semibold text-foreground">Check-ins</p>
                 <p className="mt-1 text-sm text-(--color-muted)">Weekly adjustments when life gets in the way.</p>
               </div>
             </div>
@@ -349,7 +380,7 @@ export default function Home() {
                 >
                   <summary className="flex cursor-pointer items-center justify-between gap-3 text-left font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand) focus-visible:ring-offset-2 focus-visible:rounded-sm">
                     <span>{item.question}</span>
-                    <span className="shrink-0 text-xs text-(--color-muted) transition-transform group-open:rotate-180" aria-hidden="true">▾</span>
+                    <svg className="shrink-0 text-(--color-muted) transition-transform group-open:rotate-180" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
                   </summary>
                   <p className="mt-2 pb-1 text-sm leading-7 text-(--color-muted)">{item.answer}</p>
                 </details>

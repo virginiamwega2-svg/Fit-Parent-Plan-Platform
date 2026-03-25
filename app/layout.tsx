@@ -16,8 +16,8 @@ const inter = Inter({
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["600"],
-  style: ["normal"],
+  weight: ["400", "600", "700", "900"],
+  style: ["normal", "italic"],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? siteConfig.siteUrl;
@@ -96,7 +96,7 @@ export default function RootLayout({
         <Analytics />
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:rounded-md focus:bg-[var(--color-bg-soft)] focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-[var(--color-ink)]"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:rounded-md focus:bg-(--color-bg-soft) focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-foreground"
         >
           Skip to main content
         </a>

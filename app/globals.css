@@ -58,7 +58,8 @@ body {
     linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%);
   color: var(--color-ink);
   font-family: var(--font-sans), "Segoe UI", sans-serif;
-  font-size: 1.125rem;
+  font-size: 1rem;
+  line-height: 1.65;
   min-height: 100vh;
 }
 
@@ -66,6 +67,14 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display), Georgia, serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+h1 {
+  letter-spacing: -0.035em;
+  line-height: 1.1;
 }
 
 .font-display {
