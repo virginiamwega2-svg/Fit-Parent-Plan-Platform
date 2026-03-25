@@ -27,10 +27,9 @@ export default function ContactPage() {
         <div className="grid gap-4 lg:grid-cols-[1.3fr_1fr]">
           <ContactForm />
           <Card className="hover-lift">
-            <h2 className="text-lg font-semibold text-(--color-ink)">Contact details</h2>
-            <ul className="mt-3 grid gap-2 text-sm text-(--color-muted)">
+            <h2 className="text-lg font-semibold text-foreground">Reach me directly</h2>
+            <ul className="mt-3 grid gap-3 text-sm text-(--color-muted)">
               <li>
-                Email:{" "}
                 <a
                   href={`mailto:${siteConfig.contactEmail}`}
                   className="font-semibold text-(--color-brand-strong) underline hover:text-foreground"
@@ -38,8 +37,8 @@ export default function ContactPage() {
                   {siteConfig.contactEmail}
                 </a>
               </li>
-              <li>Response time: Within 1 business day</li>
-              <li>Support hours: Mon-Fri, 9am-5pm ET</li>
+              <li>I read every message personally and reply within 24 hours.</li>
+              <li className="pt-1 text-xs">Not sure if this is right for you? Just ask — no pressure, no pitch.</li>
             </ul>
           </Card>
         </div>

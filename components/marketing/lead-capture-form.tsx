@@ -61,14 +61,6 @@ export default function LeadCaptureForm() {
   );
   const [errors, setErrors] = useState<FormErrors>({});
   const [message, setMessage] = useState("");
-  const completion = [
-    form.name.trim().length > 1,
-    /\S+@\S+\.\S+/.test(form.email.trim()),
-    form.challenge.trim().length > 9,
-    Boolean(form.goal),
-    Boolean(form.timePerDay),
-  ].filter(Boolean).length;
-  const completionPercent = Math.round((completion / 5) * 100);
 
   const validate = () => {
     const nextErrors: FormErrors = {};
@@ -199,7 +191,7 @@ export default function LeadCaptureForm() {
     <form
       id="lead-form"
       onSubmit={onSubmit}
-      className="surface-card sm:p-8"
+      className="surface-card"
       noValidate
     >
       {turnstileSiteKey ? (
@@ -209,27 +201,7 @@ export default function LeadCaptureForm() {
         />
       ) : null}
 
-      <div className="sticky top-2 z-10 mb-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)]/90 p-3 backdrop-blur sm:top-3">
-        <div className="flex items-center justify-between text-xs font-medium text-[var(--color-muted)]">
-          <span>{completionPercent === 0 ? "Fill in your details below" : "Form progress"}</span>
-          {completionPercent > 0 && <span>{completionPercent}% complete</span>}
-        </div>
-        <div className="mt-2 h-2 rounded-full bg-[var(--color-border)]">
-          <div
-            className="h-full rounded-full bg-[var(--color-brand)] transition-[width] duration-300"
-            style={{ width: `${completionPercent}%` }}
-          />
-        </div>
-      </div>
-
-      <h2 className="text-3xl font-semibold tracking-tight">
-        Apply for a spot
-      </h2>
-      <p className="mt-2 text-[var(--color-muted)]">
-        Takes 2 minutes. We&apos;ll review your details and send your next steps within 24 hours.
-      </p>
-
-      <div className="mt-6 grid gap-4">
+      <div className="grid gap-3">
         <input
           type="text"
           name="company"
@@ -254,7 +226,7 @@ export default function LeadCaptureForm() {
         />
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-[var(--color-ink)]">Your Name</span>
+          <span className="text-sm font-medium text-foreground">Your Name</span>
           <input
             required
             type="text"
@@ -266,14 +238,11 @@ export default function LeadCaptureForm() {
               setErrors((prev) => ({ ...prev, name: undefined }));
             }}
             aria-invalid={Boolean(errors.name)}
-            aria-describedby="lead-name-help lead-name-error"
-            className={`h-11 rounded-xl border px-3 outline-none ring-[var(--color-brand)] transition focus-visible:ring-2 ${
-              errors.name ? "border-red-400" : "border-[var(--color-border)]"
+            aria-describedby="lead-name-error"
+            className={`h-11 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+              errors.name ? "border-red-400" : "border-(--color-border)"
             }`}
           />
-          <span id="lead-name-help" className="text-xs text-[var(--color-muted)]">
-            Use the name you want us to use in your plan.
-          </span>
           {errors.name ? (
             <span id="lead-name-error" className="text-xs text-red-700">
               {errors.name}
@@ -282,7 +251,7 @@ export default function LeadCaptureForm() {
         </label>
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-[var(--color-ink)]">Email Address</span>
+          <span className="text-sm font-medium text-foreground">Email Address</span>
           <input
             required
             type="email"
@@ -294,14 +263,11 @@ export default function LeadCaptureForm() {
               setErrors((prev) => ({ ...prev, email: undefined }));
             }}
             aria-invalid={Boolean(errors.email)}
-            aria-describedby="lead-email-help lead-email-error"
-            className={`h-11 rounded-xl border px-3 outline-none ring-[var(--color-brand)] transition focus-visible:ring-2 ${
-              errors.email ? "border-red-400" : "border-[var(--color-border)]"
+            aria-describedby="lead-email-error"
+            className={`h-11 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+              errors.email ? "border-red-400" : "border-(--color-border)"
             }`}
           />
-          <span id="lead-email-help" className="text-xs text-[var(--color-muted)]">
-            We&apos;ll send your next steps to this address.
-          </span>
           {errors.email ? (
             <span id="lead-email-error" className="text-xs text-red-700">
               {errors.email}
@@ -310,7 +276,34 @@ export default function LeadCaptureForm() {
         </label>
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-[var(--color-ink)]">Primary goal</span>
+          <span className="text-sm font-medium text-foreground">
+            Biggest challenge right now
+          </span>
+          <textarea
+            required
+            name="challenge"
+            rows={3}
+            value={form.challenge}
+            onChange={(event) => {
+              setForm({ ...form, challenge: event.target.value });
+              setErrors((prev) => ({ ...prev, challenge: undefined }));
+            }}
+            aria-invalid={Boolean(errors.challenge)}
+            aria-describedby="lead-challenge-error"
+            className={`rounded-xl border px-3 py-2 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+              errors.challenge ? "border-red-400" : "border-(--color-border)"
+            }`}
+            placeholder="Example: I miss workouts after school pickup and struggle with late-night snacking."
+          />
+          {errors.challenge ? (
+            <span id="lead-challenge-error" className="text-xs text-red-700">
+              {errors.challenge}
+            </span>
+          ) : null}
+        </label>
+
+        <label className="grid gap-2">
+          <span className="text-sm font-medium text-foreground">Primary goal</span>
           <select
             required
             name="goal"
@@ -320,9 +313,9 @@ export default function LeadCaptureForm() {
               setErrors((prev) => ({ ...prev, goal: undefined }));
             }}
             aria-invalid={Boolean(errors.goal)}
-            aria-describedby="lead-goal-help lead-goal-error"
-            className={`h-11 rounded-xl border px-3 outline-none ring-[var(--color-brand)] transition focus-visible:ring-2 ${
-              errors.goal ? "border-red-400" : "border-[var(--color-border)]"
+            aria-describedby="lead-goal-error"
+            className={`h-11 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+              errors.goal ? "border-red-400" : "border-(--color-border)"
             }`}
           >
             <option value="">Select one</option>
@@ -331,9 +324,6 @@ export default function LeadCaptureForm() {
             <option value="mobility">Mobility</option>
             <option value="energy">Energy and consistency</option>
           </select>
-          <span id="lead-goal-help" className="text-xs text-[var(--color-muted)]">
-            This helps us tailor your workout progression.
-          </span>
           {errors.goal ? (
             <span id="lead-goal-error" className="text-xs text-red-700">
               {errors.goal}
@@ -342,7 +332,7 @@ export default function LeadCaptureForm() {
         </label>
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-[var(--color-ink)]">Time per day</span>
+          <span className="text-sm font-medium text-foreground">Time available per day</span>
           <select
             required
             name="timePerDay"
@@ -352,9 +342,9 @@ export default function LeadCaptureForm() {
               setErrors((prev) => ({ ...prev, timePerDay: undefined }));
             }}
             aria-invalid={Boolean(errors.timePerDay)}
-            aria-describedby="lead-time-help lead-time-error"
-            className={`h-11 rounded-xl border px-3 outline-none ring-[var(--color-brand)] transition focus-visible:ring-2 ${
-              errors.timePerDay ? "border-red-400" : "border-[var(--color-border)]"
+            aria-describedby="lead-time-error"
+            className={`h-11 rounded-xl border px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
+              errors.timePerDay ? "border-red-400" : "border-(--color-border)"
             }`}
           >
             <option value="">Select one</option>
@@ -362,9 +352,6 @@ export default function LeadCaptureForm() {
             <option value="15">15 minutes</option>
             <option value="20">20 minutes</option>
           </select>
-          <span id="lead-time-help" className="text-xs text-[var(--color-muted)]">
-            Pick the window you can realistically protect most days.
-          </span>
           {errors.timePerDay ? (
             <span id="lead-time-error" className="text-xs text-red-700">
               {errors.timePerDay}
@@ -372,44 +359,12 @@ export default function LeadCaptureForm() {
           ) : null}
         </label>
 
-        <label className="grid gap-2">
-          <span className="text-sm font-medium text-[var(--color-ink)]">
-            Biggest challenge right now
-          </span>
-          <textarea
-            required
-            name="challenge"
-            rows={4}
-            value={form.challenge}
-            onChange={(event) => {
-              setForm({ ...form, challenge: event.target.value });
-              setErrors((prev) => ({ ...prev, challenge: undefined }));
-            }}
-            aria-invalid={Boolean(errors.challenge)}
-            aria-describedby="lead-challenge-help lead-challenge-error"
-            className={`rounded-xl border px-3 py-2 outline-none ring-[var(--color-brand)] transition focus-visible:ring-2 ${
-              errors.challenge ? "border-red-400" : "border-[var(--color-border)]"
-            }`}
-            placeholder="Example: I miss workouts after school pickup and struggle with late-night snacking."
-          />
-          <span id="lead-challenge-help" className="text-xs text-[var(--color-muted)]">
-            Include your main blocker so we can prioritize practical fixes.
-          </span>
-          {errors.challenge ? (
-            <span id="lead-challenge-error" className="text-xs text-red-700">
-              {errors.challenge}
-            </span>
-          ) : null}
-        </label>
-
         {turnstileSiteKey ? (
           <div className="grid gap-2">
-            <span className="text-sm font-medium text-[var(--color-ink)]">
-              Security check
-            </span>
+            <span className="text-sm font-medium text-foreground">Security check</span>
             <div
               ref={turnstileRef}
-              className="min-h-[66px] rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] p-2"
+              className="min-h-[66px] rounded-xl border border-(--color-border) bg-(--color-bg) p-2"
             />
           </div>
         ) : null}
@@ -417,7 +372,7 @@ export default function LeadCaptureForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-brand)] px-6 text-sm font-semibold text-[var(--color-on-brand)] transition hover:bg-[var(--color-brand-strong)] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)]"
+          className="inline-flex h-12 items-center justify-center rounded-full bg-(--color-brand) px-6 text-sm font-semibold text-(--color-on-brand) transition hover:bg-(--color-brand-strong) disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-brand)"
         >
           {status === "loading" ? "Sending..." : "Send my application →"}
         </button>
@@ -425,14 +380,14 @@ export default function LeadCaptureForm() {
 
       <p
         className={`mt-4 text-sm ${
-          status === "error" ? "text-red-700" : "text-[var(--color-muted)]"
+          status === "error" ? "text-red-700" : "text-(--color-muted)"
         }`}
         role="status"
         aria-live="polite"
       >
         {message}
       </p>
-      <p className="mt-2 text-xs text-[var(--color-muted)]">
+      <p className="mt-2 text-xs text-(--color-muted)">
         No spam. Unsubscribe anytime.
       </p>
     </form>

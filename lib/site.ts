@@ -8,20 +8,15 @@ export const siteConfig = {
 };
 
 export const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/planner", label: "Planner" },
-  { href: "/workouts", label: "Workouts" },
-  { href: "/meal-plans", label: "Meal Plans" },
-  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/contact", label: "Contact" },
 ];
 
-export const platformLinks = [
-  { href: "/protocols", label: "Busy Week Protocols" },
-  { href: "/case-studies", label: "Parent Case Studies" },
-  { href: "/community", label: "Community Cohorts" },
-  { href: "/tools", label: "Parent Tools" },
-  { href: "/accountability", label: "Accountability Lab" },
-  { href: "/methodology", label: "Methodology" },
+export const memberLinks = [
+  { href: "/workouts", label: "Workouts" },
+  { href: "/meal-plans", label: "Meal Plans" },
+  { href: "/planner", label: "Planner" },
+  { href: "/protocols", label: "Protocols" },
+  { href: "/tools", label: "Tools" },
 ];

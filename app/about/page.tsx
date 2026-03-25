@@ -12,33 +12,6 @@ export const metadata: Metadata = buildMetadata(
   "/about",
 );
 
-const values = [
-  "Consistency over perfection",
-  "Simple systems beat complicated plans",
-  "Family-friendly routines are non-negotiable",
-];
-
-const coachingFramework = [
-  {
-    title: "Plan from reality",
-    detail: "We plan from your real calendar, not ideal conditions.",
-  },
-  {
-    title: "Train minimum effective dose",
-    detail: "Short, focused sessions that build momentum without burnout.",
-  },
-  {
-    title: "Adapt every week",
-    detail: "When sleep or stress shifts, your plan shifts too.",
-  },
-];
-
-const highlights = [
-  { label: "Parent sessions", value: "10-20 min" },
-  { label: "Typical weekly goal", value: "3 workouts" },
-  { label: "Planning overhead", value: "< 15 min" },
-];
-
 const team = [
   {
     name: "Maya Grant",
@@ -67,20 +40,12 @@ const trustSignals = [
   { headline: "NASM & Precision Nutrition certified coaches", detail: "Every plan is built by credentialed coaches, not templates or AI-generated programs." },
   { headline: "14-day money-back guarantee", detail: "Show up for the first two weeks. If it isn't working, email us for a full refund — no forms, no hoops." },
   { headline: "One meal for the whole family", detail: "No separate plates. Every nutrition recommendation is designed to work for adults and kids at the same table." },
-  { headline: "Reply within one business day", detail: "Questions go to a real coach, not a support queue. You'll have a name and a direct line from day one." },
+  { headline: "Reply within 24 hours", detail: "Questions go to a real coach, not a support queue. You'll have a name and a direct line from day one." },
 ];
 
 const BLUR_BANNER = "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAbEAACAgMBAAAAAAAAAAAAAAABAgADBRFBIf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/8QAFREBAQAAAAAAAAAAAAAAAAAAADH/2gAMAwEAAhEDEQA/ALrMm7BgtTovh0RzujERIhX/2Q==";
 
 export default function AboutPage() {
-  const sectionLinks = [
-    { href: "#mission", label: "Mission" },
-    { href: "#values", label: "Values" },
-    { href: "#framework", label: "Framework" },
-    { href: "#team", label: "Team" },
-    { href: "#trust", label: "Trust" },
-  ];
-
   return (
     <div className="pb-8 sm:pb-10">
       <Reveal>
@@ -107,92 +72,27 @@ export default function AboutPage() {
         </div>
       </Reveal>
 
-      <Reveal className="mt-4" delayMs={60}>
-        <div className="grid gap-4 lg:grid-cols-[1.1fr_2fr]">
-          <Card className="hover-lift h-fit lg:sticky lg:top-24">
-            <h2 className="text-base font-semibold text-foreground">Quick Navigation</h2>
-            <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible">
-              {sectionLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="shrink-0 rounded-full border border-(--color-border) bg-(--color-bg-soft) px-3 py-1 text-xs font-semibold text-(--color-muted) hover:border-(--color-brand) hover:text-foreground"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+      <Reveal className="mt-6" delayMs={60}>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card className="hover-lift">
+            <h2 className="text-xl font-semibold text-foreground">Mission</h2>
+            <p className="mt-3 text-(--color-muted)">
+              We help parents build momentum with short sessions, adaptive plans, and routines that survive busy days.
+            </p>
           </Card>
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card id="mission" className="hover-lift scroll-mt-28">
-              <h2 className="text-xl font-semibold text-foreground">Mission</h2>
-              <p className="mt-3 text-(--color-muted)">
-                We help parents build momentum with short sessions, adaptive plans, and routines that survive busy days.
-              </p>
-            </Card>
-            <Card className="hover-lift">
-              <h2 className="text-xl font-semibold text-foreground">Who we serve</h2>
-              <p className="mt-3 text-(--color-muted)">
-                Parents balancing work, childcare, and home life who want progress without a gym-heavy lifestyle.
-              </p>
-            </Card>
-          </div>
+          <Card className="hover-lift">
+            <h2 className="text-xl font-semibold text-foreground">Who we serve</h2>
+            <p className="mt-3 text-(--color-muted)">
+              Parents balancing work, childcare, and home life who want progress without a gym-heavy lifestyle.
+            </p>
+          </Card>
         </div>
       </Reveal>
 
-      <Reveal className="mt-4" delayMs={90}>
-        <div className="grid gap-4 md:grid-cols-3">
-          {highlights.map((item) => (
-            <Card key={item.label} className="hover-lift text-center">
-              <p className="text-sm uppercase tracking-[0.14em] text-(--color-muted)">{item.label}</p>
-              <p className="mt-2 text-2xl font-semibold text-foreground">{item.value}</p>
-            </Card>
-          ))}
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-10" delayMs={120}>
-        <div id="values" className="scroll-mt-28">
-          <SectionHeader
-            eyebrow="Values"
-            title="What shapes every plan we build"
-            description="Every recommendation is filtered through sustainability, family fit, and low-friction execution."
-          />
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
-            {values.map((value) => (
-              <Card key={value} className="hover-lift">
-                <p className="font-medium text-foreground">{value}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-10" delayMs={150}>
-        <div id="framework" className="scroll-mt-28">
-          <SectionHeader
-            eyebrow="How We Coach"
-            title="Our operating framework"
-            description="Every plan follows the same three-part system to keep progress predictable."
-          />
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
-            {coachingFramework.map((item) => (
-              <Card key={item.title} className="hover-lift">
-                <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-                <p className="mt-2 text-sm text-(--color-muted)">{item.detail}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal className="mt-10" delayMs={180}>
+      <Reveal className="mt-10" delayMs={90}>
         <div id="team" className="scroll-mt-28">
-          <SectionHeader
-            eyebrow="Team"
-            title="People behind the platform"
-            description="Coaching, nutrition, and accountability roles built for real parent schedules."
-          />
+          <h2 className="text-2xl font-semibold tracking-tight">The coaches</h2>
+          <p className="mt-1 text-sm text-(--color-muted)">Coaching, nutrition, and accountability — all parents themselves.</p>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {team.map((member, index) => (
               <Reveal key={member.name} delayMs={index * 60}>
@@ -215,11 +115,8 @@ export default function AboutPage() {
 
       <Reveal className="mt-10" delayMs={210}>
         <div id="trust" className="scroll-mt-28">
-          <SectionHeader
-            eyebrow="Why Parents Trust Us"
-            title="What you can hold us to"
-            description="Specific commitments — not marketing promises."
-          />
+          <h2 className="text-2xl font-semibold tracking-tight">What you can hold us to</h2>
+          <p className="mt-1 text-sm text-(--color-muted)">Specific commitments — not marketing promises.</p>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {trustSignals.map((signal) => (
               <Card key={signal.headline} className="hover-lift">

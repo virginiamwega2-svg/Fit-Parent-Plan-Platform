@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "Privacy policy for Fit Parent Plan.",
-};
+export const metadata: Metadata = buildMetadata("Privacy Policy", "Privacy policy for Fit Parent Plan.", "/privacy");
 
 export default function PrivacyPage() {
   return (

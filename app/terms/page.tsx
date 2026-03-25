@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Terms",
-  description: "Terms of use for Fit Parent Plan.",
-};
+export const metadata: Metadata = buildMetadata("Terms of Use", "Terms of use for Fit Parent Plan.", "/terms");
 
 export default function TermsPage() {
   return (

@@ -84,9 +84,6 @@ textarea {
   outline-color: var(--color-brand);
 }
 
-button,
-input[type="button"],
-input[type="submit"],
 .cta-button {
   background-image: linear-gradient(135deg, var(--button-grad-start), var(--button-grad-mid), var(--button-grad-end));
   color: var(--color-on-brand);
@@ -102,18 +99,12 @@ input[type="submit"],
     filter var(--motion-fast) var(--motion-ease);
 }
 
-button:hover,
-input[type="button"]:hover,
-input[type="submit"]:hover,
 .cta-button:hover {
   filter: brightness(1.06) saturate(1.12);
   transform: translateY(-2px);
   box-shadow: 0 26px 50px -28px rgba(17, 24, 39, 0.65);
 }
 
-button::after,
-input[type="button"]::after,
-input[type="submit"]::after,
 .cta-button::after {
   content: "";
   position: absolute;
@@ -125,16 +116,11 @@ input[type="submit"]::after,
   transition: opacity var(--motion-fast) var(--motion-ease);
 }
 
-button:hover::after,
-input[type="button"]:hover::after,
-input[type="submit"]:hover::after,
 .cta-button:hover::after {
   opacity: 1;
 }
 
-button:disabled,
-input[type="button"]:disabled,
-input[type="submit"]:disabled,
+.cta-button:disabled,
 .cta-button[aria-disabled="true"] {
   cursor: not-allowed;
   filter: grayscale(0.2);
@@ -155,9 +141,6 @@ input[type="submit"]:disabled,
   }
 }
 
-button:active,
-input[type="button"]:active,
-input[type="submit"]:active,
 .cta-button:active {
   animation: button-bounce 220ms var(--motion-ease);
   transform: scale(0.99);
@@ -258,80 +241,6 @@ input[type="submit"]:active,
   transform: translateY(0);
 }
 
-.brand-grid-bg {
-  background-image:
-    linear-gradient(to right, rgba(255, 122, 0, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 122, 0, 0.08) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-.hero-card-3d {
-  transform: rotateX(14deg) rotateY(-18deg);
-}
-
-.brand-float {
-  transform-origin: center;
-  animation: floaty 4.8s ease-in-out infinite;
-}
-
-.brand-float-b {
-  animation-delay: 420ms;
-}
-
-.brand-float-c {
-  animation-delay: 780ms;
-}
-
-@keyframes floaty {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.icon-wrapper {
-  box-shadow: 0 16px 30px -24px rgba(17, 24, 39, 0.35);
-  transition:
-    transform var(--motion-fast) var(--motion-ease),
-    box-shadow var(--motion-fast) var(--motion-ease);
-}
-
-.icon-wrapper:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 22px 38px -28px rgba(17, 24, 39, 0.45);
-}
-
-.icon-illustration {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 240ms var(--motion-ease);
-}
-
-.icon-wrapper:hover .icon-illustration {
-  transform: rotate(-4deg) translateY(-1px);
-}
-
-.icon-illustration svg {
-  width: 24px;
-  height: 24px;
-  color: var(--color-ink);
-}
-
-.section-shell {
-  border: 1px solid var(--color-border);
-  border-radius: 24px;
-  padding: 1.5rem;
-}
-
-@media (min-width: 640px) {
-  .section-shell {
-    padding: 2rem;
-  }
-}
 
 .surface-card {
   border: 1px solid var(--color-border);
@@ -369,40 +278,6 @@ input[type="submit"]:active,
   transform: translateY(0);
 }
 
-.icon-illustration .sketch-stroke {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2.1;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 160;
-  stroke-dashoffset: 160;
-  animation: sketch-draw 1.4s ease forwards;
-}
-
-.icon-illustration .sketch-pulse {
-  fill: currentColor;
-  opacity: 0.75;
-  animation: sketch-pulse 1.8s ease-in-out infinite;
-}
-
-@keyframes sketch-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes sketch-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.65;
-  }
-  50% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .animate-rise,
@@ -421,28 +296,11 @@ input[type="submit"]:active,
     transition: none !important;
   }
 
-  .brand-float,
   [class*="animate-"] {
     animation: none !important;
   }
 
-  .hero-card-3d {
-    transform: none !important;
-  }
-
-  button,
-  input[type="button"],
-  input[type="submit"],
   .cta-button {
-    animation: none;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .icon-wrapper,
-  .icon-illustration,
-  .icon-illustration .sketch-stroke,
-  .icon-illustration .sketch-pulse {
     animation: none;
     transform: none !important;
     transition: none !important;

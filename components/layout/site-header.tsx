@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { navLinks, platformLinks } from "@/lib/site";
+import { navLinks, memberLinks } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type AuthUser = {
@@ -19,7 +19,6 @@ export function SiteHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [platformOpen, setPlatformOpen] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -54,7 +53,6 @@ export function SiteHeader() {
 
   useEffect(() => {
     setOpen(false);
-    setPlatformOpen(false);
   }, [pathname]);
 
   function isActive(href: string) {
@@ -73,18 +71,6 @@ export function SiteHeader() {
     router.refresh();
   }
 
-  function handlePlatformKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
-    if (event.key === "Escape") {
-      setPlatformOpen(false);
-    }
-  }
-
-  function handlePlatformMenuKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-    if (event.key === "Escape") {
-      setPlatformOpen(false);
-    }
-  }
-
   return (
     <header className="sticky top-0 z-30 border-b border-(--color-border) bg-(--color-bg)/90 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
@@ -101,17 +87,20 @@ export function SiteHeader() {
                 Program
               </a>
               <a
-                href="#outcomes"
-                className="rounded-full px-3 py-1 text-xs font-semibold text-(--color-muted) transition-colors hover:text-foreground xl:text-sm"
-              >
-                Results
-              </a>
-              <a
                 href="#faq"
                 className="rounded-full px-3 py-1 text-xs font-semibold text-(--color-muted) transition-colors hover:text-foreground xl:text-sm"
               >
                 FAQ
               </a>
+              {navLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-full px-3 py-1 text-xs font-semibold text-(--color-muted) transition-colors hover:text-foreground xl:text-sm"
+                >
+                  {item.label}
+                </Link>
+              ))}
               {loadingAuth ? null : user ? (
                 <Button href="/dashboard" variant="ghost">Dashboard</Button>
               ) : (
@@ -125,66 +114,21 @@ export function SiteHeader() {
             </>
           ) : (
             <>
-              {navLinks.map((item) => (
+              {(user ? memberLinks : navLinks).map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "rounded-full px-3 py-1 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)] xl:text-sm",
+                    "rounded-full px-3 py-1 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-brand) xl:text-sm",
                     isActive(item.href)
                       ? "bg-(--color-cream) text-foreground"
-                      : "text-(--color-secondary) hover:text-(--color-brand)",
+                      : "text-(--color-muted) hover:text-foreground",
                   )}
                 >
                   {item.label}
                 </Link>
               ))}
-              <div className="group relative">
-                <button
-                  type="button"
-                  aria-haspopup="true"
-                  aria-expanded={platformOpen}
-                  aria-controls="platform-menu"
-                  onClick={() => setPlatformOpen((prev) => !prev)}
-                  onKeyDown={handlePlatformKeyDown}
-                  className={cn(
-                    "rounded-full px-2 py-1 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)] xl:text-sm",
-                    platformLinks.some((item) => isActive(item.href))
-                      ? "bg-(--color-cream) text-foreground"
-                      : "text-(--color-secondary) hover:text-(--color-brand)",
-                  )}
-                >
-                  Tools
-                </button>
-                <div
-                  id="platform-menu"
-                  role="menu"
-                  onKeyDown={handlePlatformMenuKeyDown}
-                  className={cn(
-                    "pointer-events-none absolute left-0 top-full z-20 mt-2 w-64 rounded-[20px] border border-(--color-border) bg-(--color-bg-soft) p-2 opacity-0 shadow-lg transition-all duration-150",
-                    platformOpen && "pointer-events-auto opacity-100",
-                    "group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100",
-                  )}
-                >
-                  {platformLinks.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      aria-current={isActive(item.href) ? "page" : undefined}
-                      role="menuitem"
-                      className={cn(
-                        "block rounded-xl px-3 py-2 text-sm font-medium transition-colors hover:bg-(--color-cream) hover:text-foreground",
-                        isActive(item.href)
-                          ? "bg-(--color-cream) text-foreground"
-                          : "text-(--color-secondary)",
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
               {loadingAuth ? null : user ? (
                 <>
                   <Button href="/dashboard" variant="ghost">
@@ -245,19 +189,22 @@ export function SiteHeader() {
                 Program
               </a>
               <a
-                href="#outcomes"
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-2 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
-              >
-                Results
-              </a>
-              <a
                 href="#faq"
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-3 py-2 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
               >
                 FAQ
               </a>
+              {navLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-3 py-2 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              ))}
               {loadingAuth ? null : user ? (
                 <Link
                   href="/dashboard"
@@ -278,7 +225,7 @@ export function SiteHeader() {
             </>
           ) : (
             <>
-              {navLinks.map((item) => (
+              {(user ? memberLinks : navLinks).map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -288,33 +235,12 @@ export function SiteHeader() {
                     "rounded-xl px-3 py-2 text-sm font-medium hover:bg-(--color-cream)",
                     isActive(item.href)
                       ? "bg-(--color-cream) text-foreground"
-                      : "text-(--color-secondary)",
+                      : "text-(--color-muted)",
                   )}
                 >
                   {item.label}
                 </Link>
               ))}
-              <div className="mt-2 rounded-xl border border-(--color-border) p-2">
-                <p className="px-2 pb-1 text-xs font-semibold uppercase tracking-[0.14em] text-(--color-muted)">
-                  Platform
-                </p>
-                {platformLinks.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                    className={cn(
-                      "block rounded-xl px-3 py-2 text-sm font-medium hover:bg-(--color-cream)",
-                      isActive(item.href)
-                        ? "bg-(--color-cream) text-foreground"
-                        : "text-(--color-secondary)",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
             </>
           )}
           <div className="mt-2 flex gap-3">
