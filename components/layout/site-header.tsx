@@ -85,9 +85,19 @@ export function SiteHeader() {
       scrolled ? "border-b border-(--color-border) shadow-sm" : "border-b border-transparent",
     )}>
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-        <Link href="/" className="font-display text-2xl text-foreground transition-colors duration-200 hover:text-(--color-brand)">
-          Fit Parent Plan
-        </Link>
+        {isHome ? (
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="font-display text-2xl text-foreground transition-colors duration-200 hover:text-(--color-brand)"
+          >
+            Fit Parent Plan
+          </button>
+        ) : (
+          <Link href="/" className="font-display text-2xl text-foreground transition-colors duration-200 hover:text-(--color-brand)">
+            Fit Parent Plan
+          </Link>
+        )}
         <nav className="hidden items-center gap-3 lg:flex">
           {isHome ? (
             <>
