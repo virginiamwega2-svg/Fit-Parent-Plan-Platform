@@ -13,7 +13,7 @@ const AccountabilityLab = dynamic(
   {
     loading: () => (
       <Card className="h-44 animate-pulse">
-        <p className="text-sm text-[var(--color-muted)]">
+        <p className="text-sm text-(--color-muted)">
           Loading accountability module...
         </p>
       </Card>
@@ -34,6 +34,8 @@ export default function AccountabilityPage() {
         <SectionHeader
           eyebrow="Accountability"
           title="Streak recovery for real parent life"
+          titleLight="Streak recovery"
+          titleBold="for real parent life."
           description="Use missed-day rescue and micro check-ins to prevent restart cycles."
         />
       </Reveal>

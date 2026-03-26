@@ -38,23 +38,23 @@ export default async function WorkoutDetailPage({ params }: Props) {
 
   return (
     <div className="pb-6">
-      <Link href="/workouts" className="text-sm font-semibold text-[var(--color-brand-strong)] underline">
+      <Link href="/workouts" className="text-sm font-semibold text-(--color-brand-strong) underline">
         Back to workouts
       </Link>
       <Card className="mt-5">
         <div className="flex flex-wrap gap-2">
           <Badge>{workout.duration} minutes</Badge>
-          <Badge className="bg-[var(--color-melon-soft)]">{workout.goal}</Badge>
-          <Badge className="bg-[var(--color-sky-soft)]">{workout.equipment}</Badge>
+          <Badge className="bg-(--color-melon-soft)">{workout.goal}</Badge>
+          <Badge className="bg-(--color-sky-soft)">{workout.equipment}</Badge>
         </div>
-        <h1 className="mt-4 text-4xl font-semibold text-[var(--color-ink)]">{workout.title}</h1>
-        <p className="mt-3 max-w-2xl text-[var(--color-muted)]">{workout.description}</p>
+        <h1 className="mt-4 text-4xl font-black tracking-tight text-foreground">{workout.title}</h1>
+        <p className="mt-3 max-w-2xl text-(--color-muted)">{workout.description}</p>
 
         <div className="surface-soft mt-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-brand-strong)]">
+          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-(--color-brand-strong)">
             Session steps
           </p>
-          <ol className="mt-3 grid gap-2 text-sm text-[var(--color-muted)]">
+          <ol className="mt-3 grid gap-2 text-sm text-(--color-muted)">
             {workout.steps.map((step) => (
               <li key={step}>• {step}</li>
             ))}

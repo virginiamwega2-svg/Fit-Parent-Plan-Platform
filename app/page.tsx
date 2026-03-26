@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { CountUp } from "@/components/ui/count-up";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
+import { FitQuiz } from "@/components/ui/fit-quiz";
+import { Marquee } from "@/components/ui/marquee";
 import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
 import { TestimonialsSection } from "@/components/marketing/testimonials-section";
@@ -15,7 +17,6 @@ const BLUR = {
   nutrition:      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAH/xAAfEAABAwMFAAAAAAAAAAAAAAADAAECBBESEyIyUdH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABgRAAMBAQAAAAAAAAAAAAAAAAECEQAD/9oADAMBAAIRAxEAPwCZSIRz04W1Cw3xd+Ht+kRFB0coYMoWi7//2Q==",
   accountability: "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAYEAADAQEAAAAAAAAAAAAAAAAAAQIRQf/EABQBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwChpPFTp4+OMAAB/9k=",
   sarah:          "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAdEAACAQQDAAAAAAAAAAAAAAABAgADBBESMUGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAv/aAAwDAQACEQMRAD8ApUboNeFChDa4Y7dgZ49iIlJCn//Z",
-  coach:          "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAcEAACAgIDAAAAAAAAAAAAAAAAAQITBBEiMUH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALmTFXWaamuPXgAIP//Z",
 } as const;
 
 const LeadCaptureForm = dynamicImport(
@@ -59,24 +60,25 @@ const PILLARS = [
 const TESTIMONIALS = [
   {
     quote:
-      "The short home workouts were the thing that finally stuck for me. Three months in and I still look forward to them.",
+      "By week 5, I stopped skipping school pickup to 'save energy.' I had energy. That sounds small but for me it wasn't.",
     name: "Sarah \u2014 mom of two",
     result: "Consistent for the first time in years",
     photo: "/images/sarah.jpg",
   },
   {
     quote:
-      "I\u2019d tried every app and quit after two weeks. This felt different because someone actually adjusted the plan when things got hectic.",
+      "Every other program assumed I had a free hour and no kids. This one assumed I had neither. That made all the difference.",
     name: "James \u2014 dad of three",
     result: "Down 14 lbs, still going",
   },
   {
     quote:
-      "I was skeptical \u2014 20 minutes didn\u2019t feel like enough. Turns out it\u2019s plenty when you actually do it.",
+      "I told Maya I could do Tuesday evenings and Saturday mornings \u2014 and that was my whole plan. Nothing felt like a compromise.",
     name: "Linda \u2014 working mom",
     result: "Clothes fit differently by week 6",
   },
 ];
+
 
 const FAQ = [
   {
@@ -117,7 +119,7 @@ const REVEAL_DELAYS_MS = [80, 120, 160, 200, 240, 280, 300, 320] as const;
 export default function Home() {
   return (
     <div className="relative overflow-hidden bg-background text-foreground">
-      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pb-6 sm:gap-10 sm:px-6 sm:pb-10 lg:pb-12">
+      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 pb-6 sm:gap-16 sm:px-6 sm:pb-10 lg:pb-12">
         <Reveal>
           <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden py-20 sm:py-28 lg:py-36">
             <Image
@@ -139,13 +141,15 @@ export default function Home() {
                 <p className="inline-flex items-center rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
                   12-week fitness coaching for parents
                 </p>
-                <h1 className="mt-5 text-[clamp(2.4rem,4.4vw+1rem,3.9rem)] font-bold text-white">
-                  Lose fat. Build strength.<br className="hidden sm:block" /> 20 minutes a day.
+                <h1 className="mt-5 leading-[1.05]">
+                  <span className="block text-[clamp(2.6rem,5vw+0.5rem,5rem)] font-light italic text-white/75">Lose fat.</span>
+                  <span className="block text-[clamp(2.6rem,5vw+0.5rem,5rem)] font-black text-white">Build strength.</span>
+                  <span className="block text-[clamp(2.6rem,5vw+0.5rem,5rem)] font-light text-white/75"><span className="wave decoration-white/50">20 minutes</span> a day.</span>
                 </h1>
                 <p className="mt-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
-                  Three home workouts a week. Simple meals your family will eat. A coach who adjusts when real life gets in the way.
+                  Three home workouts a week. Simple meals your family will eat. A coach who <span className="wave decoration-white/40">adjusts when real life gets in the way</span>.
                 </p>
-                <div className="mt-6">
+                <div className="mt-6 flex flex-wrap items-center gap-3">
                   <a
                     href="#apply"
                     className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-(--color-brand-strong) shadow-[0_18px_35px_-20px_rgba(0,0,0,0.5)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_22px_45px_-22px_rgba(0,0,0,0.55)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
@@ -153,6 +157,9 @@ export default function Home() {
                     Apply now
                     <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                   </a>
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/80">
+                    6 spots open this month
+                  </span>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                   {["14-day guarantee", "No contract", "Cancel anytime"].map((item) => (
@@ -167,20 +174,22 @@ export default function Home() {
           </section>
         </Reveal>
 
+        <Marquee />
+
         <Reveal delayMs={REVEAL_DELAYS_MS[0]}>
-          <section className="rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8">
+          <section className="rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-5 sm:p-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">How it works</p>
             <div className="relative mt-4 grid gap-6 sm:grid-cols-3">
               {/* Connecting line between circles — desktop only */}
               <div className="absolute left-4 right-4 top-4 hidden h-px bg-gradient-to-r from-(--color-border)/0 via-(--color-border) to-(--color-border)/0 sm:block" aria-hidden="true" />
               {([
                 { n: "1", title: "Apply in 2 minutes", body: "Tell us about your schedule and goals. No payment needed." },
-                { n: "2", title: "Vee reviews within 24 h", body: "You'll get a personal reply — not an automated sequence." },
+                { n: "2", title: "A coach replies within 24 hours", body: "You'll get a personal reply — not an automated sequence." },
                 { n: "3", title: "Start Monday", body: "Your first workout and meal plan land the same week." },
               ] as const).map(({ n, title, body }, i) => (
                 <Reveal key={n} delayMs={i * 100}>
                   <div className="flex gap-4">
-                    <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--color-brand) text-xs font-bold text-white ring-4 ring-(--color-bg-soft)">{n}</div>
+                    <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--color-brand) text-xs font-bold text-white ring-4 ring-white">{n}</div>
                     <div>
                       <p className="font-semibold text-foreground">{title}</p>
                       <p className="mt-1 text-sm text-(--color-muted)">{body}</p>
@@ -188,6 +197,26 @@ export default function Home() {
                   </div>
                 </Reveal>
               ))}
+              {/* Check-in example */}
+              <div className="mt-6 rounded-2xl border border-(--color-border) bg-(--color-bg) p-4">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-(--color-muted)">What "a coach replies" actually looks like</p>
+                <div className="flex gap-3">
+                  <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-(--color-border)">
+                    <img src="/images/team-maya.jpg" alt="Maya" className="h-full w-full object-cover" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-sm font-semibold text-foreground">Maya</span>
+                      <span className="text-xs text-(--color-muted)">Tuesday, 6:48 pm</span>
+                    </div>
+                    <div className="mt-1.5 rounded-xl rounded-tl-none bg-white p-3 shadow-sm">
+                      <p className="text-sm leading-relaxed text-foreground">
+                        Hey — saw you logged Monday&apos;s session. Quick question: how are your knees feeling after the squat sets? I want to swap something out for Wednesday if they&apos;re bugging you at all.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </Reveal>
@@ -196,13 +225,16 @@ export default function Home() {
           <Reveal delayMs={REVEAL_DELAYS_MS[0]}>
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">Why it works</p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">Three things that make this stick</h2>
+              <h2 className="mt-2 text-3xl tracking-tight sm:text-4xl">
+                <span className="font-light italic text-(--color-muted)">Three things </span>
+                <span className="font-black text-foreground">that make this stick.</span>
+              </h2>
             </div>
           </Reveal>
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             {PILLARS.map((item, i) => (
               <Reveal key={item.title} delayMs={REVEAL_DELAYS_MS[0] + i * 90}>
-                <article className="group h-full overflow-hidden rounded-3xl border border-(--color-border) bg-white/85 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.45)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_48px_-28px_rgba(0,0,0,0.55)]">
+                <article className="group h-full overflow-hidden rounded-3xl border border-(--color-border) bg-(--color-bg-soft) shadow-[0_20px_40px_-30px_rgba(0,0,0,0.35)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_48px_-28px_rgba(0,0,0,0.45)]">
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={item.image}
@@ -231,18 +263,68 @@ export default function Home() {
         </section>
 
         <Reveal delayMs={REVEAL_DELAYS_MS[1]}>
-          <section className="rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-(--color-border)">
-                <Image src="/images/coach.jpg" alt="Vee, your coach" width={80} height={80} quality={75} loading="lazy" placeholder="blur" blurDataURL={BLUR.coach} className="object-cover" />
+          <section className="rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-5 sm:p-8">
+            <Badge>Your coaching team</Badge>
+            <h2 className="mt-2 text-3xl tracking-tight sm:text-4xl">
+              <span className="font-light italic text-(--color-muted)">Three coaches, </span>
+              <span className="font-black text-foreground">all parents.</span>
+            </h2>
+            <p className="mt-1 text-sm text-(--color-muted)">Every session, meal idea, and check-in is designed around what parents can actually do — not ideal conditions.</p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-3">
+              {([
+                { name: "Maya Grant", role: "Head Coach", note: "Sets her alarm 22 minutes early to train before the school run. She builds plans the way she lives them.", photo: "/images/team-maya.jpg", cred: "NASM-CPT · Mom of 2" },
+                { name: "Chris Dalton", role: "Nutrition Lead", note: "Rotates 4 dinners every week and has convinced himself they're different meals. His nutrition advice is exactly that practical.", photo: "/images/team-chris.jpg", cred: "Precision Nutrition L2 · Dad of 3" },
+                { name: "Leah Shaw", role: "Accountability", note: "Replies to check-ins at 10pm from the couch. That's not a flex — it's just when she has time. She gets it.", photo: "/images/team-leah.jpg", cred: "Behavior Change Coach" },
+              ] as const).map((coach) => (
+                <div key={coach.name} className="flex items-start gap-3">
+                  <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-(--color-border)">
+                    <Image src={coach.photo} alt={coach.name} width={40} height={40} quality={75} loading="lazy" className="object-cover" />
+                  </div>
+                  <div>
+                    <p className="font-semibold leading-tight text-foreground">{coach.name}</p>
+                    <p className="text-xs font-semibold text-(--color-brand)">{coach.role}</p>
+                    <p className="mt-0.5 text-xs text-(--color-muted)">{coach.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+
+        <Reveal delayMs={REVEAL_DELAYS_MS[2]}>
+          <section className="grid gap-5">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">A real week</p>
+              <h2 className="mt-2 text-3xl tracking-tight sm:text-4xl">
+                <span className="font-light italic text-(--color-muted)">What your </span>
+                <span className="font-black text-foreground">first week looks like.</span>
+              </h2>
+              <p className="mt-1 text-sm text-(--color-muted)">Not a best-case scenario. An actual week.</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {([
+                { day: "Monday", session: "Lower Body Strength", duration: "20 min", note: "Squats, hinges, single-leg work. No equipment needed." },
+                { day: "Wednesday", session: "Core & Shoulders", duration: "18 min", note: "Swapped from the original plan because you mentioned knee soreness." },
+                { day: "Friday", session: "Full Body Circuit", duration: "20 min", note: "Higher pace. Designed to wrap up the week feeling strong." },
+              ] as const).map((item) => (
+                <div key={item.day} className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">{item.day}</p>
+                  <p className="mt-1 font-semibold text-foreground">{item.session}</p>
+                  <span className="mt-1 inline-block rounded-full border border-(--color-border) px-2 py-0.5 text-xs text-(--color-muted)">{item.duration}</span>
+                  <p className="mt-2 text-xs leading-5 text-(--color-muted)">{item.note}</p>
+                </div>
+              ))}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
+                <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">This week&apos;s dinner</p>
+                <p className="mt-1 font-semibold text-foreground">Sheet-pan chicken with roasted veg</p>
+                <p className="mt-1 text-xs text-(--color-muted)">One tray. 40 minutes total. Kids will eat it. No separate meals.</p>
               </div>
-              <div>
-                <Badge>Your coach</Badge>
-                <h2 className="mt-1 text-xl font-semibold sm:text-2xl">Hi, I&apos;m Vee</h2>
-                <p className="mt-1 text-xs font-semibold text-(--color-muted)">NASM-CPT · Parent of 2</p>
-                <p className="mt-2 leading-7 text-(--color-muted)">
-                  Certified trainer and parent of two. I built this because every program I tried assumed I had an hour free and a quiet house. Every session, meal idea, and check-in here is designed around real family life — not an ideal one.
-                </p>
+              <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
+                <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">Friday check-in</p>
+                <p className="mt-1 font-semibold text-foreground">A short note from your coach</p>
+                <p className="mt-1 text-xs text-(--color-muted)">Not a form. Not a questionnaire. Just a message asking how the week landed.</p>
               </div>
             </div>
           </section>
@@ -251,10 +333,11 @@ export default function Home() {
         <Reveal delayMs={REVEAL_DELAYS_MS[2]}>
           <section
             id="outcomes"
-            className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-white/80 p-6 sm:p-10"
+            className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-6 sm:p-10"
           >
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              What the first 12 weeks look like
+            <h2 className="text-3xl tracking-tight sm:text-4xl">
+              <span className="font-light italic text-(--color-muted)">What the first 12 weeks </span>
+              <span className="font-black text-foreground">look like.</span>
             </h2>
             <ul className="mt-4 grid gap-3 sm:grid-cols-3">
               <li className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
@@ -275,8 +358,11 @@ export default function Home() {
         </Reveal>
 
         <Reveal delayMs={REVEAL_DELAYS_MS[3]}>
-          <section className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">What parents say</h2>
+          <section className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-5 sm:p-8">
+            <h2 className="text-3xl tracking-tight sm:text-4xl">
+              <span className="font-light italic text-(--color-muted)">What </span>
+              <span className="font-black text-foreground">parents say.</span>
+            </h2>
             <p className="mt-1 text-sm text-(--color-muted)"><CountUp target={50} suffix="+" /> parents have completed the 12 weeks.</p>
             <TestimonialsSection items={TESTIMONIALS} />
           </section>
@@ -285,10 +371,11 @@ export default function Home() {
         <Reveal delayMs={REVEAL_DELAYS_MS[4]}>
           <section
             id="offer"
-            className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-white/80 p-5 sm:p-8"
+            className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-5 sm:p-8"
           >
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              What&apos;s included
+            <h2 className="text-3xl tracking-tight sm:text-4xl">
+              <span className="font-light italic text-(--color-muted)">What&apos;s </span>
+              <span className="font-black text-foreground">included.</span>
             </h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               <Reveal delayMs={0}>
@@ -334,7 +421,7 @@ export default function Home() {
               </Reveal>
             </div>
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-(--color-muted)">$199/month · 3 months · 14-day money-back guarantee</p>
+              <p className="text-sm text-(--color-muted)">$199/month · 3 months · <span className="wave">email us in the first 14 days</span> if it&apos;s not working — we send the money back, full stop.</p>
               <a href="#apply" className="cta-button inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold">
                 Apply now →
               </a>
@@ -345,23 +432,59 @@ export default function Home() {
         <Reveal delayMs={REVEAL_DELAYS_MS[5]}>
           <section
             id="faq"
-            className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-white/80 p-4 sm:p-6"
+            className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-4 sm:p-6"
           >
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Common questions
+            <h2 className="text-3xl tracking-tight sm:text-4xl">
+              <span className="font-light italic text-(--color-muted)">Common </span>
+              <span className="font-black text-foreground">questions.</span>
             </h2>
             <FaqAccordion items={FAQ} />
           </section>
         </Reveal>
 
         <Reveal delayMs={REVEAL_DELAYS_MS[6]}>
+          <section className="rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-5 sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">Honest about the fit</p>
+            <h2 className="mt-2 text-3xl tracking-tight sm:text-4xl">
+              <span className="font-light italic text-(--color-muted)">This probably isn&apos;t </span>
+              <span className="font-black text-foreground">right for you if…</span>
+            </h2>
+            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+              {([
+                "You want live group classes or in-person gym sessions",
+                "You're looking for a strict calorie-counting or macro-tracking plan",
+                "You need clinical support for a medical condition or injury rehab",
+                "You want an 8-week transformation — this is 12 weeks of steady, sustainable work",
+                "You're not willing to do 3 sessions a week most weeks",
+                "You'd rather have an app than a real person checking in",
+              ] as const).map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm text-(--color-muted)">
+                  <span className="mt-0.5 shrink-0 text-base leading-none text-(--color-border)">✕</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-sm text-(--color-muted)">
+              If none of those apply — and you&apos;re a busy parent who just needs something that works around real life — then keep reading.
+            </p>
+          </section>
+        </Reveal>
+
+        <Reveal delayMs={REVEAL_DELAYS_MS[6]}>
           <section
             id="apply"
-            className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-white/90 p-5 shadow-[0_18px_35px_-28px_rgba(0,0,0,0.5)] backdrop-blur"
+            className="scroll-mt-24 rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-5 shadow-[0_18px_35px_-28px_rgba(0,0,0,0.35)]"
           >
-            <h2 className="text-xl font-semibold tracking-tight">Apply for a spot</h2>
-            <p className="mt-1 text-sm text-(--color-muted)">Takes 2 minutes. We reply within 24 hours.</p>
-            <div className="mt-3">
+            <h2 className="text-3xl tracking-tight sm:text-4xl">
+              <span className="font-light italic text-(--color-muted)">Apply for </span>
+              <span className="font-black text-foreground">a spot.</span>
+            </h2>
+            <p className="mt-1 text-sm text-(--color-muted)">Two-minute form. We reply personally — not an automated email.</p>
+            <div className="mt-4 rounded-2xl border border-(--color-border) bg-(--color-bg) p-4">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-(--color-muted)">Quick check — three questions</p>
+              <FitQuiz />
+            </div>
+            <div className="mt-4">
               <LeadCaptureForm />
             </div>
           </section>

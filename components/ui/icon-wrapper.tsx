@@ -9,8 +9,8 @@ type IconWrapperProps = {
 export function IconWrapper({ children, tone = "brand", className = "" }: IconWrapperProps) {
   const base =
     tone === "brand"
-      ? "bg-[var(--color-accent)]/20 text-[var(--color-accent)]"
-      : "bg-[var(--color-border)] text-[var(--color-muted)]";
+      ? "bg-(--color-accent)/20 text-(--color-accent)"
+      : "bg-(--color-border) text-(--color-muted)";
 
   return (
     <div

@@ -12,12 +12,12 @@ export function Input({ label, className, id, error, ...props }: InputProps) {
   const inputId = id ?? fallbackId;
 
   return (
-    <label className="grid gap-2 text-sm font-medium text-[var(--color-ink)]" htmlFor={inputId}>
+    <label className="grid gap-2 text-sm font-medium text-foreground" htmlFor={inputId}>
       {label}
       <input
         id={inputId}
         className={cn(
-          "rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm outline-none transition focus-visible:border-[var(--color-brand)] focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/20",
+          "rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm outline-none transition focus-visible:border-(--color-brand) focus-visible:ring-2 focus-visible:ring-(--color-brand)/20",
           error && "border-red-500",
           className,
         )}

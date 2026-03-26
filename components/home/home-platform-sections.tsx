@@ -28,11 +28,11 @@ export function HomePlatformSections() {
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {platformItems.map((item) => (
             <Card key={item.title} className="hover-lift">
-              <h3 className="text-lg font-semibold text-[var(--color-ink)]">{item.title}</h3>
-              <p className="mt-2 text-sm text-[var(--color-muted)]">{item.detail}</p>
+              <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+              <p className="mt-2 text-sm text-(--color-muted)">{item.detail}</p>
               <Link
                 href={item.href}
-                className="mt-4 inline-block text-sm font-semibold text-[var(--color-brand-strong)] underline"
+                className="mt-4 inline-block text-sm font-semibold text-(--color-brand-strong) underline"
               >
                 Explore
               </Link>

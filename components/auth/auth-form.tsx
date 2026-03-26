@@ -135,7 +135,7 @@ export function AuthForm({ mode }: Props) {
         </Button>
 
         {status === "success" ? (
-          <p className="rounded-xl bg-[var(--color-mint-soft)] px-3 py-2 text-sm text-[var(--color-ink)]">
+          <p className="rounded-xl bg-(--color-mint-soft) px-3 py-2 text-sm text-foreground">
             {message}
           </p>
         ) : null}

@@ -16,21 +16,24 @@ const team = [
   {
     name: "Maya Grant",
     role: "Head Coach",
-    bio: "Mom of two and strength coach for ten years. She writes every training block around what parents can actually do on a Tuesday night.",
+    bio: "Mom of two and strength coach for ten years. She sets her alarm 22 minutes early so she can train before the school run — and builds every plan the way she lives.",
+    quirk: "Her rule: if she wouldn't do it on a Tuesday night after work, it doesn't go in the plan.",
     credential: "NASM-CPT, Pre/Postnatal Performance Specialist",
     photo: "/images/team-maya.jpg",
   },
   {
     name: "Chris Dalton",
     role: "Nutrition Lead",
-    bio: "Father of three who got tired of meal plans nobody followed. His approach: one dinner, everyone eats it, done in under 45 minutes.",
+    bio: "Father of three who got tired of meal plans nobody followed. He now rotates 4 dinners every week and has convinced himself they're different meals.",
+    quirk: "His approach: one meal for the whole table, done in under 45 minutes, no separate plates.",
     credential: "Precision Nutrition L2, Family Nutrition Practitioner",
     photo: "/images/team-chris.jpg",
   },
   {
     name: "Leah Shaw",
     role: "Accountability Coach",
-    bio: "She runs the weekly check-ins and has a knack for helping parents get back on track after a rough week without the guilt spiral.",
+    bio: "She runs the weekly check-ins and replies at 10pm from the couch. That's not a flex — it's just when she has time.",
+    quirk: "She has a knack for helping parents get back on track after a rough week without the guilt spiral.",
     credential: "Behavior Change Coach, Parent Accountability Specialist",
     photo: "/images/team-leah.jpg",
   },
@@ -51,7 +54,9 @@ export default function AboutPage() {
       <Reveal>
         <SectionHeader
           eyebrow="About Fit Parent Plan"
-          title="Built for parents who need practical systems, not perfect plans"
+          title="Built for real life, not perfect plans"
+          titleLight="Built for real life,"
+          titleBold="not perfect plans."
           description="Fit Parent Plan helps busy parents train consistently, eat better with their families, and stay on track during chaotic weeks."
         />
       </Reveal>
@@ -72,16 +77,34 @@ export default function AboutPage() {
         </div>
       </Reveal>
 
+      <Reveal className="mt-8" delayMs={50}>
+        <div className="rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-(--color-brand)">Why this exists</p>
+          <h2 className="mt-2 text-2xl tracking-tight">
+            <span className="font-light italic text-(--color-muted)">We kept seeing the </span>
+            <span className="font-black text-foreground">same pattern.</span>
+          </h2>
+          <div className="mt-4 grid gap-4 text-sm leading-7 text-(--color-muted) sm:grid-cols-2">
+            <p>
+              Maya trained parents for nearly a decade before starting this. And the pattern she kept seeing was always the same: someone would do great for three weeks, the kids would get sick or work would blow up, and they&apos;d restart from zero two months later.
+            </p>
+            <p>
+              The problem wasn&apos;t motivation. It was that every program assumed ideal conditions. So she built the adjustment system first — and wrapped everything else around it. The workouts, the nutrition, the check-ins are all designed for the week that&apos;s actually happening, not the one you planned.
+            </p>
+          </div>
+        </div>
+      </Reveal>
+
       <Reveal className="mt-6" delayMs={60}>
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="hover-lift">
-            <h2 className="text-xl font-semibold text-foreground">Mission</h2>
+            <h2 className="text-xl font-bold text-foreground">Mission</h2>
             <p className="mt-3 text-(--color-muted)">
               We help parents build momentum with short sessions, adaptive plans, and routines that survive busy days.
             </p>
           </Card>
           <Card className="hover-lift">
-            <h2 className="text-xl font-semibold text-foreground">Who we serve</h2>
+            <h2 className="text-xl font-bold text-foreground">Who we serve</h2>
             <p className="mt-3 text-(--color-muted)">
               Parents balancing work, childcare, and home life who want progress without a gym-heavy lifestyle.
             </p>
@@ -91,7 +114,10 @@ export default function AboutPage() {
 
       <Reveal className="mt-10" delayMs={90}>
         <div id="team" className="scroll-mt-28">
-          <h2 className="text-2xl font-semibold tracking-tight">The coaches</h2>
+          <h2 className="text-2xl tracking-tight">
+            <span className="font-light italic text-(--color-muted)">The </span>
+            <span className="font-black text-foreground">coaches.</span>
+          </h2>
           <p className="mt-1 text-sm text-(--color-muted)">Coaching, nutrition, and accountability — all parents themselves.</p>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {team.map((member, index) => (
@@ -106,6 +132,7 @@ export default function AboutPage() {
                     {member.credential}
                   </p>
                   <p className="mt-2 text-sm text-(--color-muted)">{member.bio}</p>
+                  <p className="mt-2 border-t border-(--color-border) pt-2 text-xs italic text-(--color-muted)">{member.quirk}</p>
                 </Card>
               </Reveal>
             ))}
@@ -115,7 +142,10 @@ export default function AboutPage() {
 
       <Reveal className="mt-10" delayMs={210}>
         <div id="trust" className="scroll-mt-28">
-          <h2 className="text-2xl font-semibold tracking-tight">What you can hold us to</h2>
+          <h2 className="text-2xl tracking-tight">
+            <span className="font-light italic text-(--color-muted)">What you can </span>
+            <span className="font-black text-foreground">hold us to.</span>
+          </h2>
           <p className="mt-1 text-sm text-(--color-muted)">Specific commitments — not marketing promises.</p>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {trustSignals.map((signal) => (
@@ -130,7 +160,10 @@ export default function AboutPage() {
 
       <Reveal className="mt-10" delayMs={240}>
         <Card className="hover-lift bg-foreground text-(--color-on-brand)">
-          <h2 className="text-2xl sm:text-3xl">Think this could work for you?</h2>
+          <h2 className="text-2xl tracking-tight sm:text-3xl">
+            <span className="font-light italic text-white/70">Think this could </span>
+            <span className="font-black text-white">work for you?</span>
+          </h2>
           <p className="mt-3 max-w-2xl text-sm text-(--color-on-brand)/80">
             Fill in a few details about your schedule and goals. We&apos;ll follow up within 24 hours with an honest answer on whether this is the right fit.
           </p>

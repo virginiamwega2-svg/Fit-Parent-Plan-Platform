@@ -83,12 +83,12 @@ export function ContactForm() {
           error={errors.email}
           required
         />
-        <label htmlFor="contact-message" className="grid gap-2 text-sm font-medium text-[var(--color-ink)]">
+        <label htmlFor="contact-message" className="grid gap-2 text-sm font-medium text-foreground">
           Message
           <textarea
             id="contact-message"
-            className={`min-h-32 rounded-xl border px-3 py-2 text-sm outline-none transition focus-visible:border-[var(--color-brand)] focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/20 ${
-              errors.message ? "border-red-500" : "border-[var(--color-border)]"
+            className={`min-h-32 rounded-xl border px-3 py-2 text-sm outline-none transition focus-visible:border-(--color-brand) focus-visible:ring-2 focus-visible:ring-(--color-brand)/20 ${
+              errors.message ? "border-red-500" : "border-(--color-border)"
             }`}
             value={message}
             onChange={(event) => setMessage(event.target.value)}
@@ -102,8 +102,8 @@ export function ContactForm() {
 
         <div role="status" aria-live="polite">
           {status === "success" ? (
-            <p className="rounded-xl bg-[var(--color-mint-soft)] px-3 py-2 text-sm text-[var(--color-ink)]">
-              Thanks! We received your message and will reply within 1 business day.
+            <p className="rounded-xl bg-(--color-mint-soft) px-3 py-2 text-sm text-foreground">
+              Thanks! We received your message and will reply within 24 hours.
             </p>
           ) : null}
           {status === "error" ? (

@@ -89,7 +89,7 @@ export function GroceryOptimizer() {
   if (status === "loading") {
     return (
       <Card className="h-32 animate-pulse">
-        <p className="text-sm text-[var(--color-muted)]">Loading saved grocery preferences...</p>
+        <p className="text-sm text-(--color-muted)">Loading saved grocery preferences...</p>
       </Card>
     );
   }
@@ -103,8 +103,8 @@ export function GroceryOptimizer() {
       ) : null}
 
       <Card className="hover-lift">
-        <h2 className="text-2xl font-semibold text-[var(--color-ink)]">Grocery Optimizer</h2>
-        <p className="mt-2 text-sm text-[var(--color-muted)]">
+        <h2 className="text-2xl font-semibold text-foreground">Grocery Optimizer</h2>
+        <p className="mt-2 text-sm text-(--color-muted)">
           Auto-group list by store sections, enable budget mode, and activate leftovers optimization.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -141,19 +141,19 @@ export function GroceryOptimizer() {
 
       {grouped.size === 0 ? (
         <Card>
-          <p className="font-semibold text-[var(--color-ink)]">No items match the current settings.</p>
-          <p className="mt-2 text-sm text-[var(--color-muted)]">Disable budget mode to widen choices.</p>
+          <p className="font-semibold text-foreground">No items match the current settings.</p>
+          <p className="mt-2 text-sm text-(--color-muted)">Disable budget mode to widen choices.</p>
         </Card>
       ) : (
         <Card className="hover-lift">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-brand-strong)]">
+          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-(--color-brand-strong)">
             Estimated spend: ${estimatedTotal}
           </p>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             {[...grouped.entries()].map(([category, items]) => (
               <div key={category} className="surface-soft">
-                <p className="font-semibold text-[var(--color-ink)]">{category}</p>
-                <ul className="mt-2 grid gap-1 text-sm text-[var(--color-muted)]">
+                <p className="font-semibold text-foreground">{category}</p>
+                <ul className="mt-2 grid gap-1 text-sm text-(--color-muted)">
                   {items.map((item) => (
                     <li key={item.name}>
                       • {item.name} (${item.estCost})

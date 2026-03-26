@@ -18,6 +18,8 @@ export default function MealPlansPage() {
         <SectionHeader
           eyebrow="Meal Plans"
           title="Family-friendly meals without extra stress"
+          titleLight="Family-friendly meals"
+          titleBold="without extra stress."
           description="Each plan includes prep time, calories, daily meals, and a shopping list."
         />
       </Reveal>

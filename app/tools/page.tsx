@@ -14,7 +14,7 @@ const GroceryOptimizer = dynamic(
   {
     loading: () => (
       <Card className="h-44 animate-pulse">
-        <p className="text-sm text-[var(--color-muted)]">
+        <p className="text-sm text-(--color-muted)">
           Loading grocery optimizer...
         </p>
       </Card>
@@ -30,7 +30,7 @@ const AccountabilityLab = dynamic(
   {
     loading: () => (
       <Card className="h-44 animate-pulse">
-        <p className="text-sm text-[var(--color-muted)]">
+        <p className="text-sm text-(--color-muted)">
           Loading accountability lab...
         </p>
       </Card>
@@ -51,6 +51,8 @@ export default function ToolsPage() {
         <SectionHeader
           eyebrow="Premium Utility"
           title="Practical tools for busy week execution"
+          titleLight="Practical tools"
+          titleBold="for busy weeks."
           description="Use grocery optimization and streak rescue workflows to stay consistent."
         />
       </Reveal>
@@ -62,15 +64,15 @@ export default function ToolsPage() {
       </Reveal>
       <Reveal className="mt-6" delayMs={180}>
         <Card className="hover-lift">
-          <h2 className="text-xl font-semibold text-[var(--color-ink)]">Ready to automate your weekly plan?</h2>
-          <p className="mt-2 text-sm text-[var(--color-muted)]">
+          <h2 className="text-xl font-semibold text-foreground">Ready to automate your weekly plan?</h2>
+          <p className="mt-2 text-sm text-(--color-muted)">
             Create a free account to save drafts and preferences across devices.
           </p>
           <TrackedLink
             href="/signup"
             eventName="signup_from_tools"
             label="tools"
-            className="mt-4 inline-flex rounded-full bg-[var(--color-brand)] px-4 py-2 text-sm font-semibold text-[var(--color-on-brand)]"
+            className="mt-4 inline-flex rounded-full bg-(--color-brand) px-4 py-2 text-sm font-semibold text-(--color-on-brand)"
           >
             Start free
           </TrackedLink>

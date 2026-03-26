@@ -37,10 +37,10 @@ export default function QuickIntakeForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="mt-6 surface-soft bg-[var(--color-bg-soft)]/80 sm:mt-7"
+      className="mt-6 surface-soft bg-(--color-bg-soft)/80 sm:mt-7"
       aria-label="Quick start form"
     >
-      <p className="text-sm font-semibold text-[var(--color-ink)]">Quick start in 10 seconds</p>
+      <p className="text-sm font-semibold text-foreground">Quick start in 10 seconds</p>
       <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_1fr_auto]">
         <input
           required
@@ -49,7 +49,7 @@ export default function QuickIntakeForm() {
           placeholder="Your name"
           value={form.name}
           onChange={(event) => setForm({ ...form, name: event.target.value })}
-          className="h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 text-sm outline-none ring-[var(--color-brand)] transition focus-visible:ring-2"
+          className="h-11 rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 text-sm outline-none ring-(--color-brand) transition focus-visible:ring-2"
         />
         <input
           required
@@ -58,11 +58,11 @@ export default function QuickIntakeForm() {
           placeholder="Email address"
           value={form.email}
           onChange={(event) => setForm({ ...form, email: event.target.value })}
-          className="h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 text-sm outline-none ring-[var(--color-brand)] transition focus-visible:ring-2"
+          className="h-11 rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 text-sm outline-none ring-(--color-brand) transition focus-visible:ring-2"
         />
         <button
           type="submit"
-          className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--color-brand)] px-4 text-sm font-semibold text-[var(--color-on-brand)] transition hover:bg-[var(--color-brand-strong)]"
+          className="inline-flex h-11 items-center justify-center rounded-xl bg-(--color-brand) px-4 text-sm font-semibold text-(--color-on-brand) transition hover:bg-(--color-brand-strong)"
         >
           Continue
         </button>

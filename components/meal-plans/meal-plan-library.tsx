@@ -18,8 +18,8 @@ export function MealPlanLibrary({ items }: Props) {
   if (!items.length) {
     return (
       <Card>
-        <p className="font-semibold text-[var(--color-ink)]">No meal plans available yet.</p>
-        <p className="mt-2 text-sm text-[var(--color-muted)]">Please check back soon.</p>
+        <p className="font-semibold text-foreground">No meal plans available yet.</p>
+        <p className="mt-2 text-sm text-(--color-muted)">Please check back soon.</p>
       </Card>
     );
   }
@@ -31,7 +31,7 @@ export function MealPlanLibrary({ items }: Props) {
           <Reveal key={plan.id} delayMs={index * 60}>
             <Card
               className={`hover-lift cursor-pointer transition ${
-                selectedId === plan.id ? "border-[var(--color-brand)] bg-[var(--color-cream)]/50" : ""
+                selectedId === plan.id ? "border-(--color-brand) bg-(--color-cream)/50" : ""
               }`}
               onClick={() => setSelectedId(plan.id)}
               role="button"
@@ -47,8 +47,8 @@ export function MealPlanLibrary({ items }: Props) {
                   <Badge key={tag}>{tag}</Badge>
                 ))}
               </div>
-              <h3 className="mt-3 text-xl font-semibold text-[var(--color-ink)]">{plan.title}</h3>
-              <p className="mt-2 text-sm text-[var(--color-muted)]">
+              <h3 className="mt-3 text-xl font-semibold text-foreground">{plan.title}</h3>
+              <p className="mt-2 text-sm text-(--color-muted)">
                 Prep {plan.weeklyPrepMinutes} minutes/week • Avg {plan.avgDailyCalories} calories/day
               </p>
             </Card>
@@ -58,15 +58,15 @@ export function MealPlanLibrary({ items }: Props) {
 
       {selected ? (
         <Card className="hover-lift h-fit">
-          <h3 className="text-2xl font-semibold text-[var(--color-ink)]">{selected.title}</h3>
-          <p className="mt-2 text-sm text-[var(--color-muted)]">
+          <h3 className="text-2xl font-semibold text-foreground">{selected.title}</h3>
+          <p className="mt-2 text-sm text-(--color-muted)">
             Daily meals are designed for speed, consistency, and family buy-in.
           </p>
           <div className="mt-5 grid gap-4">
             {selected.days.map((day) => (
               <div key={day.day} className="surface-soft hover-lift">
-                <p className="font-semibold text-[var(--color-ink)]">{day.day}</p>
-                <ul className="mt-2 grid gap-2 text-sm text-[var(--color-muted)]">
+                <p className="font-semibold text-foreground">{day.day}</p>
+                <ul className="mt-2 grid gap-2 text-sm text-(--color-muted)">
                   {day.meals.map((meal) => (
                     <li key={`${day.day}-${meal.mealType}`}>
                       {meal.mealType}: {meal.name} ({meal.prepTime} min, {meal.calories} cal)
@@ -78,8 +78,8 @@ export function MealPlanLibrary({ items }: Props) {
           </div>
 
           <div className="surface-soft border-dashed">
-            <p className="font-semibold text-[var(--color-ink)]">Shopping list</p>
-            <ul className="mt-2 grid gap-1 text-sm text-[var(--color-muted)]">
+            <p className="font-semibold text-foreground">Shopping list</p>
+            <ul className="mt-2 grid gap-1 text-sm text-(--color-muted)">
               {selected.shoppingList.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
@@ -91,7 +91,7 @@ export function MealPlanLibrary({ items }: Props) {
         </Card>
       ) : (
         <Card>
-          <p className="font-semibold text-[var(--color-ink)]">Select a plan to see details.</p>
+          <p className="font-semibold text-foreground">Select a plan to see details.</p>
         </Card>
       )}
     </section>

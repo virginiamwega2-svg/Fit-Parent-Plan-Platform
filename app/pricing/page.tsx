@@ -31,7 +31,10 @@ export default function PricingPage() {
       <Reveal>
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-(--color-brand)">Pricing</p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">One plan, everything included</h1>
+          <h1 className="mt-2 text-3xl tracking-tight sm:text-4xl">
+            <span className="font-light italic text-(--color-muted)">One plan, </span>
+            <span className="font-black text-foreground">everything included.</span>
+          </h1>
           <p className="mt-3 text-(--color-muted)">No tiers, no upsells. Just 12 weeks of focused coaching.</p>
         </div>
       </Reveal>

@@ -17,7 +17,7 @@ export default function MethodologyPage() {
     return (
       <div className="pb-8 sm:pb-10">
         <Card>
-          <p className="font-semibold text-[var(--color-ink)]">Methodology content is updating.</p>
+          <p className="font-semibold text-foreground">Methodology content is updating.</p>
         </Card>
       </div>
     );
@@ -29,6 +29,8 @@ export default function MethodologyPage() {
         <SectionHeader
           eyebrow="Trust Moat"
           title="Methodology and clinical boundaries"
+          titleLight="Methodology and"
+          titleBold="clinical boundaries."
           description="Transparent principles, expert backing, and clear safety guidance."
         />
       </Reveal>
@@ -36,8 +38,8 @@ export default function MethodologyPage() {
       <div className="mt-8 grid gap-4 lg:grid-cols-3">
         <Reveal delayMs={60}>
           <Card className="hover-lift h-full">
-            <h2 className="text-xl font-semibold text-[var(--color-ink)]">Coach credentials</h2>
-            <ul className="mt-3 grid gap-2 text-sm text-[var(--color-muted)]">
+            <h2 className="text-xl font-semibold text-foreground">Coach credentials</h2>
+            <ul className="mt-3 grid gap-2 text-sm text-(--color-muted)">
               {coachCredentials.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
@@ -47,8 +49,8 @@ export default function MethodologyPage() {
 
         <Reveal delayMs={120}>
           <Card className="hover-lift h-full">
-            <h2 className="text-xl font-semibold text-[var(--color-ink)]">Core principles</h2>
-            <ul className="mt-3 grid gap-2 text-sm text-[var(--color-muted)]">
+            <h2 className="text-xl font-semibold text-foreground">Core principles</h2>
+            <ul className="mt-3 grid gap-2 text-sm text-(--color-muted)">
               {principles.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
@@ -58,8 +60,8 @@ export default function MethodologyPage() {
 
         <Reveal delayMs={180}>
           <Card className="hover-lift h-full">
-            <h2 className="text-xl font-semibold text-[var(--color-ink)]">Safety boundaries</h2>
-            <ul className="mt-3 grid gap-2 text-sm text-[var(--color-muted)]">
+            <h2 className="text-xl font-semibold text-foreground">Safety boundaries</h2>
+            <ul className="mt-3 grid gap-2 text-sm text-(--color-muted)">
               {safetyBoundaries.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
@@ -70,15 +72,15 @@ export default function MethodologyPage() {
 
       <Reveal className="mt-6" delayMs={240}>
         <Card className="hover-lift">
-          <h2 className="text-xl font-semibold text-[var(--color-ink)]">Want this framework applied to your week?</h2>
-          <p className="mt-2 text-sm text-[var(--color-muted)]">
+          <h2 className="text-xl font-semibold text-foreground">Want this framework applied to your week?</h2>
+          <p className="mt-2 text-sm text-(--color-muted)">
             Start free and get your first adaptive plan in minutes.
           </p>
           <TrackedLink
             href="/signup"
             eventName="signup_from_methodology"
             label="methodology"
-            className="mt-4 inline-flex rounded-full bg-[var(--color-brand)] px-4 py-2 text-sm font-semibold text-[var(--color-on-brand)]"
+            className="mt-4 inline-flex rounded-full bg-(--color-brand) px-4 py-2 text-sm font-semibold text-(--color-on-brand)"
           >
             Start free
           </TrackedLink>

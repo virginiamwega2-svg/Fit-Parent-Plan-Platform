@@ -24,9 +24,9 @@ export default function MobileScrollProgress() {
   }, []);
 
   return (
-    <div className="fixed inset-x-0 top-0 z-30 h-1 bg-[var(--color-border)]/70 md:hidden">
+    <div className="fixed inset-x-0 top-0 z-30 h-1 bg-(--color-border)/70 md:hidden">
       <div
-        className="h-full bg-[var(--color-brand)] transition-[width] duration-200"
+        className="h-full bg-(--color-brand) transition-[width] duration-200"
         style={{ width: `${progress}%` }}
         aria-hidden="true"
       />

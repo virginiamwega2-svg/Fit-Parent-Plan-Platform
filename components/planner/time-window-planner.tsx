@@ -212,7 +212,7 @@ export function TimeWindowPlanner() {
   if (isLoading) {
     return (
       <Card className="h-48 animate-pulse">
-        <p className="text-sm text-[var(--color-muted)]">Loading planner draft...</p>
+        <p className="text-sm text-(--color-muted)">Loading planner draft...</p>
       </Card>
     );
   }
@@ -227,13 +227,13 @@ export function TimeWindowPlanner() {
 
       <Card className="brand-grid-bg hover-lift">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-2xl font-semibold text-[var(--color-ink)]">Personalized Time-Window Planner</h2>
+          <h2 className="text-2xl font-semibold text-foreground">Personalized Time-Window Planner</h2>
           <Badge>
             Step {draft.step}/3
           </Badge>
         </div>
-        <div className="mt-3 h-2 rounded-full bg-[var(--color-bg-soft)]/70">
-          <div className="h-2 rounded-full bg-[var(--color-brand)]" style={{ width: `${(draft.step / 3) * 100}%` }} />
+        <div className="mt-3 h-2 rounded-full bg-(--color-bg-soft)/70">
+          <div className="h-2 rounded-full bg-(--color-brand)" style={{ width: `${(draft.step / 3) * 100}%` }} />
         </div>
         <div className="mt-3 grid gap-2 md:grid-cols-3">
           {stepMeta.map((item) => (
@@ -241,35 +241,35 @@ export function TimeWindowPlanner() {
               key={item.id}
               className={`rounded-xl border p-3 ${
                 draft.step === item.id
-                  ? "border-[var(--color-brand)] bg-[var(--color-bg-soft)]"
-                  : "border-[var(--color-border)] bg-[var(--color-bg-soft)]/70"
+                  ? "border-(--color-brand) bg-(--color-bg-soft)"
+                  : "border-(--color-border) bg-(--color-bg-soft)/70"
               }`}
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-brand-strong)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-(--color-brand-strong)">
                 Step {item.id}
               </p>
-              <p className="mt-1 text-sm font-semibold text-[var(--color-ink)]">{item.title}</p>
-              <p className="text-xs text-[var(--color-muted)]">{item.hint}</p>
+              <p className="mt-1 text-sm font-semibold text-foreground">{item.title}</p>
+              <p className="text-xs text-(--color-muted)">{item.hint}</p>
             </div>
           ))}
         </div>
-        <p className="mt-2 text-sm text-[var(--color-muted)]">
+        <p className="mt-2 text-sm text-(--color-muted)">
           Step 1: Profile. Step 2: Schedule. Step 3: Adaptive plan and recommendations.
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-3">
-            <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">Rhythm score</p>
-            <p className="mt-1 text-xl font-semibold text-[var(--color-ink)]">{rhythmScore}/100</p>
-            <p className="text-xs text-[var(--color-brand-strong)]">{rhythmStatus}</p>
+          <div className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) p-3">
+            <p className="text-xs uppercase tracking-[0.14em] text-(--color-muted)">Rhythm score</p>
+            <p className="mt-1 text-xl font-semibold text-foreground">{rhythmScore}/100</p>
+            <p className="text-xs text-(--color-brand-strong)">{rhythmStatus}</p>
           </div>
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-3">
-            <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">Weekly minutes</p>
-            <p className="mt-1 text-xl font-semibold text-[var(--color-ink)]">{weeklyMinutes}</p>
-            <p className="text-xs text-[var(--color-muted)]">Target range: 75-140</p>
+          <div className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) p-3">
+            <p className="text-xs uppercase tracking-[0.14em] text-(--color-muted)">Weekly minutes</p>
+            <p className="mt-1 text-xl font-semibold text-foreground">{weeklyMinutes}</p>
+            <p className="text-xs text-(--color-muted)">Target range: 75-140</p>
           </div>
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-3">
-            <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">Next best action</p>
-            <p className="mt-1 text-sm font-semibold text-[var(--color-ink)]">{nextBestTarget}</p>
+          <div className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) p-3">
+            <p className="text-xs uppercase tracking-[0.14em] text-(--color-muted)">Next best action</p>
+            <p className="mt-1 text-sm font-semibold text-foreground">{nextBestTarget}</p>
           </div>
         </div>
 
@@ -282,7 +282,7 @@ export function TimeWindowPlanner() {
               value={draft.name}
               onChange={(event) => updateDraft({ name: event.target.value })}
             />
-            <label className="grid gap-2 text-sm font-medium text-[var(--color-ink)]" htmlFor="planner-completion">
+            <label className="grid gap-2 text-sm font-medium text-foreground" htmlFor="planner-completion">
               Last-week completion rate (%)
               <input
                 id="planner-completion"
@@ -291,14 +291,14 @@ export function TimeWindowPlanner() {
                 max={100}
                 value={draft.completionRate}
                 onChange={(event) => updateDraft({ completionRate: Number(event.target.value) })}
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm"
+                className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm"
               />
             </label>
-            <label className="grid gap-2 text-sm font-medium text-[var(--color-ink)]" htmlFor="planner-sleep">
+            <label className="grid gap-2 text-sm font-medium text-foreground" htmlFor="planner-sleep">
               Typical sleep
               <select
                 id="planner-sleep"
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm"
+                className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm"
                 value={draft.sleepWindow}
                 onChange={(event) => updateDraft({ sleepWindow: event.target.value as PlannerInput["sleepWindow"] })}
               >
@@ -307,11 +307,11 @@ export function TimeWindowPlanner() {
                 <option value="7-plus">7+ hours</option>
               </select>
             </label>
-            <label className="grid gap-2 text-sm font-medium text-[var(--color-ink)]" htmlFor="planner-kids">
+            <label className="grid gap-2 text-sm font-medium text-foreground" htmlFor="planner-kids">
               Kid age range
               <select
                 id="planner-kids"
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm"
+                className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm"
                 value={draft.kidAgeGroup}
                 onChange={(event) => updateDraft({ kidAgeGroup: event.target.value as PlannerInput["kidAgeGroup"] })}
               >
@@ -321,11 +321,11 @@ export function TimeWindowPlanner() {
                 <option value="13-plus">13+</option>
               </select>
             </label>
-            <label className="grid gap-2 text-sm font-medium text-[var(--color-ink)]" htmlFor="planner-equipment">
+            <label className="grid gap-2 text-sm font-medium text-foreground" htmlFor="planner-equipment">
               Equipment access
               <select
                 id="planner-equipment"
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm"
+                className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm"
                 value={draft.equipment}
                 onChange={(event) => updateDraft({ equipment: event.target.value as PlannerInput["equipment"] })}
               >
@@ -335,11 +335,11 @@ export function TimeWindowPlanner() {
                 <option value="mixed">Mixed</option>
               </select>
             </label>
-            <label className="grid gap-2 text-sm font-medium text-[var(--color-ink)]" htmlFor="planner-stress">
+            <label className="grid gap-2 text-sm font-medium text-foreground" htmlFor="planner-stress">
               Current stress level
               <select
                 id="planner-stress"
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm"
+                className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm"
                 value={draft.stressLevel}
                 onChange={(event) => updateDraft({ stressLevel: event.target.value as PlannerInput["stressLevel"] })}
               >
@@ -353,16 +353,16 @@ export function TimeWindowPlanner() {
 
         {draft.step === 2 ? (
           <div className="mt-5 grid gap-3 md:grid-cols-3">
-            <div className="md:col-span-3 surface-soft bg-[var(--color-cream)]/50">
-              <p className="text-sm text-[var(--color-ink)]">
+            <div className="md:col-span-3 surface-soft bg-(--color-cream)/50">
+              <p className="text-sm text-foreground">
                 Plan your lowest-friction windows first. If a day is usually chaotic, keep it at 10-12 minutes with
                 low energy.
               </p>
             </div>
             {draft.slots.map((slot, index) => (
               <div key={slot.day} className="surface-soft">
-                <p className="font-semibold text-[var(--color-ink)]">{slot.day}</p>
-                <label className="mt-2 grid gap-1 text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">
+                <p className="font-semibold text-foreground">{slot.day}</p>
+                <label className="mt-2 grid gap-1 text-xs uppercase tracking-[0.14em] text-(--color-muted)">
                   Minutes
                   <input
                     type="number"
@@ -370,15 +370,15 @@ export function TimeWindowPlanner() {
                     max={30}
                     value={slot.minutes}
                     onChange={(event) => updateSlot(index, { minutes: Number(event.target.value) })}
-                    className="rounded-lg border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-ink)]"
+                    className="rounded-lg border border-(--color-border) px-2 py-1 text-sm text-foreground"
                   />
                 </label>
-                <label className="mt-2 grid gap-1 text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">
+                <label className="mt-2 grid gap-1 text-xs uppercase tracking-[0.14em] text-(--color-muted)">
                   Energy
                   <select
                     value={slot.energy}
                     onChange={(event) => updateSlot(index, { energy: event.target.value as TimeSlot["energy"] })}
-                    className="rounded-lg border border-[var(--color-border)] px-2 py-1 text-sm text-[var(--color-ink)]"
+                    className="rounded-lg border border-(--color-border) px-2 py-1 text-sm text-foreground"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -389,8 +389,8 @@ export function TimeWindowPlanner() {
             ))}
             <div className="md:col-span-3">
               <div className="flex flex-wrap items-center justify-between gap-2 surface-soft border-dashed">
-                <p className="text-sm text-[var(--color-muted)]">
-                  Weekly total: <span className="font-semibold text-[var(--color-ink)]">{weeklyMinutes} minutes</span>
+                <p className="text-sm text-(--color-muted)">
+                  Weekly total: <span className="font-semibold text-foreground">{weeklyMinutes} minutes</span>
                 </p>
                 <Button
                   type="button"
@@ -407,19 +407,19 @@ export function TimeWindowPlanner() {
         {draft.step === 3 ? (
           <div className="mt-5 grid gap-4">
             <div className="surface-soft">
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-brand-strong)]">
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-(--color-brand-strong)">
                 Adaptive recommendation
               </p>
-              <p className="mt-2 text-sm text-[var(--color-muted)]">{adaptiveSuggestion}</p>
+              <p className="mt-2 text-sm text-(--color-muted)">{adaptiveSuggestion}</p>
             </div>
             <div className="grid gap-3 md:grid-cols-2">
               {[1, 2].map((week) => (
                 <div key={week} className="surface-soft">
-                  <p className="text-sm font-semibold text-[var(--color-ink)]">Week {week}</p>
-                  <ul className="mt-2 grid gap-2 text-sm text-[var(--color-muted)]">
+                  <p className="text-sm font-semibold text-foreground">Week {week}</p>
+                  <ul className="mt-2 grid gap-2 text-sm text-(--color-muted)">
                     {generatedPlan.map((entry) => (
                       <li key={`${week}-${entry.day}`}>
-                        <span className="font-semibold text-[var(--color-ink)]">{entry.day}:</span>{" "}
+                        <span className="font-semibold text-foreground">{entry.day}:</span>{" "}
                         {entry.duration} min {entry.focus}
                       </li>
                     ))}
@@ -428,14 +428,14 @@ export function TimeWindowPlanner() {
               ))}
             </div>
             <div className="surface-soft">
-              <p className="text-sm font-semibold text-[var(--color-ink)]">Plan-ready summary</p>
-              <p className="mt-2 text-sm text-[var(--color-muted)]">
+              <p className="text-sm font-semibold text-foreground">Plan-ready summary</p>
+              <p className="mt-2 text-sm text-(--color-muted)">
                 You have {weeklyMinutes} planned minutes across {draft.slots.length} sessions. Keep this cadence for two
                 weeks, then reassess completion trend.
               </p>
-              <div className="mt-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-sky-soft)]/45 p-3">
-                <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">Why this plan works</p>
-                <p className="mt-1 text-sm text-[var(--color-ink)]">
+              <div className="mt-3 rounded-xl border border-(--color-border) bg-(--color-sky-soft)/45 p-3">
+                <p className="text-xs uppercase tracking-[0.14em] text-(--color-muted)">Why this plan works</p>
+                <p className="mt-1 text-sm text-foreground">
                   Focus is matched to your energy windows and stress level, so adherence stays high even on busy days.
                 </p>
               </div>
@@ -483,7 +483,7 @@ export function TimeWindowPlanner() {
             Resume later
           </Button>
         </div>
-        <p aria-live="polite" className="mt-2 min-h-4 text-xs text-[var(--color-muted)]">
+        <p aria-live="polite" className="mt-2 min-h-4 text-xs text-(--color-muted)">
           {saveStatus === "saved" ? "Saved." : null}
           {saveStatus === "saving" ? "Saving..." : null}
           {saveStatus === "error" ? "Could not save online. Local draft still updated." : null}

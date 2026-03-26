@@ -18,6 +18,8 @@ export default function WorkoutsPage() {
         <SectionHeader
           eyebrow="Workout Library"
           title="Find the right session for your schedule"
+          titleLight="Find the right session"
+          titleBold="for your schedule."
           description="Filter by duration, goal, and equipment. Save your favorites for later."
         />
       </Reveal>

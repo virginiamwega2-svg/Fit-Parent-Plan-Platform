@@ -23,7 +23,7 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 sm:px-10">
       <div className="surface-card p-8">
-        <div className="mb-6 relative aspect-[4/3] w-full overflow-hidden rounded-[24px]">
+        <div className="mb-6 relative aspect-4/3 w-full overflow-hidden rounded-3xl">
           <Image
             src="/images/thankyou.jpg"
             alt="Parent celebrating their fitness journey"
@@ -39,8 +39,9 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
         <p className="inline-flex rounded-full border border-(--color-border) bg-background px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-(--color-muted)">
           Submission received
         </p>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight text-foreground">
-          Thanks, {leadName}.
+        <h1 className="mt-4 text-4xl tracking-tight">
+          <span className="font-light italic text-(--color-muted)">Thanks, </span>
+          <span className="font-black text-foreground">{leadName}.</span>
         </h1>
         <p className="mt-4 leading-7 text-(--color-muted)">
           We&apos;ll email you within 24 hours with your next steps and a secure checkout link.

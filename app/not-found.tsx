@@ -6,11 +6,11 @@ export default function NotFound() {
   return (
     <div className="py-16">
       <Card className="mx-auto max-w-xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-brand-strong)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-(--color-brand-strong)">
           404
         </p>
-        <h1 className="mt-2 text-3xl font-semibold text-[var(--color-ink)]">Page not found</h1>
-        <p className="mt-2 text-sm text-[var(--color-muted)]">
+        <h1 className="mt-2 text-3xl font-semibold text-foreground">Page not found</h1>
+        <p className="mt-2 text-sm text-(--color-muted)">
           The page you requested does not exist or has moved.
         </p>
         <div className="mt-6 flex justify-center gap-3">
@@ -19,7 +19,7 @@ export default function NotFound() {
             Browse workouts
           </Button>
         </div>
-        <p className="mt-4 text-xs text-[var(--color-muted)]">
+        <p className="mt-4 text-xs text-(--color-muted)">
           Need help? <Link href="/contact" className="underline">Contact support</Link>
         </p>
       </Card>

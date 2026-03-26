@@ -19,7 +19,9 @@ export default function ContactPage() {
         <SectionHeader
           eyebrow="Contact"
           title="Tell us what your schedule looks like"
-          description="We reply within one business day. Share your current routine and what’s getting in the way."
+          titleLight="Tell us what"
+          titleBold="your schedule looks like."
+          description="We reply within 24 hours. Share your current routine and what’s getting in the way."
         />
       </Reveal>
 

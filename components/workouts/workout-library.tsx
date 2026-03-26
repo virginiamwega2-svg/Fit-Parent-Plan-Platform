@@ -37,12 +37,12 @@ export function WorkoutLibrary({ items }: Props) {
 
   return (
     <section className="grid gap-6">
-      <Card className="grid gap-4 bg-[var(--color-cream)]/55">
+      <Card className="grid gap-4 bg-(--color-cream)/55">
         <div className="flex flex-wrap items-center gap-3">
           <Badge>Filters</Badge>
           <button
             type="button"
-            className="text-xs font-semibold text-[var(--color-muted)] underline underline-offset-4"
+            className="text-xs font-semibold text-(--color-muted) underline underline-offset-4"
             onClick={() => {
               setDuration(ALL);
               setGoal(ALL);
@@ -65,7 +65,7 @@ export function WorkoutLibrary({ items }: Props) {
           <select
             value={duration}
             onChange={(e) => setDuration(e.target.value === ALL ? ALL : Number(e.target.value) as WorkoutDuration)}
-            className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm"
+            className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm"
             aria-label="Filter by duration"
           >
             <option value={ALL}>All durations</option>
@@ -79,7 +79,7 @@ export function WorkoutLibrary({ items }: Props) {
           <select
             value={goal}
             onChange={(e) => setGoal(e.target.value as WorkoutGoal | typeof ALL)}
-            className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm"
+            className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm"
             aria-label="Filter by goal"
           >
             <option value={ALL}>All goals</option>
@@ -93,7 +93,7 @@ export function WorkoutLibrary({ items }: Props) {
           <select
             value={equipment}
             onChange={(e) => setEquipment(e.target.value as WorkoutEquipment | typeof ALL)}
-            className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-3 py-2 text-sm"
+            className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm"
             aria-label="Filter by equipment"
           >
             <option value={ALL}>All equipment</option>
@@ -118,8 +118,8 @@ export function WorkoutLibrary({ items }: Props) {
         </Card>
       ) : filtered.length === 0 ? (
         <Card>
-          <p className="font-semibold text-[var(--color-ink)]">No workouts match those filters.</p>
-          <p className="mt-2 text-sm text-[var(--color-muted)]">
+          <p className="font-semibold text-foreground">No workouts match those filters.</p>
+          <p className="mt-2 text-sm text-(--color-muted)">
             Try a different duration, goal, or equipment combo.
           </p>
         </Card>
@@ -130,14 +130,14 @@ export function WorkoutLibrary({ items }: Props) {
               <Card className="hover-lift flex h-full flex-col gap-4">
                 <div className="flex flex-wrap gap-2">
                   <Badge>{workout.duration} min</Badge>
-                  <Badge className="bg-[var(--color-melon-soft)]">{workout.goal}</Badge>
-                  <Badge className="bg-[var(--color-sky-soft)]">{workout.equipment}</Badge>
+                  <Badge className="bg-(--color-melon-soft)">{workout.goal}</Badge>
+                  <Badge className="bg-(--color-sky-soft)">{workout.equipment}</Badge>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-[var(--color-ink)]">{workout.title}</h3>
-                  <p className="mt-2 text-sm text-[var(--color-muted)]">{workout.description}</p>
+                  <h3 className="text-lg font-semibold text-foreground">{workout.title}</h3>
+                  <p className="mt-2 text-sm text-(--color-muted)">{workout.description}</p>
                 </div>
-                <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-muted)]">
+                <p className="text-xs uppercase tracking-[0.14em] text-(--color-muted)">
                   Difficulty: {workout.difficulty}
                 </p>
                 <div className="mt-auto flex flex-col gap-2 sm:flex-row">
@@ -168,7 +168,7 @@ export function WorkoutLibrary({ items }: Props) {
         </div>
       )}
 
-      <p className="text-sm text-[var(--color-muted)]">
+      <p className="text-sm text-(--color-muted)">
         Saved workouts: {saved.length}
         {saved.length > 0 ? (
           <>
@@ -183,10 +183,10 @@ export function WorkoutLibrary({ items }: Props) {
         ) : null}
       </p>
 
-      <p className="text-xs text-[var(--color-muted)]">
+      <p className="text-xs text-(--color-muted)">
         Tip: this page uses local state only. Later, you can replace it with API persistence.
       </p>
-      <Link href="/dashboard" className="text-sm font-semibold text-[var(--color-brand-strong)] underline">
+      <Link href="/dashboard" className="text-sm font-semibold text-(--color-brand-strong) underline">
         Go to Dashboard
       </Link>
     </section>

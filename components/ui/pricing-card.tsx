@@ -14,21 +14,21 @@ export function PricingCard({ tier, billing }: Props) {
     <Card
       className={cn(
         "hover-lift flex h-full flex-col",
-        tier.isPopular && "border-[var(--color-brand)] ring-2 ring-[var(--color-brand)]/30",
+        tier.isPopular && "border-(--color-brand) ring-2 ring-(--color-brand)/30",
       )}
     >
       {tier.isPopular ? (
-        <p className="mb-3 inline-flex w-fit rounded-full bg-[var(--color-brand)] px-3 py-1 text-xs font-semibold text-[var(--color-on-brand)]">
+        <p className="mb-3 inline-flex w-fit rounded-full bg-(--color-brand) px-3 py-1 text-xs font-semibold text-(--color-on-brand)">
           Most Popular
         </p>
       ) : null}
-      <h3 className="text-2xl font-semibold text-[var(--color-ink)]">{tier.name}</h3>
-      <p className="mt-2 text-sm text-[var(--color-muted)]">{tier.description}</p>
-      <p className="mt-5 text-4xl font-bold text-[var(--color-ink)]">
+      <h3 className="text-2xl font-semibold text-foreground">{tier.name}</h3>
+      <p className="mt-2 text-sm text-(--color-muted)">{tier.description}</p>
+      <p className="mt-5 text-4xl font-bold text-foreground">
         ${price}
-        <span className="text-sm font-medium text-[var(--color-muted)]">/month</span>
+        <span className="text-sm font-medium text-(--color-muted)">/month</span>
       </p>
-      <ul className="mt-5 grid gap-2 text-sm text-[var(--color-muted)]">
+      <ul className="mt-5 grid gap-2 text-sm text-(--color-muted)">
         {tier.features.map((feature) => (
           <li key={feature}>• {feature}</li>
         ))}
