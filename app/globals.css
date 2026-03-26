@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   overflow-x: clip; /* clip doesn't create a scroll container — keeps position:sticky working */
