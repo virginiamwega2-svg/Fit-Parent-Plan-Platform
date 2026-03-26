@@ -13,7 +13,7 @@ export function StickyApplyCta() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-(--color-border) bg-(--color-bg-soft)/95 p-3 backdrop-blur transition-transform duration-300 sm:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-(--color-border) bg-(--color-bg-soft)/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] backdrop-blur transition-transform duration-300 sm:hidden ${
         visible ? "translate-y-0" : "translate-y-full"
       }`}
       aria-hidden={!visible}

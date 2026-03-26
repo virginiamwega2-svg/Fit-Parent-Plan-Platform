@@ -189,14 +189,14 @@ export function SiteHeader() {
               <a
                 href="#offer"
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-2 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
+                className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
               >
                 Program
               </a>
               <a
                 href="#faq"
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-2 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
+                className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
               >
                 FAQ
               </a>
@@ -205,7 +205,7 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-2 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
+                  className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
                 >
                   {item.label}
                 </Link>
@@ -214,7 +214,7 @@ export function SiteHeader() {
                 <Link
                   href="/dashboard"
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-foreground hover:bg-(--color-cream)"
+                  className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-(--color-cream)"
                 >
                   Go to dashboard
                 </Link>
@@ -222,7 +222,7 @@ export function SiteHeader() {
                 <a
                   href="#apply"
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-foreground hover:bg-(--color-cream)"
+                  className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-(--color-cream)"
                 >
                   See if it fits you
                 </a>
@@ -237,7 +237,7 @@ export function SiteHeader() {
                   onClick={() => setOpen(false)}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "rounded-xl px-3 py-2 text-sm font-medium hover:bg-(--color-cream)",
+                    "rounded-xl px-3 py-3 text-sm font-medium hover:bg-(--color-cream)",
                     isActive(item.href)
                       ? "bg-(--color-cream) text-foreground"
                       : "text-(--color-muted)",
@@ -268,7 +268,7 @@ export function SiteHeader() {
                 <Button href="/login" variant="secondary" className="flex-1">
                   Login
                 </Button>
-                <a href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-2 text-sm font-semibold">
+                <a href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-3 text-sm font-semibold">
                   See if it fits you
                 </a>
               </>

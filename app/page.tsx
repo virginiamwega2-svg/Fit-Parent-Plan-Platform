@@ -86,7 +86,7 @@ const FAQ = [
 /* ─── helpers ────────────────────────────────────────────────────── */
 function TimeMarker({ time, note }: { time: string; note: string }) {
   return (
-    <div className="mb-10">
+    <div className="mb-7 sm:mb-10">
       <div className="flex items-center gap-5">
         <span className="shrink-0 font-mono text-[clamp(2.2rem,5vw,4rem)] leading-none tabular-nums tracking-tighter text-(--color-muted)/35">
           {time}
@@ -105,7 +105,7 @@ export default function Home() {
 
       {/* ── 06:22 · HERO ─────────────────────────────────────────── */}
       <Reveal>
-        <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden py-24 sm:py-32 lg:py-40">
+        <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden py-20 sm:py-32 lg:py-40">
           <Image
             src="/images/hero.jpg"
             alt="Parent doing a home workout before the kids wake up"
@@ -136,8 +136,8 @@ export default function Home() {
 
               {/* heading */}
               <h1 className="mt-5 leading-[1.05]">
-                <span className="block text-[clamp(2.4rem,4.5vw+0.5rem,4.5rem)] font-light italic text-white/75">Before the kids wake up.</span>
-                <span className="block text-[clamp(2.4rem,4.5vw+0.5rem,4.5rem)] font-black text-white"><span className="wave decoration-white/40">Twenty minutes.</span> That&apos;s all it takes.</span>
+                <span className="block text-[clamp(2rem,5vw+0.5rem,4.5rem)] font-light italic text-white/75">Before the kids wake up.</span>
+                <span className="block text-[clamp(2rem,5vw+0.5rem,4.5rem)] font-black text-white"><span className="wave decoration-white/40">Twenty minutes.</span> That&apos;s all it takes.</span>
               </h1>
 
               <p className="mt-5 max-w-lg text-base leading-7 text-white/65 sm:text-lg sm:leading-8">
@@ -175,13 +175,13 @@ export default function Home() {
 
         {/* ── 07:45 · THE MORNING ──────────────────────────────── */}
         <Reveal>
-          <section className="pt-20 sm:pt-28">
+          <section className="pt-14 sm:pt-20 lg:pt-28">
             <TimeMarker time="07:45" note="School run. Packed lunches. The usual." />
             <div className="grid gap-6 sm:grid-cols-2">
-              <p className="text-lg leading-8 text-(--color-muted)">
+              <p className="text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
                 By the time you&apos;re back from drop-off, the workout is already done. That&apos;s the whole idea — a plan that fits inside the gaps that already exist.
               </p>
-              <p className="text-lg leading-8 text-(--color-muted)">
+              <p className="text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
                 Three sessions a week. Twenty minutes each. No commute, no waiting for equipment, no babysitter required. The hard part isn&apos;t the fitness — it&apos;s finding a system that survives a Tuesday.
               </p>
             </div>
@@ -194,7 +194,7 @@ export default function Home() {
 
         {/* ── 12:22 · THE SESSION ──────────────────────────────── */}
         <Reveal>
-          <section className="pt-20 sm:pt-28">
+          <section className="pt-14 sm:pt-20 lg:pt-28">
             <TimeMarker time="12:22" note="The workout was done by now." />
             <h2 className="mb-8 text-3xl tracking-tight sm:text-4xl">
               <span className="font-light italic text-(--color-muted)">Three things </span>
@@ -257,7 +257,7 @@ export default function Home() {
 
         {/* ── 13:08 · THE MESSAGE ──────────────────────────────── */}
         <Reveal>
-          <section className="pt-20 sm:pt-28">
+          <section className="pt-14 sm:pt-20 lg:pt-28">
             <TimeMarker time="13:08" note="A message from Maya." />
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
               {/* 3-step how it works */}
@@ -328,10 +328,10 @@ export default function Home() {
 
         {/* ── 17:58 · DINNER ───────────────────────────────────── */}
         <Reveal>
-          <section className="pt-20 sm:pt-28">
+          <section className="pt-14 sm:pt-20 lg:pt-28">
             <TimeMarker time="17:58" note="Dinner. One pan. Everyone ate it." />
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="lg:col-span-2">
+              <div className="sm:col-span-2 lg:col-span-2">
                 <h2 className="text-3xl tracking-tight sm:text-4xl">
                   <span className="font-light italic text-(--color-muted)">Your first week, </span>
                   <span className="font-black text-foreground">mapped out.</span>
@@ -369,13 +369,13 @@ export default function Home() {
 
         {/* ── 19:30 · THE TEAM ─────────────────────────────────── */}
         <Reveal>
-          <section className="pt-20 sm:pt-28">
+          <section className="pt-14 sm:pt-20 lg:pt-28">
             <TimeMarker time="19:30" note="The team behind your Tuesday." />
             <h2 className="mb-8 text-3xl tracking-tight sm:text-4xl">
               <span className="font-light italic text-(--color-muted)">Three coaches, </span>
               <span className="font-black text-foreground">all parents.</span>
             </h2>
-            <div className="grid gap-5 sm:grid-cols-3">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {([
                 { name: "Maya Grant", role: "Head Coach", cred: "NASM-CPT · Mom of 2", note: "Sets her alarm 22 minutes early to train before the school run. She builds plans the way she lives them.", quirk: "Her rule: if she wouldn't do it on a Tuesday night after work, it doesn't go in the plan.", photo: "/images/team-maya.jpg" },
                 { name: "Chris Dalton", role: "Nutrition Lead", cred: "Precision Nutrition L2 · Dad of 3", note: "Rotates 4 dinners every week and has convinced himself they're different meals. His nutrition advice is exactly that practical.", quirk: "One meal for the whole table, done in under 45 minutes. Non-negotiable.", photo: "/images/team-chris.jpg" },
@@ -404,7 +404,7 @@ export default function Home() {
 
         {/* ── 20:14 · WHAT PARENTS SAY ─────────────────────────── */}
         <Reveal>
-          <section id="outcomes" className="scroll-mt-24 pt-20 sm:pt-28">
+          <section id="outcomes" className="scroll-mt-24 pt-14 sm:pt-20 lg:pt-28">
             <TimeMarker time="20:14" note="What other parents said about their Tuesday." />
             <div className="mb-6 flex items-baseline gap-3">
               <h2 className="text-3xl tracking-tight sm:text-4xl">
@@ -419,7 +419,7 @@ export default function Home() {
 
         {/* ── 21:41 · WHAT'S IN IT ─────────────────────────────── */}
         <Reveal>
-          <section id="offer" className="scroll-mt-24 pt-20 sm:pt-28">
+          <section id="offer" className="scroll-mt-24 pt-14 sm:pt-20 lg:pt-28">
             <TimeMarker time="21:41" note="What's in it." />
             <div className="grid gap-6 lg:grid-cols-[1fr_auto]">
               <div>
@@ -454,7 +454,7 @@ export default function Home() {
 
         {/* ── 22:00 · HONEST ABOUT THE FIT ────────────────────── */}
         <Reveal>
-          <section id="faq" className="scroll-mt-24 pt-20 sm:pt-28">
+          <section id="faq" className="scroll-mt-24 pt-14 sm:pt-20 lg:pt-28">
             <TimeMarker time="22:00" note="Honest about the fit." />
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
               <div>
@@ -497,7 +497,7 @@ export default function Home() {
         <Reveal>
           <section
             id="apply"
-            className="scroll-mt-24 mt-20 rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-6 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.3)] sm:mt-28 sm:p-10"
+            className="scroll-mt-24 mt-14 rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-6 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.3)] sm:mt-20 lg:mt-28 sm:p-10"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-(--color-muted)">Your first Tuesday starts Monday</p>
             <h2 className="mt-2 text-3xl tracking-tight sm:text-4xl">
@@ -517,7 +517,7 @@ export default function Home() {
           </section>
         </Reveal>
 
-        <div className="h-10 sm:h-16" />
+        <div className="h-24 sm:h-16" />
       </div>
 
       <StickyApplyCta />
