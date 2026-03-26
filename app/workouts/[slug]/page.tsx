@@ -37,7 +37,7 @@ export default async function WorkoutDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="pb-6">
+    <div className="pb-6 pt-8 sm:pt-10">
       <Link href="/workouts" className="text-sm font-semibold text-(--color-brand-strong) underline">
         Back to workouts
       </Link>

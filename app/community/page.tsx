@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata(
 export default function CommunityPage() {
   if (cohortChallenges.length === 0) {
     return (
-      <div className="pb-8 sm:pb-10">
+      <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
         <Card>
           <p className="font-semibold text-foreground">Community board is syncing.</p>
         </Card>
@@ -24,7 +24,7 @@ export default function CommunityPage() {
   }
 
   return (
-    <div className="pb-8 sm:pb-10">
+    <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
       <Reveal>
         <SectionHeader
           eyebrow="Community Mechanics"

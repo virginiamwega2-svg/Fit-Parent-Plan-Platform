@@ -289,7 +289,7 @@ export default function Home() {
                 <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-5">
                   <div className="flex gap-3">
                     <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full border border-(--color-border)">
-                      <img src="/images/team-maya.jpg" alt="Maya" className="h-full w-full object-cover" />
+                      <Image src="/images/team-maya.jpg" alt="Maya" width={36} height={36} quality={75} loading="lazy" className="h-full w-full object-cover" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-baseline gap-2">
@@ -310,7 +310,7 @@ export default function Home() {
                   </div>
                   <div className="mt-3 flex gap-3">
                     <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full border border-(--color-border)">
-                      <img src="/images/team-maya.jpg" alt="Maya" className="h-full w-full object-cover" />
+                      <Image src="/images/team-maya.jpg" alt="Maya" width={36} height={36} quality={75} loading="lazy" className="h-full w-full object-cover" />
                     </div>
                     <div className="flex-1">
                       <div className="mt-0.5 rounded-xl rounded-tl-none bg-white p-3.5 shadow-sm">
@@ -454,7 +454,7 @@ export default function Home() {
 
         {/* ── 22:00 · HONEST ABOUT THE FIT ────────────────────── */}
         <Reveal>
-          <section className="pt-20 sm:pt-28">
+          <section id="faq" className="scroll-mt-24 pt-20 sm:pt-28">
             <TimeMarker time="22:00" note="Honest about the fit." />
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
               <div>

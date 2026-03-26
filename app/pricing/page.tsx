@@ -27,7 +27,7 @@ const INCLUDES = [
 
 export default function PricingPage() {
   return (
-    <div className="pb-14 sm:pb-16">
+    <div className="pb-14 pt-8 sm:pb-16 sm:pt-10">
       <Reveal>
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-(--color-brand)">Pricing</p>
@@ -41,7 +41,10 @@ export default function PricingPage() {
 
       <Reveal className="mt-8" delayMs={60}>
         <Card className="mx-auto max-w-lg text-center">
-          <p className="text-5xl font-bold tracking-tight text-foreground">$199</p>
+          <p className="text-5xl tracking-tight">
+            <span className="font-light italic text-(--color-muted)">just </span>
+            <span className="font-black text-foreground">$199</span>
+          </p>
           <p className="mt-1 text-sm text-(--color-muted)">per month · 3-month programme</p>
           <p className="mt-4 text-sm font-medium text-foreground">What&apos;s included</p>
           <ul className="mt-3 grid gap-2 text-sm text-(--color-muted)">

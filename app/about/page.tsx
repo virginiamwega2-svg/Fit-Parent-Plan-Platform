@@ -50,7 +50,7 @@ const BLUR_BANNER = "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwc
 
 export default function AboutPage() {
   return (
-    <div className="pb-8 sm:pb-10">
+    <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
       <Reveal>
         <SectionHeader
           eyebrow="About Fit Parent Plan"

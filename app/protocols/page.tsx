@@ -16,7 +16,7 @@ export const metadata: Metadata = buildMetadata(
 export default function ProtocolsPage() {
   if (busyWeekProtocols.length === 0) {
     return (
-      <div className="pb-8 sm:pb-10">
+      <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
         <Card>
           <p className="font-semibold text-foreground">Protocols are loading.</p>
           <p className="mt-2 text-sm text-(--color-muted)">Check back in a moment.</p>
@@ -26,7 +26,7 @@ export default function ProtocolsPage() {
   }
 
   return (
-    <div className="pb-8 sm:pb-10">
+    <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
       <Reveal>
         <SectionHeader
           eyebrow="Content Engine"

@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata(
 export default function CaseStudiesPage() {
   if (parentCaseStudies.length === 0) {
     return (
-      <div className="pb-8 sm:pb-10">
+      <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
         <Card>
           <p className="font-semibold text-foreground">Case studies are being prepared.</p>
           <p className="mt-2 text-sm text-(--color-muted)">Please check back shortly.</p>
@@ -25,7 +25,7 @@ export default function CaseStudiesPage() {
   }
 
   return (
-    <div className="pb-8 sm:pb-10">
+    <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
       <Reveal>
         <SectionHeader
           eyebrow="Social Proof"

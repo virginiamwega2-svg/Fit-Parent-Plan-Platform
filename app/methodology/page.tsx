@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata(
 export default function MethodologyPage() {
   if (coachCredentials.length === 0 || principles.length === 0 || safetyBoundaries.length === 0) {
     return (
-      <div className="pb-8 sm:pb-10">
+      <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
         <Card>
           <p className="font-semibold text-foreground">Methodology content is updating.</p>
         </Card>
@@ -24,7 +24,7 @@ export default function MethodologyPage() {
   }
 
   return (
-    <div className="pb-8 sm:pb-10">
+    <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
       <Reveal>
         <SectionHeader
           eyebrow="Trust Moat"

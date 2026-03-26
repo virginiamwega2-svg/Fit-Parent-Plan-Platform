@@ -13,7 +13,7 @@ export const metadata: Metadata = buildMetadata(
 
 export default function WorkoutsPage() {
   return (
-    <div className="pb-8 sm:pb-10">
+    <div className="pb-8 pt-8 sm:pb-10 sm:pt-10">
       <Reveal>
         <SectionHeader
           eyebrow="Workout Library"
