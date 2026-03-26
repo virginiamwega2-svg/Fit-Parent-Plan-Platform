@@ -16,7 +16,10 @@ export default async function LoginPage() {
   return (
     <div className="pb-12">
       <div className="mx-auto max-w-md pt-6 text-center">
-        <h1 className="text-3xl font-bold">Welcome back</h1>
+        <h1 className="text-3xl tracking-tight">
+          <span className="font-light italic text-(--color-muted)">Welcome </span>
+          <span className="font-black text-foreground">back.</span>
+        </h1>
       </div>
       <div className="mx-auto mt-6 max-w-md">
         <AuthForm mode="login" />

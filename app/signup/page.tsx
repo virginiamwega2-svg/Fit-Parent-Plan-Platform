@@ -16,7 +16,10 @@ export default async function SignupPage() {
   return (
     <div className="pb-12">
       <div className="mx-auto max-w-md pt-6 text-center">
-        <h1 className="text-3xl font-bold">Create your account</h1>
+        <h1 className="text-3xl tracking-tight">
+          <span className="font-light italic text-(--color-muted)">Create your </span>
+          <span className="font-black text-foreground">account.</span>
+        </h1>
       </div>
       <div className="mx-auto mt-6 max-w-md">
         <AuthForm mode="signup" />
