@@ -91,7 +91,7 @@ function TimeMarker({ time, note }: { time: string; note: string }) {
         <span className="shrink-0 font-mono text-[clamp(2.2rem,5vw,4rem)] leading-none tabular-nums tracking-tighter text-(--color-muted)/35">
           {time}
         </span>
-        <div className="h-px flex-1 bg-(--color-border)" />
+        <div className="time-marker-line h-px flex-1 bg-(--color-border)" />
       </div>
       <p className="mt-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-(--color-muted)">{note}</p>
     </div>
@@ -124,27 +124,30 @@ export default function Home() {
           <div className="relative mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               {/* timestamp */}
-              <div className="flex items-center gap-4">
+              <div className="hero-line-1 flex items-center gap-4">
                 <span className="font-mono text-[clamp(3rem,8vw,7rem)] leading-none tabular-nums tracking-tighter text-white/30">
                   06:22
                 </span>
                 <div className="mb-1 h-px flex-1 bg-white/15" />
               </div>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+              <p className="hero-line-2 mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
                 Tuesday · Every week
               </p>
 
               {/* heading */}
               <h1 className="mt-5 leading-[1.05]">
-                <span className="block text-[clamp(2rem,5vw+0.5rem,4.5rem)] font-light italic text-white/75">Before the kids wake up.</span>
-                <span className="block text-[clamp(2rem,5vw+0.5rem,4.5rem)] font-black text-white"><span className="wave decoration-white/40">Twenty minutes.</span> That&apos;s all it takes.</span>
+                <span className="hero-line-3 block text-[clamp(2rem,5vw+0.5rem,4.5rem)] font-light italic text-white/75">Before the kids wake up.</span>
+                <span className="hero-line-4 block text-[clamp(2rem,5vw+0.5rem,4.5rem)] font-black text-white">
+                  <span className="wave decoration-white/40">Twenty minutes.</span> That&apos;s all it takes.
+                  <span className="ml-1 inline-block h-[0.85em] w-0.5 translate-y-[0.05em] bg-white/50 animate-blink" aria-hidden="true" />
+                </span>
               </h1>
 
-              <p className="mt-5 max-w-lg text-base leading-7 text-white/65 sm:text-lg sm:leading-8">
+              <p className="hero-line-5 mt-5 max-w-lg text-base leading-7 text-white/65 sm:text-lg sm:leading-8">
                 A plan built around the week you actually have — not the one you planned.
               </p>
 
-              <div className="mt-7 flex flex-wrap items-center gap-3">
+              <div className="hero-line-5 mt-7 flex flex-wrap items-center gap-3">
                 <a
                   href="#apply"
                   className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-(--color-brand-strong) shadow-[0_18px_35px_-20px_rgba(0,0,0,0.55)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
@@ -152,7 +155,7 @@ export default function Home() {
                   Apply now
                   <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                 </a>
-                <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/75">
+                <span className="animate-badge-pulse rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/75">
                   6 spots open this month
                 </span>
               </div>

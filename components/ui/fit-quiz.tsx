@@ -80,7 +80,7 @@ export function FitQuiz() {
 
   const q = QUESTIONS[step];
   return (
-    <div>
+    <div key={step} className="animate-rise">
       <p className="text-sm font-medium text-foreground">{q.text}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {q.options.map((opt) => (

@@ -299,6 +299,62 @@ textarea {
   text-decoration-thickness: 1.5px;
 }
 
+/* ── TimeMarker rule grows left→right when section reveals ── */
+@keyframes line-expand {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.time-marker-line {
+  transform-origin: left center;
+}
+
+.reveal-block.is-visible .time-marker-line {
+  animation: line-expand 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s both;
+}
+
+/* ── Gentle float (hero badge, callouts) ─────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ── Soft pulse for scarcity / urgency badges ────────────── */
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+.animate-badge-pulse {
+  animation: badge-pulse 2.8s ease-in-out infinite;
+}
+
+/* ── Blinking cursor ─────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ── Staggered hero text entrance ────────────────────────── */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-line-1 { animation: hero-rise 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.05s both; }
+.hero-line-2 { animation: hero-rise 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.18s both; }
+.hero-line-3 { animation: hero-rise 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.30s both; }
+.hero-line-4 { animation: hero-rise 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.42s both; }
+.hero-line-5 { animation: hero-rise 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.54s both; }
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -338,5 +394,19 @@ textarea {
     animation: none;
     transform: none !important;
     transition: none !important;
+  }
+
+  .animate-float,
+  .animate-badge-pulse,
+  .animate-blink,
+  .time-marker-line,
+  .hero-line-1,
+  .hero-line-2,
+  .hero-line-3,
+  .hero-line-4,
+  .hero-line-5 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
