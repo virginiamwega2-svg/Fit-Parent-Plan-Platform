@@ -45,8 +45,12 @@ body {
   font-size: 1rem;
   line-height: 1.65;
   min-height: 100vh;
-  hyphens: auto;
   overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+  hyphens: auto;
 }
 
 /* Grain texture — reinforces editorial paper feel */
@@ -76,9 +80,7 @@ h1 {
   line-height: 1.0;
 }
 
-p {
-  text-wrap: pretty;       /* prevents short last lines in paragraphs */
-}
+/* (p rule merged below) */
 
 blockquote {
   hanging-punctuation: first last; /* quote marks hang into the left margin */
@@ -418,6 +420,27 @@ textarea {
 .animate-marquee {
   animation: marquee 32s linear infinite;
   will-change: transform;
+}
+
+/* ── Section background strips ───────────────────────────────── */
+/* Cream bands break visual monotony — full-bleed via negative margin trick */
+.section-cream-band {
+  background: var(--color-cream);
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+}
+
+/* ── Count-up number animation ───────────────────────────────── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.stat-number {
+  display: inline-block;
+  animation: count-up 0.5s var(--motion-ease) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

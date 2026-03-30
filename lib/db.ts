@@ -113,6 +113,17 @@ function createDb() {
       updated_at TEXT NOT NULL,
       FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
     );
+
+    CREATE TABLE IF NOT EXISTS leads (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      challenge TEXT NOT NULL,
+      goal TEXT NOT NULL,
+      time_per_day TEXT NOT NULL,
+      ip TEXT,
+      created_at TEXT NOT NULL
+    );
   `);
 
   bootstrapLegacyData(db);

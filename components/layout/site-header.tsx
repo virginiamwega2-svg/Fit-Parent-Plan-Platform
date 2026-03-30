@@ -15,6 +15,15 @@ type AuthUser = {
   createdAt: string;
 };
 
+const HOME_SECTIONS = [
+  { href: "#section-how",     label: "How it works" },
+  { href: "#section-results", label: "Results" },
+  { href: "#section-offer",   label: "Price" },
+  { href: "#section-faq",     label: "FAQ" },
+];
+
+const SECTION_IDS = ["section-fit", "section-what", "section-results", "section-how", "section-team", "section-offer", "section-faq", "apply"];
+
 export function SiteHeader() {
   const router = useRouter();
   const pathname = usePathname();
@@ -23,6 +32,7 @@ export function SiteHeader() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -31,19 +41,32 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Active section tracker via IntersectionObserver
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
+    );
+    for (const id of SECTION_IDS) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, [pathname]);
+
   useEffect(() => {
     let active = true;
-
     const loadUser = async () => {
       try {
         const response = await fetch("/api/auth/me", { cache: "no-store" });
         if (!active) return;
-
-        if (!response.ok) {
-          setUser(null);
-          return;
-        }
-
         const data = (await response.json()) as { authenticated?: boolean; user?: AuthUser };
         setUser(data.authenticated ? (data.user ?? null) : null);
       } catch {
@@ -52,20 +75,24 @@ export function SiteHeader() {
         if (active) setLoadingAuth(false);
       }
     };
-
     void loadUser();
-    return () => {
-      active = false;
-    };
+    return () => { active = false; };
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   function isActive(href: string) {
     if (href === "/") return pathname === "/";
     return pathname === href || pathname.startsWith(`${href}/`);
+  }
+
+  function isSectionActive(href: string) {
+    const id = href.replace("#", "");
+    if (id === "section-how") return activeSection === "section-how";
+    if (id === "section-results") return activeSection === "section-results";
+    if (id === "section-offer") return activeSection === "section-offer";
+    if (id === "section-faq") return activeSection === "section-faq" || activeSection === "apply";
+    return false;
   }
 
   const isHome = pathname === "/";
@@ -85,46 +112,39 @@ export function SiteHeader() {
       scrolled ? "border-b border-(--color-border) shadow-sm" : "border-b border-transparent",
     )}>
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        {/* Logo — smaller on mobile to leave breathing room */}
         {isHome ? (
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-display text-3xl font-black tracking-tight text-foreground transition-colors duration-200 hover:text-(--color-brand)"
+            className="font-display text-xl font-black tracking-tight text-foreground transition-colors duration-200 hover:text-(--color-brand) sm:text-2xl"
           >
             Fit Parent Plan
           </button>
         ) : (
-          <Link href="/" className="font-display text-3xl font-black tracking-tight text-foreground transition-colors duration-200 hover:text-(--color-brand)">
+          <Link href="/" className="font-display text-xl font-black tracking-tight text-foreground transition-colors duration-200 hover:text-(--color-brand) sm:text-2xl">
             Fit Parent Plan
           </Link>
         )}
+
+        {/* Desktop nav */}
         <nav className="hidden items-center gap-3 lg:flex">
           {isHome ? (
             <>
-              <a
-                href="#section-how"
-                className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
-              >
-                How it works
-              </a>
-              <a
-                href="#section-results"
-                className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
-              >
-                Results
-              </a>
-              <a
-                href="#section-offer"
-                className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
-              >
-                Price
-              </a>
-              <a
-                href="#section-faq"
-                className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
-              >
-                FAQ
-              </a>
+              {HOME_SECTIONS.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "rounded-full px-3 py-1 text-sm font-medium transition-colors duration-150",
+                    isSectionActive(item.href)
+                      ? "text-foreground"
+                      : "text-(--color-muted) hover:text-foreground",
+                  )}
+                >
+                  {item.label}
+                </a>
+              ))}
               {navLinks.map((item) => (
                 <Link
                   key={item.href}
@@ -134,6 +154,7 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               ))}
+              {/* Homepage: only show Apply CTA — no Login clutter */}
               {loadingAuth ? null : user ? (
                 <Button href="/dashboard" variant="ghost">Dashboard</Button>
               ) : (
@@ -161,18 +182,14 @@ export function SiteHeader() {
               ))}
               {loadingAuth ? null : user ? (
                 <>
-                  <Button href="/dashboard" variant="ghost">
-                    Dashboard
-                  </Button>
+                  <Button href="/dashboard" variant="ghost">Dashboard</Button>
                   <Button type="button" variant="secondary" onClick={handleLogout} disabled={isLoggingOut}>
                     {isLoggingOut ? "Logging out..." : "Log out"}
                   </Button>
                 </>
               ) : (
                 <>
-                  <Button href="/login" variant="ghost">
-                    Login
-                  </Button>
+                  <Button href="/login" variant="ghost">Login</Button>
                   <a href="/#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
                     See if it fits you
                   </a>
@@ -181,6 +198,8 @@ export function SiteHeader() {
             </>
           )}
         </nav>
+
+        {/* Mobile hamburger */}
         <button
           type="button"
           onClick={() => setOpen((prev) => !prev)}
@@ -199,6 +218,8 @@ export function SiteHeader() {
           )}
         </button>
       </div>
+
+      {/* Mobile nav drawer */}
       <nav
         className={cn(
           "grid overflow-hidden border-t border-(--color-border) transition-all lg:hidden",
@@ -208,34 +229,16 @@ export function SiteHeader() {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 overflow-y-auto px-4 py-4 sm:px-6">
           {isHome ? (
             <>
-              <a
-                href="#section-how"
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
-              >
-                How it works
-              </a>
-              <a
-                href="#section-results"
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
-              >
-                Results
-              </a>
-              <a
-                href="#section-offer"
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
-              >
-                Price
-              </a>
-              <a
-                href="#section-faq"
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
-              >
-                FAQ
-              </a>
+              {HOME_SECTIONS.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
+                >
+                  {item.label}
+                </a>
+              ))}
               {navLinks.map((item) => (
                 <Link
                   key={item.href}
@@ -274,9 +277,7 @@ export function SiteHeader() {
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
                     "rounded-xl px-3 py-3 text-sm font-medium hover:bg-(--color-cream)",
-                    isActive(item.href)
-                      ? "bg-(--color-cream) text-foreground"
-                      : "text-(--color-muted)",
+                    isActive(item.href) ? "bg-(--color-cream) text-foreground" : "text-(--color-muted)",
                   )}
                 >
                   {item.label}
@@ -287,23 +288,14 @@ export function SiteHeader() {
           <div className="mt-2 flex gap-3">
             {loadingAuth ? null : user ? (
               <>
-                <Button href="/dashboard" variant="secondary" className="flex-1">
-                  Dashboard
-                </Button>
-                <Button
-                  type="button"
-                  className="flex-1"
-                  onClick={handleLogout}
-                  disabled={isLoggingOut}
-                >
+                <Button href="/dashboard" variant="secondary" className="flex-1">Dashboard</Button>
+                <Button type="button" className="flex-1" onClick={handleLogout} disabled={isLoggingOut}>
                   {isLoggingOut ? "Logging..." : "Log out"}
                 </Button>
               </>
             ) : (
               <>
-                <Button href="/login" variant="secondary" className="flex-1">
-                  Login
-                </Button>
+                <Button href="/login" variant="secondary" className="flex-1">Login</Button>
                 <a href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-3 text-sm font-semibold">
                   Apply · $199/mo
                 </a>

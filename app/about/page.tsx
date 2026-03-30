@@ -19,7 +19,7 @@ const team = [
     bio: "Mom of two and strength coach for ten years. She sets her alarm 22 minutes early so she can train before the school run — and builds every plan the way she lives.",
     quirk: "Her rule: if she wouldn't do it on a Tuesday night after work, it doesn't go in the plan.",
     credential: "NASM-CPT, Pre/Postnatal Performance Specialist",
-    photo: "/images/team-maya.jpg",
+    photo: "/images/team-maya.webp",
   },
   {
     name: "Chris Dalton",
@@ -27,7 +27,7 @@ const team = [
     bio: "Father of three who got tired of meal plans nobody followed. He now rotates 4 dinners every week and has convinced himself they're different meals.",
     quirk: "His approach: one meal for the whole table, done in under 45 minutes, no separate plates.",
     credential: "Precision Nutrition L2, Family Nutrition Practitioner",
-    photo: "/images/team-chris.jpg",
+    photo: "/images/team-chris.webp",
   },
   {
     name: "Leah Shaw",
@@ -35,7 +35,7 @@ const team = [
     bio: "She runs the weekly check-ins and replies at 10pm from the couch. That's not a flex — it's just when she has time.",
     quirk: "She has a knack for helping parents get back on track after a rough week without the guilt spiral.",
     credential: "Behavior Change Coach, Parent Accountability Specialist",
-    photo: "/images/team-leah.jpg",
+    photo: "/images/team-leah.webp",
   },
 ];
 

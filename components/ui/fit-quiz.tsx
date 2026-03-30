@@ -89,6 +89,23 @@ export function FitQuiz() {
   const q = QUESTIONS[step];
   return (
     <div key={step} className="animate-rise">
+      {/* Progress dots */}
+      <div className="mb-3 flex items-center gap-1.5" aria-label={`Question ${step + 1} of ${QUESTIONS.length}`}>
+        {QUESTIONS.map((_, i) => (
+          <span
+            key={i}
+            className={`block h-1.5 rounded-full transition-all duration-300 ${
+              i < step
+                ? "w-4 bg-(--color-brand)"
+                : i === step
+                  ? "w-6 bg-(--color-brand)"
+                  : "w-4 bg-(--color-border)"
+            }`}
+            aria-hidden="true"
+          />
+        ))}
+        <span className="ml-1 text-xs text-(--color-muted)">{step + 1}/{QUESTIONS.length}</span>
+      </div>
       <p className="text-sm font-medium text-foreground">{q.text}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {q.options.map((opt) => (
@@ -102,9 +119,6 @@ export function FitQuiz() {
           </button>
         ))}
       </div>
-      <p className="mt-3 text-xs text-(--color-muted)">
-        Question {step + 1} of {QUESTIONS.length}
-      </p>
     </div>
   );
 }

@@ -21,9 +21,11 @@ export function StickyApplyCta() {
       <a
         href="#apply"
         tabIndex={visible ? 0 : -1}
-        className="flex h-12 w-full items-center justify-center rounded-full bg-(--color-brand) text-sm font-semibold text-white transition hover:bg-(--color-brand-strong)"
+        className="flex h-12 w-full items-center justify-center gap-3 rounded-full bg-(--color-brand) text-sm font-semibold text-white transition hover:bg-(--color-brand-strong)"
       >
-        Apply now →
+        <span>Apply now</span>
+        <span className="text-white/50">·</span>
+        <span className="text-white/70 text-xs font-normal">$199/mo · 14-day guarantee</span>
       </a>
     </div>
   );

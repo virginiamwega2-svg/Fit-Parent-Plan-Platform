@@ -3,41 +3,30 @@ import { workouts } from "@/lib/data/workouts";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    "",
-    "/workouts",
-    "/meal-plans",
-    "/planner",
-    "/protocols",
-    "/case-studies",
-    "/community",
-    "/tools",
-    "/accountability",
-    "/methodology",
-    "/pricing",
-    "/about",
-    "/contact",
-    "/login",
-    "/signup",
-    "/forgot-password",
-    "/dashboard",
-    "/privacy",
-    "/terms",
-  ];
-  const lastModified = new Date();
+// Public-facing pages only — exclude auth, dashboard, and member-only routes
+const PUBLIC_ROUTES: Array<{ path: string; priority: number; freq: MetadataRoute.Sitemap[number]["changeFrequency"] }> = [
+  { path: "",                 priority: 1.0,  freq: "weekly"  },
+  { path: "/about",           priority: 0.85, freq: "monthly" },
+  { path: "/contact",         priority: 0.75, freq: "monthly" },
+  { path: "/sample-workout",  priority: 0.90, freq: "monthly" },
+  { path: "/privacy",         priority: 0.30, freq: "yearly"  },
+  { path: "/terms",           priority: 0.30, freq: "yearly"  },
+];
 
-  const staticPages = routes.map((route) => ({
-    url: `${siteUrl}${route}`,
+const lastModified = new Date();
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const staticPages = PUBLIC_ROUTES.map(({ path, priority, freq }) => ({
+    url: `${siteUrl}${path}`,
     lastModified,
-    changeFrequency: (route === "" ? "weekly" : "monthly") as "weekly" | "monthly",
-    priority: route === "" ? 1 : 0.7,
+    changeFrequency: freq,
+    priority,
   }));
 
   const workoutPages = workouts.map((workout) => ({
     url: `${siteUrl}/workouts/${workout.slug}`,
     lastModified,
-    changeFrequency: "weekly" as const,
+    changeFrequency: "monthly" as const,
     priority: 0.65,
   }));
 

@@ -1,17 +1,23 @@
 import type { Testimonial } from "@/lib/types";
-import { Card } from "@/components/ui/card";
 
-type Props = {
+type TestimonialCardProps = {
   testimonial: Testimonial;
+  className?: string;
 };
 
-export function TestimonialCard({ testimonial }: Props) {
+export function TestimonialCard({ testimonial, className = "" }: TestimonialCardProps) {
   return (
-    <Card className="h-full">
-      <p className="leading-7 text-(--color-muted)">&ldquo;{testimonial.quote}&rdquo;</p>
-      <p className="mt-4 text-sm font-semibold text-foreground">{testimonial.name}</p>
-      <p className="text-sm text-(--color-muted)">{testimonial.role}</p>
-      <p className="mt-2 text-sm font-medium text-(--color-brand-strong)">{testimonial.result}</p>
-    </Card>
+    <div className={`rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-5 ${className}`}>
+      <p className="text-sm leading-6 text-foreground">&ldquo;{testimonial.quote}&rdquo;</p>
+      <div className="mt-3 flex items-center justify-between">
+        <div>
+          <p className="text-xs font-semibold text-foreground">{testimonial.name}</p>
+          <p className="text-xs text-(--color-muted)">{testimonial.role}</p>
+        </div>
+        <span className="rounded-full bg-(--color-cream) px-2.5 py-0.5 text-xs font-medium text-foreground">
+          {testimonial.result}
+        </span>
+      </div>
+    </div>
   );
 }

@@ -24,6 +24,44 @@ const fraunces = Fraunces({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? siteConfig.siteUrl;
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  name: siteConfig.name,
+  description: siteConfig.description,
+  url: siteUrl,
+  email: siteConfig.contactEmail,
+  priceRange: "$$",
+  image: `${siteUrl}${siteConfig.ogImage}`,
+  sameAs: [siteConfig.instagramUrl],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Online Fitness Coaching",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Monthly Fitness Coaching",
+          description: "20-minute home workouts, weekly meal plans, and personal coach check-ins for busy parents.",
+        },
+        price: "199",
+        priceCurrency: "USD",
+        priceSpecification: {
+          "@type": "RecurringChargeSpecification",
+          billingDuration: "P1M",
+        },
+      },
+    ],
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "38",
+    bestRating: "5",
+  },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -76,6 +114,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${inter.variable} ${fraunces.variable} antialiased`}>
         {gaId ? (
           <>

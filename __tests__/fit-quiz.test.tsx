@@ -13,7 +13,7 @@ describe("FitQuiz", () => {
 
   test("shows question counter", () => {
     render(<FitQuiz />);
-    expect(screen.getByText("Question 1 of 3")).toBeInTheDocument();
+    expect(screen.getByLabelText("Question 1 of 3")).toBeInTheDocument();
   });
 
   test("advances to question 2 after answering question 1", async () => {
@@ -21,7 +21,7 @@ describe("FitQuiz", () => {
     render(<FitQuiz />);
     await user.click(screen.getByRole("button", { name: "3 days" }));
     expect(screen.getByText(/what matters most/i)).toBeInTheDocument();
-    expect(screen.getByText("Question 2 of 3")).toBeInTheDocument();
+    expect(screen.getByLabelText("Question 2 of 3")).toBeInTheDocument();
   });
 
   test("advances to question 3 after answering question 2", async () => {
@@ -30,7 +30,7 @@ describe("FitQuiz", () => {
     await user.click(screen.getByRole("button", { name: "3 days" }));
     await user.click(screen.getByRole("button", { name: "Lose fat" }));
     expect(screen.getByText(/what's stopped you before/i)).toBeInTheDocument();
-    expect(screen.getByText("Question 3 of 3")).toBeInTheDocument();
+    expect(screen.getByLabelText("Question 3 of 3")).toBeInTheDocument();
   });
 
   test("shows result after all 3 answers", async () => {

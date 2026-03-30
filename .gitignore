@@ -8,5 +8,8 @@ node_modules
 .env.test
 .DS_Store
 .cursor
+.claude
 tsconfig.tsbuildinfo
 next-env.d.ts
+data/
+"public/images/hero.jpg (4).jpg"

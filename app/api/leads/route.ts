@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { leadCaptureSchema } from "@/lib/validation";
+import { getDb } from "@/lib/db";
 
 type LeadPayload = {
   name?: string;
@@ -80,6 +81,63 @@ async function verifyTurnstileToken(token: string, ip: string) {
   return data.success === true;
 }
 
+function saveLead(lead: {
+  name: string;
+  email: string;
+  challenge: string;
+  goal: string;
+  timePerDay: string;
+  ip: string;
+  createdAt: string;
+}) {
+  try {
+    const db = getDb();
+    db.prepare(
+      `INSERT INTO leads (name, email, challenge, goal, time_per_day, ip, created_at)
+       VALUES (@name, @email, @challenge, @goal, @timePerDay, @ip, @createdAt)`,
+    ).run(lead);
+  } catch (error) {
+    // Log but don't fail the request — lead data should not block the response.
+    if (process.env.NODE_ENV !== "production") {
+      console.error("Failed to save lead to database", error);
+    }
+  }
+}
+
+async function sendAdminNotification(lead: {
+  name: string;
+  email: string;
+  challenge: string;
+  goal: string;
+  timePerDay: string;
+}) {
+  const resendApiKey = process.env.RESEND_API_KEY?.trim();
+  const adminEmail = process.env.ADMIN_EMAIL?.trim() ?? "support@fitparentplan.com";
+  if (!resendApiKey) return;
+
+  try {
+    const { Resend } = await import("resend");
+    const resend = new Resend(resendApiKey);
+    await resend.emails.send({
+      from: "Fit Parent Plan <notifications@fitparentplan.com>",
+      to: adminEmail,
+      subject: `New application from ${lead.name}`,
+      html: `
+        <h2>New coaching application</h2>
+        <p><strong>Name:</strong> ${lead.name}</p>
+        <p><strong>Email:</strong> ${lead.email}</p>
+        <p><strong>Goal:</strong> ${lead.goal}</p>
+        <p><strong>Time per day:</strong> ${lead.timePerDay} min</p>
+        <p><strong>Challenge:</strong><br>${lead.challenge}</p>
+      `,
+    });
+  } catch (error) {
+    if (process.env.NODE_ENV !== "production") {
+      console.error("Failed to send admin notification email", error);
+    }
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const clientIp = getClientIp(request);
@@ -154,6 +212,12 @@ export async function POST(request: Request) {
       ip: clientIp,
       createdAt: new Date().toISOString(),
     };
+
+    // Persist to database.
+    saveLead(lead);
+
+    // Notify admin via email.
+    await sendAdminNotification(lead);
 
     const webhookUrl = process.env.LEAD_WEBHOOK_URL?.trim();
     if (webhookUrl) {

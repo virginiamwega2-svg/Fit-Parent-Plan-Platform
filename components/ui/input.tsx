@@ -1,29 +1,19 @@
-import type React from "react";
-import { useId } from "react";
-import { cn } from "@/lib/utils";
+import type { InputHTMLAttributes } from "react";
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+  label?: string;
   error?: string;
 };
 
-export function Input({ label, className, id, error, ...props }: InputProps) {
-  const fallbackId = useId();
-  const inputId = id ?? fallbackId;
-
+export function Input({ label, error, className = "", ...props }: InputProps) {
   return (
-    <label className="grid gap-2 text-sm font-medium text-foreground" htmlFor={inputId}>
-      {label}
+    <label className="grid gap-1">
+      {label ? <span className="text-sm font-medium text-foreground">{label}</span> : null}
       <input
-        id={inputId}
-        className={cn(
-          "rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm outline-none transition focus-visible:border-(--color-brand) focus-visible:ring-2 focus-visible:ring-(--color-brand)/20",
-          error && "border-red-500",
-          className,
-        )}
+        className={`h-10 rounded-xl border border-(--color-border) px-3 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${error ? "border-red-400" : ""} ${className}`}
         {...props}
       />
-      {error ? <span className="text-xs text-red-600">{error}</span> : null}
+      {error ? <span className="text-xs text-red-700">{error}</span> : null}
     </label>
   );
 }
