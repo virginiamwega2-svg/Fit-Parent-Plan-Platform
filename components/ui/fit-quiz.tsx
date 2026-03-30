@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check } from "lucide-react";
 
 const QUESTIONS = [
   {
@@ -68,12 +69,19 @@ export function FitQuiz() {
 
   if (done) {
     return (
-      <div className="rounded-2xl border border-(--color-brand)/25 bg-(--color-brand)/5 p-4 sm:p-5">
-        <p className="text-sm font-semibold text-(--color-brand)">Sounds like a fit.</p>
-        <p className="mt-1.5 text-sm leading-6 text-(--color-muted)">{buildResult(answers)}</p>
-        <p className="mt-2 text-sm text-(--color-muted)">
-          Fill in the form below and we'll confirm it's the right fit for you specifically.
-        </p>
+      <div className="animate-rise rounded-2xl border border-(--color-brand)/25 bg-(--color-brand)/5 p-5 sm:p-6">
+        <div className="flex items-start gap-3">
+          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-(--color-brand) text-white" aria-hidden="true"><Check size={14} strokeWidth={2.5} /></span>
+          <div>
+            <p className="font-semibold text-foreground">Sounds like a strong fit.</p>
+            <p className="mt-1 text-sm leading-6 text-(--color-muted)">{buildResult(answers)}</p>
+          </div>
+        </div>
+        <div className="mt-4 border-t border-(--color-brand)/15 pt-4">
+          <p className="text-sm text-(--color-muted)">
+            Fill in the form below and Maya will reply with a personalised note — usually within a few hours.
+          </p>
+        </div>
       </div>
     );
   }

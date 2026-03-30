@@ -89,12 +89,12 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-display text-2xl text-foreground transition-colors duration-200 hover:text-(--color-brand)"
+            className="font-display text-3xl font-black tracking-tight text-foreground transition-colors duration-200 hover:text-(--color-brand)"
           >
             Fit Parent Plan
           </button>
         ) : (
-          <Link href="/" className="font-display text-2xl text-foreground transition-colors duration-200 hover:text-(--color-brand)">
+          <Link href="/" className="font-display text-3xl font-black tracking-tight text-foreground transition-colors duration-200 hover:text-(--color-brand)">
             Fit Parent Plan
           </Link>
         )}
@@ -102,14 +102,26 @@ export function SiteHeader() {
           {isHome ? (
             <>
               <a
-                href="#offer"
-                className="rounded-full px-3 py-1 text-xs font-semibold text-(--color-muted) transition-colors hover:text-foreground xl:text-sm"
+                href="#section-how"
+                className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
               >
-                Program
+                How it works
               </a>
               <a
-                href="#faq"
-                className="rounded-full px-3 py-1 text-xs font-semibold text-(--color-muted) transition-colors hover:text-foreground xl:text-sm"
+                href="#section-results"
+                className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
+              >
+                Results
+              </a>
+              <a
+                href="#section-offer"
+                className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
+              >
+                Price
+              </a>
+              <a
+                href="#section-faq"
+                className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
               >
                 FAQ
               </a>
@@ -117,7 +129,7 @@ export function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-full px-3 py-1 text-xs font-semibold text-(--color-muted) transition-colors hover:text-foreground xl:text-sm"
+                  className="rounded-full px-3 py-1 text-sm font-medium text-(--color-muted) transition-colors hover:text-foreground"
                 >
                   {item.label}
                 </Link>
@@ -126,7 +138,7 @@ export function SiteHeader() {
                 <Button href="/dashboard" variant="ghost">Dashboard</Button>
               ) : (
                 <a href="#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
-                  See if it fits you
+                  Apply · $199/mo
                 </a>
               )}
             </>
@@ -197,14 +209,28 @@ export function SiteHeader() {
           {isHome ? (
             <>
               <a
-                href="#offer"
+                href="#section-how"
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
               >
-                Program
+                How it works
               </a>
               <a
-                href="#faq"
+                href="#section-results"
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
+              >
+                Results
+              </a>
+              <a
+                href="#section-offer"
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
+              >
+                Price
+              </a>
+              <a
+                href="#section-faq"
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-3 py-3 text-sm font-medium text-(--color-muted) hover:bg-(--color-cream) hover:text-foreground"
               >
@@ -234,7 +260,7 @@ export function SiteHeader() {
                   onClick={() => setOpen(false)}
                   className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-(--color-cream)"
                 >
-                  See if it fits you
+                  Apply · $199/mo
                 </a>
               )}
             </>
@@ -279,7 +305,7 @@ export function SiteHeader() {
                   Login
                 </Button>
                 <a href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-3 text-sm font-semibold">
-                  See if it fits you
+                  Apply · $199/mo
                 </a>
               </>
             )}

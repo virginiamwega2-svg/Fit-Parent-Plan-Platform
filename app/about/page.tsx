@@ -64,7 +64,7 @@ export default function AboutPage() {
       <Reveal className="mt-6" delayMs={40}>
         <div className="relative aspect-21/9 w-full overflow-hidden rounded-3xl">
           <Image
-            src="/images/about-banner.jpg"
+            src="/images/about-banner.webp"
             alt="Parents building healthy habits together"
             fill
             sizes="(max-width: 1280px) 100vw, 1152px"

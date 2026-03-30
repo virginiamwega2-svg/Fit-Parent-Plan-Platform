@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const sharp = require\\(''sharp''\\); console.log\\(''sharp available:'', sharp.versions\\);\")",
+      "Bash(node -e \":*)"
+    ]
+  }
+}

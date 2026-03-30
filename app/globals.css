@@ -7,39 +7,25 @@ html {
 }
 
 :root {
-  --color-bg: #f9f7f4;
-  --color-bg-soft: #ffffff;
-  --color-ink: #1c1c1a;
-  --color-muted: #6a6763;
-  --color-brand: #1b5afb;
-  --color-brand-strong: #1449d4;
-  --color-secondary: #f59038;
-  --color-secondary-strong: #e07b20;
-  --color-accent: #3b82f6;
+  --color-bg: #ffffff;           /* pure white — page background */
+  --color-bg-soft: #ffffff;      /* pure white — card surfaces */
+  --color-ink: #1c1712;          /* warm near-black */
+  --color-muted: #7a6e60;        /* warm taupe */
+  --color-brand: #2d5a3d;        /* forest green — CTA & accent */
+  --color-brand-strong: #234831; /* deep forest green */
+  --color-secondary: #3a7d5a;    /* medium green — secondary actions */
+  --color-secondary-strong: #2d6a4b;
   --color-on-brand: #ffffff;
-  --color-cream: #ede9e2;
-  --color-melon-soft: #fef3e8;
+  --color-cream: #f0f5f2;        /* light sage — hover / highlight surfaces */
+  --color-melon-soft: #fef3e8;   /* warm — dashboard pages */
   --color-melon-glow: #fde8cc;
-  --color-cream-glow: #e0dcd5;
-  --color-mint-soft: #e6f2ec;
-  --color-mint-glow: #cfe8da;
-  --color-sky-soft: #e5edf7;
-  --color-sky-glow: #d6e4f0;
-  --color-rose-soft: #fee2e2;
-  --color-rose-glow: #fecaca;
-  --color-lavender-soft: #ede9fe;
-  --color-lavender-glow: #ddd6fe;
-  --color-sand-soft: #f5f5f0;
-  --color-sage-soft: #ecfdf5;
-  --color-lilac-soft: #f0effe;
-  --color-border: #e8e4de;
-  --shadow-soft: 0 24px 60px -38px rgba(0, 0, 0, 0.15);
-  --accent-neon: #3b82f6;
-  --accent-neon-strong: #2563eb;
-  --button-grad-start: #1b5afb;
-  --button-grad-mid: #2563eb;
-  --button-grad-end: #3b82f6;
-  --button-shadow: 0 24px 50px -28px rgba(27, 90, 251, 0.4);
+  --color-cream-glow: #d8eae0;   /* sage glow */
+  --color-mint-soft: #e4eeea;    /* sage tint — result badges */
+  --color-mint-glow: #d0e3d8;
+  --color-sage-soft: #e4eeea;
+  --color-border: #e2e8e4;       /* neutral sage border */
+  --shadow-soft: 0 24px 60px -38px rgba(28, 23, 18, 0.12);
+  --button-shadow: 0 24px 50px -28px rgba(45, 90, 61, 0.40);
   --motion-fast: 220ms;
   --motion-normal: 520ms;
   --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -59,6 +45,20 @@ body {
   font-size: 1rem;
   line-height: 1.65;
   min-height: 100vh;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+/* Grain texture — reinforces editorial paper feel */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  pointer-events: none;
+  opacity: 0.032;
+  z-index: 9999;
 }
 
 h1,
@@ -68,6 +68,7 @@ h3 {
   font-optical-sizing: auto;
   letter-spacing: -0.025em;
   line-height: 1.15;
+  text-wrap: balance;      /* prevents orphaned single words on last line */
 }
 
 h1 {
@@ -75,7 +76,64 @@ h1 {
   line-height: 1.0;
 }
 
+p {
+  text-wrap: pretty;       /* prevents short last lines in paragraphs */
+}
+
+blockquote {
+  hanging-punctuation: first last; /* quote marks hang into the left margin */
+}
+
+/* Ultra-thin italic — pushed further than font-light.
+   Use alongside font-black for maximum editorial contrast. */
+.font-thin-italic {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 100;
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+/* Oversized editorial pull quote */
+.pull-quote {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3.75rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--color-ink);
+}
+
+.pull-quote em {
+  font-weight: 100;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+/* Time-of-day section background shifts */
+.section-bg-predawn  { background: #ffffff; }
+.section-bg-morning  { background: #ffffff; }
+.section-bg-midday   { background: #ffffff; }
+.section-bg-afternoon{ background: #ffffff; }
+.section-bg-evening  { background: #eef4f0; } /* light sage */
+.section-bg-night    { background: #e4eeea; } /* sage — deepest */
+
 .font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* Consistent eyebrow label — use instead of scattered tracking-widest/tracking-[0.18em] */
+.eyebrow {
+  font-size: 0.6875rem;     /* 11px — smaller than text-xs (12px) for refinement */
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Tabular numbers for prices and counters */
+.tabular-price {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
   font-family: var(--font-display), Georgia, serif;
 }
 
@@ -92,7 +150,8 @@ textarea {
 }
 
 .cta-button {
-  background-image: linear-gradient(135deg, var(--button-grad-start), var(--button-grad-mid), var(--button-grad-end));
+  background-color: var(--color-brand);
+  background-image: linear-gradient(160deg, var(--color-brand) 0%, var(--color-brand-strong) 100%);
   color: var(--color-on-brand);
   cursor: pointer;
   text-decoration: none;
@@ -109,7 +168,7 @@ textarea {
 .cta-button:hover {
   filter: brightness(1.06) saturate(1.12);
   transform: translateY(-2px);
-  box-shadow: 0 26px 50px -28px rgba(17, 24, 39, 0.65);
+  box-shadow: 0 26px 50px -28px rgba(28, 23, 18, 0.50);
 }
 
 .cta-button:focus-visible {
@@ -122,7 +181,7 @@ textarea {
   position: absolute;
   inset: 2px;
   border-radius: inherit;
-  border: 1px solid color-mix(in srgb, var(--accent-neon) 55%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   opacity: 0.75;
   pointer-events: none;
   transition: opacity var(--motion-fast) var(--motion-ease);
@@ -299,20 +358,6 @@ textarea {
   text-decoration-thickness: 1.5px;
 }
 
-/* ── TimeMarker rule grows left→right when section reveals ── */
-@keyframes line-expand {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-}
-
-.time-marker-line {
-  transform-origin: left center;
-}
-
-.reveal-block.is-visible .time-marker-line {
-  animation: line-expand 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s both;
-}
-
 /* ── Gentle float (hero badge, callouts) ─────────────────── */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
@@ -341,6 +386,16 @@ textarea {
 
 .animate-blink {
   animation: blink 1s step-end infinite;
+}
+
+/* ── Hero image scale-in entrance ────────────────────────── */
+@keyframes hero-scale {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+
+.hero-img-enter {
+  animation: hero-scale 2s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 /* ── Staggered hero text entrance ────────────────────────── */
@@ -399,7 +454,7 @@ textarea {
   .animate-float,
   .animate-badge-pulse,
   .animate-blink,
-  .time-marker-line,
+  .hero-img-enter,
   .hero-line-1,
   .hero-line-2,
   .hero-line-3,
