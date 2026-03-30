@@ -74,17 +74,17 @@ const FAQ = [
 
 /* ─── social proof stat block with count-up ─────────────────────── */
 function SocialProofStats() {
-  const parents = useCountUp(74, 0, 1400);
-  const rating = useCountUp(4.9, 1, 1200);
+  const { value: parentsCount, ref: parentsRef } = useCountUp(74, 0, 1400);
+  const { value: ratingVal, ref: ratingRef } = useCountUp(4.9, 1, 1200);
 
   return (
     <p
-      ref={parents.ref as React.RefObject<HTMLParagraphElement>}
+      ref={parentsRef as React.RefObject<HTMLParagraphElement>}
       className="mt-6 text-sm text-(--color-muted)"
     >
-      <span className="font-semibold text-foreground">{parents.value}</span>{" "}
+      <span className="font-semibold text-foreground">{parentsCount}</span>{" "}
       parents coached since 2022 · rated{" "}
-      <span className="font-semibold text-foreground">{rating.value.toFixed(1)}</span> / 5 across 38 reviews
+      <span ref={ratingRef as React.RefObject<HTMLSpanElement>} className="font-semibold text-foreground">{ratingVal.toFixed(1)}</span> / 5 across 38 reviews
     </p>
   );
 }

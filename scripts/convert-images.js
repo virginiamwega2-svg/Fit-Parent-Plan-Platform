@@ -1,6 +1,7 @@
 // scripts/convert-images.js
 // Converts all JPEG/PNG images in public/images to WebP and AVIF.
 // Run: node scripts/convert-images.js
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 const sharp = require("sharp");
 const fs = require("fs");

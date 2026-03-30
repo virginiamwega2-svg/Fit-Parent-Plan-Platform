@@ -190,9 +190,9 @@ export function SiteHeader() {
               ) : (
                 <>
                   <Button href="/login" variant="ghost">Login</Button>
-                  <a href="/#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
+                  <Link href="/#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
                     See if it fits you
-                  </a>
+                  </Link>
                 </>
               )}
             </>
@@ -296,9 +296,9 @@ export function SiteHeader() {
             ) : (
               <>
                 <Button href="/login" variant="secondary" className="flex-1">Login</Button>
-                <a href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-3 text-sm font-semibold">
+                <Link href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-3 text-sm font-semibold">
                   Apply · $199/mo
-                </a>
+                </Link>
               </>
             )}
           </div>

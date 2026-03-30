@@ -89,7 +89,7 @@ export default function SampleWorkoutPage() {
         <p className="text-sm font-semibold text-foreground">Before you start — 2 min warm-up</p>
         <p className="mt-1 text-sm leading-6 text-(--color-muted)">
           30 sec arm circles · 30 sec leg swings (each side) · 30 sec hip circles · 30 sec slow bodyweight squats.
-          That's it. You're warm.
+          That&apos;s it. You&apos;re warm.
         </p>
       </div>
 
@@ -129,7 +129,7 @@ export default function SampleWorkoutPage() {
       {/* Rest between rounds */}
       <div className="mt-4 rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4 text-center">
         <p className="text-sm font-semibold text-foreground">Rest between rounds: 90 seconds</p>
-        <p className="text-xs text-(--color-muted)">Walk around, shake out your hands. Don't sit down.</p>
+        <p className="text-xs text-(--color-muted)">Walk around, shake out your hands. Don&apos;t sit down.</p>
       </div>
 
       {/* Cool-down */}
@@ -170,13 +170,13 @@ export default function SampleWorkoutPage() {
         <p className="mt-2 text-sm text-white/60">
           Tell us your schedule. Maya replies within 24 hours with a personalised plan.
         </p>
-        <a
+        <Link
           href="/#apply"
           className="cta-button mt-5 inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold"
         >
           Apply now <ArrowRight size={13} aria-hidden="true" />
-        </a>
-        <p className="mt-3 text-xs text-white/40">14-day guarantee · No payment until after Maya's reply</p>
+        </Link>
+        <p className="mt-3 text-xs text-white/40">14-day guarantee · No payment until after Maya&apos;s reply</p>
       </div>
 
       <div className="mt-10 flex items-center justify-between text-sm">
