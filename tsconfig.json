@@ -30,5 +30,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "my-nextjs-site"]
+  "exclude": ["node_modules", "my-nextjs-site", "playwright.config.ts", "e2e"]
 }
