@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
-  apiVersion: "2026-03-25.dahlia",
-});
-
 export async function POST(request: Request) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET?.trim();
-  if (!webhookSecret) {
+  const stripeKey = process.env.STRIPE_SECRET_KEY;
+
+  if (!webhookSecret || !stripeKey) {
     return NextResponse.json({ received: true });
   }
+
+  const stripe = new Stripe(stripeKey, { apiVersion: "2026-03-25.dahlia" });
 
   const body = await request.text();
   const signature = request.headers.get("stripe-signature") ?? "";
