@@ -17,6 +17,7 @@ export function Reveal({ children, className, delayMs = 0 }: RevealProps) {
   useEffect(() => {
     // Immediately reveal when reduced motion is preferred (covers CI + accessibility)
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisible(true);
       return;
     }
