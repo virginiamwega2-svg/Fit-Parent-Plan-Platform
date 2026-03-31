@@ -15,6 +15,12 @@ export function Reveal({ children, className, delayMs = 0 }: RevealProps) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // Immediately reveal when reduced motion is preferred (covers CI + accessibility)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+
     const node = ref.current;
     if (!node) return;
 

@@ -9,6 +9,8 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
+    // Disable reveal animations so opacity:0 elements don't block visibility checks
+    reducedMotion: "reduce",
   },
   projects: [
     {
@@ -17,7 +19,7 @@ export default defineConfig({
     },
     {
       name: "mobile",
-      use: { ...devices["Pixel 7"], channel: "chrome" },
+      use: { ...devices["Pixel 7"] },
     },
   ],
   webServer: {

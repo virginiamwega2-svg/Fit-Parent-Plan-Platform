@@ -3,6 +3,10 @@ import { test, expect } from "@playwright/test";
 test.describe("Homepage", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
+    // Disable reveal animations so opacity:0 elements don't block visibility assertions
+    await page.addStyleTag({
+      content: ".reveal-block { opacity: 1 !important; transform: none !important; transition: none !important; }",
+    });
   });
 
   // ── Hero ────────────────────────────────────────────────────────────
@@ -62,13 +66,14 @@ test.describe("Homepage", () => {
   });
 
   test("pricing shows $199", async ({ page }) => {
-    await expect(page.getByText("$199")).toBeVisible();
+    await expect(page.locator("#section-offer").getByText("$199", { exact: true })).toBeVisible();
   });
 
   test("coaches section shows 3 coaches", async ({ page }) => {
-    await expect(page.getByText("Maya Grant")).toBeVisible();
-    await expect(page.getByText("Chris Dalton")).toBeVisible();
-    await expect(page.getByText("Leah Shaw")).toBeVisible();
+    const team = page.locator("#section-team");
+    await expect(team.getByText("Maya Grant").first()).toBeVisible();
+    await expect(team.getByText("Chris Dalton").first()).toBeVisible();
+    await expect(team.getByText("Leah Shaw").first()).toBeVisible();
   });
 
   // ── FitQuiz ─────────────────────────────────────────────────────────
