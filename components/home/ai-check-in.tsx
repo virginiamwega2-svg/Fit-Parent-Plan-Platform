@@ -194,6 +194,25 @@ function PlanCard({
           {plan.reasoning}
         </p>
       )}
+
+      {/* Post-plan CTA — the highest-conversion moment */}
+      <div className="mt-4 flex flex-col gap-2 rounded-xl bg-(--color-mint-soft) px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs leading-5 text-foreground">
+          <span className="font-semibold">Like this?</span>{" "}
+          <span className="text-(--color-muted)">
+            Get one every Monday from a real coach — and the AI adjusts mid-week when life happens.
+          </span>
+        </p>
+        <a
+          href="#apply"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-(--color-brand) px-4 py-1.5 text-xs font-semibold text-white"
+        >
+          Apply — 2 min
+          <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M3 7h8M7 3l4 4-4 4" />
+          </svg>
+        </a>
+      </div>
     </div>
   );
 }
