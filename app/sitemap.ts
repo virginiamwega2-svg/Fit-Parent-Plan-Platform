@@ -7,6 +7,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const PUBLIC_ROUTES: Array<{ path: string; priority: number; freq: MetadataRoute.Sitemap[number]["changeFrequency"] }> = [
   { path: "",                 priority: 1.0,  freq: "weekly"  },
   { path: "/about",           priority: 0.85, freq: "monthly" },
+  { path: "/how-its-built",   priority: 0.80, freq: "monthly" },
   { path: "/contact",         priority: 0.75, freq: "monthly" },
   { path: "/privacy",         priority: 0.30, freq: "yearly"  },
   { path: "/terms",           priority: 0.30, freq: "yearly"  },
