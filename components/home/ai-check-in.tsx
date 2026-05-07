@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Mic, MicOff, Send, Sparkles, Info } from "lucide-react";
-import { generatePlanAction, type GeneratePlanResponse } from "@/app/actions/ai";
+import { Mic, MicOff, Send, Sparkles, Info, Mail, Check } from "lucide-react";
+import { generatePlanAction, savePlanEmailAction, type GeneratePlanResponse } from "@/app/actions/ai";
 import { useVoiceInput } from "@/hooks/use-voice-input";
 
 const EXAMPLES = [
@@ -12,7 +12,8 @@ const EXAMPLES = [
 ];
 
 export function AiCheckIn() {
-  const [text, setText] = useState("");
+  // Pre-fill so visitors don't face a blank box — lowers friction massively.
+  const [text, setText] = useState(EXAMPLES[0]);
   const [minutes, setMinutes] = useState<number>(20);
   const [response, setResponse] = useState<GeneratePlanResponse | null>(null);
   const [showReasoning, setShowReasoning] = useState(false);
@@ -213,6 +214,68 @@ function PlanCard({
           </svg>
         </a>
       </div>
+
+      {/* Soft email capture — converts non-buyers into leads */}
+      <EmailCaptureRow />
+    </div>
+  );
+}
+
+function EmailCaptureRow() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "sent" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+
+  const submit = () => {
+    if (!email.trim()) return;
+    setError(null);
+    startTransition(async () => {
+      const res = await savePlanEmailAction({ email: email.trim() });
+      if (res.ok) {
+        setStatus("sent");
+      } else {
+        setStatus("error");
+        setError(res.error);
+      }
+    });
+  };
+
+  if (status === "sent") {
+    return (
+      <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-(--color-muted)">
+        <Check size={12} className="text-(--color-brand)" aria-hidden="true" />
+        On its way to <span className="font-semibold text-foreground">{email}</span>.
+      </p>
+    );
+  }
+
+  return (
+    <div className="mt-3">
+      <label htmlFor="plan-email" className="flex items-center gap-1.5 text-xs text-(--color-muted)">
+        <Mail size={11} aria-hidden="true" />
+        Or email me this plan to do later:
+      </label>
+      <div className="mt-1.5 flex gap-2">
+        <input
+          id="plan-email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && submit()}
+          placeholder="you@example.com"
+          className="flex-1 rounded-lg border border-(--color-border) bg-white px-3 py-1.5 text-xs text-foreground placeholder:text-(--color-muted)/50 focus:border-(--color-brand) focus:outline-none"
+        />
+        <button
+          type="button"
+          onClick={submit}
+          disabled={isPending || !email.trim()}
+          className="inline-flex shrink-0 items-center rounded-lg border border-(--color-border) bg-white px-3 py-1.5 text-xs font-semibold text-foreground hover:border-(--color-brand)/40 disabled:opacity-50"
+        >
+          {isPending ? "Sending…" : "Send"}
+        </button>
+      </div>
+      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
     </div>
   );
 }

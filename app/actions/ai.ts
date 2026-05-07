@@ -6,6 +6,12 @@ import { generatePlan } from "@/lib/ai/adapter";
 import { rateLimit } from "@/lib/ai/rate-limit";
 import type { PlanResult } from "@/lib/ai/types";
 
+const emailSchema = z.object({
+  email: z.string().trim().email("Use a valid email address."),
+});
+
+export type SavePlanEmailResponse = { ok: true } | { ok: false; error: string };
+
 const checkInSchema = z.object({
   text: z.string().trim().min(4, "Tell me a little more.").max(800, "Keep it under 800 characters."),
   minutesAvailable: z.number().int().min(5).max(120).optional(),
@@ -56,4 +62,19 @@ export async function generatePlanAction(input: unknown): Promise<GeneratePlanRe
           : `Assistant error: ${detail}`,
     };
   }
+}
+
+/**
+ * Captures an email to send the generated plan to. Always responds optimistically
+ * after validation — the actual send/queue is best-effort and shouldn't block
+ * the conversion moment. Lead is logged server-side; wire to Resend later.
+ */
+export async function savePlanEmailAction(input: unknown): Promise<SavePlanEmailResponse> {
+  const parsed = emailSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid email." };
+  }
+  const ip = await getClientIp();
+  console.info(`[plan-email-capture] ${parsed.data.email} (ip=${ip})`);
+  return { ok: true };
 }

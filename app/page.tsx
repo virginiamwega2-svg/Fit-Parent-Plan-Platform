@@ -137,6 +137,14 @@ export default function Home() {
             <p className="mt-3 text-xs text-white/60">
               No signup · 14-day money-back guarantee on paid plans
             </p>
+            {/* Trust strip — credentials at a glance */}
+            <p className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/50">
+              <span>NASM-CPT coaches</span>
+              <span aria-hidden="true">·</span>
+              <span>Pre/postnatal specialists</span>
+              <span aria-hidden="true">·</span>
+              <span>Built for parents since 2022</span>
+            </p>
           </div>
         </div>
 
