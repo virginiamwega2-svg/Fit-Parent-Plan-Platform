@@ -37,6 +37,7 @@ export function useVoiceInput(onTranscript: (text: string) => void) {
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSupported(Boolean(getRecognitionCtor()));
   }, []);
 
