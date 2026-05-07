@@ -2,6 +2,7 @@
 
 import { Sparkles, Mic, Calendar, Clock } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { AiCheckIn } from "@/components/home/ai-check-in";
 
 export function AiDemoSection() {
   return (
@@ -45,42 +46,7 @@ export function AiDemoSection() {
                 </p>
               </div>
 
-              {/* Demo card placeholder — replaced by live component in next task */}
-              <div
-                id="section-ai-try"
-                className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.18)] sm:p-7"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">
-                    Live preview
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-(--color-mint-soft) px-2.5 py-0.5 text-xs font-medium text-foreground">
-                    <span className="h-1.5 w-1.5 rounded-full bg-(--color-brand)" aria-hidden="true" />
-                    Coming online
-                  </span>
-                </div>
-                <div className="mt-5 space-y-3">
-                  <div className="rounded-2xl bg-(--color-bg-soft) px-4 py-3 text-sm text-(--color-muted)">
-                    &ldquo;Slept badly. Kids up early. I&apos;ve got 20 min before the school run.&rdquo;
-                  </div>
-                  <div className="rounded-2xl border border-(--color-brand)/15 bg-white px-4 py-3 text-sm leading-6 text-foreground">
-                    <p className="font-semibold">Today: a low-impact mobility flow.</p>
-                    <p className="mt-1 text-(--color-muted)">
-                      18 minutes, kitchen-friendly, no equipment. Skipping HIIT — your sleep score
-                      says recovery, not stress.
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-5 flex items-center justify-between border-t border-(--color-border) pt-4 text-xs text-(--color-muted)/70">
-                  <span>Powered by Claude</span>
-                  <button
-                    type="button"
-                    className="underline underline-offset-2 hover:text-(--color-muted)"
-                  >
-                    Why this plan?
-                  </button>
-                </div>
-              </div>
+              <AiCheckIn />
             </div>
           </section>
         </Reveal>
