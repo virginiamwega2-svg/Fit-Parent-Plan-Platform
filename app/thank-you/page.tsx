@@ -85,18 +85,6 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
         ))}
       </div>
 
-      {/* While you wait */}
-      <div className="mt-8 rounded-2xl border border-(--color-border) bg-(--color-cream) p-5">
-        <p className="text-sm font-semibold text-foreground">While you wait</p>
-        <p className="mt-1 text-sm text-(--color-muted)">
-          Read{" "}
-          <Link href="/sample-workout" className="font-medium text-(--color-brand) underline underline-offset-2">
-            a sample 20-minute workout
-          </Link>{" "}
-          to see exactly what sessions look like — bodyweight, at home, done before breakfast.
-        </p>
-      </div>
-
       <div className="mt-8 text-center">
         <Link
           href="/"

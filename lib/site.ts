@@ -18,6 +18,5 @@ export const memberLinks = [
   { href: "/workouts", label: "Workouts" },
   { href: "/meal-plans", label: "Meal Plans" },
   { href: "/planner", label: "Planner" },
-  { href: "/protocols", label: "Protocols" },
   { href: "/tools", label: "Tools" },
 ];

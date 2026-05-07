@@ -7,13 +7,9 @@ import { SectionHeader } from "@/components/ui/section-header";
 
 const platformItems = [
   { title: "Time-Window Planner", href: "/planner", detail: "Auto-build plans from your actual week." },
-  { title: "Busy Week Protocols", href: "/protocols", detail: "Switch playbooks when life gets chaotic." },
   { title: "Adaptive Intelligence", href: "/planner", detail: "Plans adjust based on completion and stress." },
-  { title: "Parent Case Studies", href: "/case-studies", detail: "Timeline-based social proof from real parents." },
   { title: "Accountability Lab", href: "/accountability", detail: "Streak rescue and 30-second check-ins." },
   { title: "Grocery Optimizer", href: "/tools", detail: "Budget mode plus leftovers planning." },
-  { title: "Community Cohorts", href: "/community", detail: "Challenges and buddy mode with other parents." },
-  { title: "Methodology", href: "/methodology", detail: "Credentials, principles, and safety boundaries." },
 ];
 
 export function HomePlatformSections() {
