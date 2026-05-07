@@ -8,6 +8,7 @@ import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { FitQuiz } from "@/components/ui/fit-quiz";
 import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
+import { AiDemoSection } from "@/components/home/ai-demo-section";
 import { useCountUp } from "@/hooks/use-count-up";
 
 export const dynamic = "force-static";
@@ -154,6 +155,9 @@ export default function Home() {
 
       {/* Hero → content divider */}
       <div className="border-t border-(--color-border)" aria-hidden="true" />
+
+      {/* ── AI ASSISTANT — cream band, the new hook ───────────────── */}
+      <AiDemoSection />
 
       {/* ── main wrapper ─────────────────────────────────────────── */}
       <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
