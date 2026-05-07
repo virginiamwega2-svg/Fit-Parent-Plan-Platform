@@ -44,7 +44,16 @@ export async function generatePlanAction(input: unknown): Promise<GeneratePlanRe
     const result = await generatePlan(parsed.data);
     return { ok: true, result, remaining: limit.remaining };
   } catch (err) {
+    const detail = err instanceof Error ? err.message : "Unknown error";
     console.error("generatePlanAction failed:", err);
-    return { ok: false, error: "The assistant hit a snag. Try again in a moment." };
+    // Surface the real cause in dev/preview so the user can see what's wrong.
+    // In production we still log to the server.
+    return {
+      ok: false,
+      error:
+        process.env.NODE_ENV === "production"
+          ? "The assistant hit a snag. Try again in a moment."
+          : `Assistant error: ${detail}`,
+    };
   }
 }

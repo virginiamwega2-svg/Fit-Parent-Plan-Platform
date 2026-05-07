@@ -75,27 +75,41 @@ export async function generatePlan(checkin: CheckIn): Promise<PlanResult> {
     };
   }
 
-  const client = getClient();
-  const response = await client.messages.create({
-    model: aiConfig.model,
-    max_tokens: aiConfig.maxTokens,
-    system: COACH_SYSTEM_PROMPT,
-    messages: [{ role: "user", content: buildUserPrompt(checkin.text, checkin.minutesAvailable) }],
-  });
+  try {
+    const client = getClient();
+    const response = await client.messages.create({
+      model: aiConfig.model,
+      max_tokens: aiConfig.maxTokens,
+      system: COACH_SYSTEM_PROMPT,
+      messages: [{ role: "user", content: buildUserPrompt(checkin.text, checkin.minutesAvailable) }],
+    });
 
-  const textBlock = response.content.find((b) => b.type === "text");
-  const raw = textBlock && "text" in textBlock ? textBlock.text : "";
-  const plan = parsePlan(raw);
+    const textBlock = response.content.find((b) => b.type === "text");
+    const raw = textBlock && "text" in textBlock ? textBlock.text : "";
+    const plan = parsePlan(raw);
 
-  const inputTokens = response.usage.input_tokens;
-  const outputTokens = response.usage.output_tokens;
+    const inputTokens = response.usage.input_tokens;
+    const outputTokens = response.usage.output_tokens;
 
-  return {
-    plan,
-    source: "live",
-    inputTokens,
-    outputTokens,
-    costUsd: estimateCostUsd(inputTokens, outputTokens),
-    latencyMs: Date.now() - start,
-  };
+    return {
+      plan,
+      source: "live",
+      inputTokens,
+      outputTokens,
+      costUsd: estimateCostUsd(inputTokens, outputTokens),
+      latencyMs: Date.now() - start,
+    };
+  } catch (err) {
+    // Live call failed (bad key, parse error, network) — degrade to mock
+    // instead of breaking the user-facing flow. Log the real cause server-side.
+    console.warn("Anthropic call failed, falling back to mock:", err);
+    return {
+      plan: mockPlan(checkin),
+      source: "mock",
+      inputTokens: 0,
+      outputTokens: 0,
+      costUsd: 0,
+      latencyMs: Date.now() - start,
+    };
+  }
 }
