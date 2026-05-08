@@ -35,9 +35,12 @@ export function HeroSlideshow() {
           fill
           sizes="100vw"
           quality={85}
-          // Only the first frame gets priority + blur — the others lazy-load
-          // after first paint and crossfade in once decoded.
+          // First frame: priority + blur + high fetch priority for LCP.
+          // Others: lazy-load after first paint and crossfade in once
+          // decoded — they don't block the largest contentful paint.
           priority={i === 0}
+          fetchPriority={i === 0 ? "high" : "low"}
+          loading={i === 0 ? undefined : "lazy"}
           placeholder={i === 0 ? "blur" : "empty"}
           blurDataURL={i === 0 ? HERO_BLUR : undefined}
           className={`object-cover object-[center_40%] transition-opacity duration-1000 ease-in-out sm:object-center ${

@@ -4,8 +4,6 @@ import dynamicImport from "next/dynamic";
 import Image from "next/image";
 import type React from "react";
 import { ArrowRight, X, Star } from "lucide-react";
-import { FaqAccordion } from "@/components/ui/faq-accordion";
-import { FitQuiz } from "@/components/ui/fit-quiz";
 import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
 import { AiDemoSection } from "@/components/home/ai-demo-section";
@@ -26,6 +24,34 @@ const LeadCaptureForm = dynamicImport(
         <div className="h-10 w-full rounded-xl bg-(--color-cream)" />
         <div className="h-24 w-full rounded-xl bg-(--color-cream)" />
         <div className="h-12 w-full rounded-full bg-(--color-border)" />
+      </div>
+    ),
+  },
+);
+
+// Below-fold UI — lazy-load to keep the initial JS bundle lean.
+const FaqAccordion = dynamicImport(
+  () => import("@/components/ui/faq-accordion").then((m) => m.FaqAccordion),
+  {
+    loading: () => (
+      <div className="animate-pulse space-y-2 rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
+        <div className="h-4 w-3/4 rounded bg-(--color-cream)" />
+        <div className="h-4 w-2/3 rounded bg-(--color-cream)" />
+        <div className="h-4 w-3/5 rounded bg-(--color-cream)" />
+        <div className="h-4 w-3/4 rounded bg-(--color-cream)" />
+      </div>
+    ),
+  },
+);
+
+const FitQuiz = dynamicImport(
+  () => import("@/components/ui/fit-quiz").then((m) => m.FitQuiz),
+  {
+    loading: () => (
+      <div className="animate-pulse space-y-3">
+        <div className="h-3 w-1/3 rounded bg-(--color-cream)" />
+        <div className="h-10 w-full rounded-xl bg-(--color-cream)" />
+        <div className="h-10 w-full rounded-xl bg-(--color-cream)" />
       </div>
     ),
   },
