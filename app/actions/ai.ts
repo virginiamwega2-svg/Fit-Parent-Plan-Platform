@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { z } from "zod";
-import { generatePlan, generateWorkout } from "@/lib/ai/adapter";
+import { adaptPlan, generatePlan, generateWorkout } from "@/lib/ai/adapter";
 import { rateLimit } from "@/lib/ai/rate-limit";
 import type { PlanResult } from "@/lib/ai/types";
 
@@ -93,6 +93,45 @@ export async function generateWorkoutAction(input: unknown): Promise<GeneratePla
   } catch (err) {
     const detail = err instanceof Error ? err.message : "Unknown error";
     console.error("generateWorkoutAction failed:", err);
+    return {
+      ok: false,
+      error:
+        process.env.NODE_ENV === "production"
+          ? "The assistant hit a snag. Try again in a moment."
+          : `Assistant error: ${detail}`,
+    };
+  }
+}
+
+const adaptSchema = z.object({
+  previousHeadline: z.string().trim().min(1).max(300),
+  previousSteps: z.array(z.string().trim().min(1).max(300)).min(1).max(8),
+  update: z.string().trim().min(4, "Tell me a little more.").max(800),
+  minutesAvailable: z.number().int().min(5).max(120),
+});
+
+export async function adaptPlanAction(input: unknown): Promise<GeneratePlanResponse> {
+  const parsed = adaptSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input." };
+  }
+
+  const ip = await getClientIp();
+  const limit = rateLimit(ip);
+  if (!limit.allowed) {
+    return {
+      ok: false,
+      error: "Daily limit reached. Come back tomorrow or sign up for unlimited.",
+      retryInMinutes: Math.ceil(limit.resetInMs / 60_000),
+    };
+  }
+
+  try {
+    const result = await adaptPlan(parsed.data);
+    return { ok: true, result, remaining: limit.remaining };
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : "Unknown error";
+    console.error("adaptPlanAction failed:", err);
     return {
       ok: false,
       error:

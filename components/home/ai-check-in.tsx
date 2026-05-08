@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { Mic, MicOff, Send, Sparkles, Info, Mail, Check, Dumbbell, MessageCircle } from "lucide-react";
+import { useEffect, useState, useTransition } from "react";
+import { Mic, MicOff, Send, Sparkles, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw } from "lucide-react";
 import {
+  adaptPlanAction,
   generatePlanAction,
   generateWorkoutAction,
   savePlanEmailAction,
@@ -11,7 +12,37 @@ import {
 import { useVoiceInput } from "@/hooks/use-voice-input";
 import type { Equipment } from "@/lib/ai/types";
 
-type Mode = "plan" | "workout";
+type Mode = "plan" | "workout" | "adapt";
+
+type SavedPlan = {
+  headline: string;
+  steps: string[];
+  savedAt: number;
+};
+
+const LAST_PLAN_KEY = "fpp:lastPlan";
+
+function loadLastPlan(): SavedPlan | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(LAST_PLAN_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as SavedPlan;
+    if (!parsed.headline || !Array.isArray(parsed.steps)) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function saveLastPlan(plan: SavedPlan) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(LAST_PLAN_KEY, JSON.stringify(plan));
+  } catch {
+    // localStorage unavailable / quota — silently skip
+  }
+}
 
 const EXAMPLES = [
   "Slept badly, kids up early. 18 minutes before school run.",
@@ -27,9 +58,15 @@ export function AiCheckIn() {
   const [equipment, setEquipment] = useState<Equipment>("none");
   const [energy, setEnergy] = useState<number>(3);
   const [workoutNotes, setWorkoutNotes] = useState("");
+  const [adaptUpdate, setAdaptUpdate] = useState("");
+  const [lastPlan, setLastPlan] = useState<SavedPlan | null>(null);
   const [response, setResponse] = useState<GeneratePlanResponse | null>(null);
   const [showReasoning, setShowReasoning] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    setLastPlan(loadLastPlan());
+  }, []);
 
   const voice = useVoiceInput(setText);
 
@@ -40,6 +77,19 @@ export function AiCheckIn() {
     setShowReasoning(false);
   };
 
+  const handleResult = (result: GeneratePlanResponse) => {
+    setResponse(result);
+    if (result.ok) {
+      const saved: SavedPlan = {
+        headline: result.result.plan.headline,
+        steps: result.result.plan.steps,
+        savedAt: Date.now(),
+      };
+      saveLastPlan(saved);
+      setLastPlan(saved);
+    }
+  };
+
   const submit = () => {
     setResponse(null);
     setShowReasoning(false);
@@ -47,9 +97,9 @@ export function AiCheckIn() {
       if (text.trim().length < 4) return;
       startTransition(async () => {
         const result = await generatePlanAction({ text: text.trim(), minutesAvailable: minutes });
-        setResponse(result);
+        handleResult(result);
       });
-    } else {
+    } else if (mode === "workout") {
       startTransition(async () => {
         const result = await generateWorkoutAction({
           minutesAvailable: minutes,
@@ -57,7 +107,18 @@ export function AiCheckIn() {
           energy,
           notes: workoutNotes.trim() || undefined,
         });
-        setResponse(result);
+        handleResult(result);
+      });
+    } else {
+      if (!lastPlan || adaptUpdate.trim().length < 4) return;
+      startTransition(async () => {
+        const result = await adaptPlanAction({
+          previousHeadline: lastPlan.headline,
+          previousSteps: lastPlan.steps,
+          update: adaptUpdate.trim(),
+          minutesAvailable: minutes,
+        });
+        handleResult(result);
       });
     }
   };
@@ -100,9 +161,22 @@ export function AiCheckIn() {
         >
           <Dumbbell size={12} aria-hidden="true" /> Generate workout
         </button>
+        {lastPlan && (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === "adapt"}
+            onClick={() => switchMode("adapt")}
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors ${
+              mode === "adapt" ? "bg-white text-foreground shadow-sm" : "text-(--color-muted)"
+            }`}
+          >
+            <RefreshCw size={12} aria-hidden="true" /> Adapt last
+          </button>
+        )}
       </div>
 
-      {mode === "plan" ? (
+      {mode === "plan" && (
       <>
       <div className="mt-4">
         <label className="block text-xs font-semibold text-(--color-muted)" htmlFor="ai-checkin">
@@ -149,7 +223,8 @@ export function AiCheckIn() {
         ))}
       </div>
       </>
-      ) : (
+      )}
+      {mode === "workout" && (
       <div className="mt-4 space-y-3">
         <div>
           <label className="block text-xs font-semibold text-(--color-muted)" htmlFor="wo-equipment">
@@ -213,6 +288,38 @@ export function AiCheckIn() {
         </div>
       </div>
       )}
+      {mode === "adapt" && lastPlan && (
+        <div className="mt-4 space-y-3">
+          <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">
+              Last plan ({new Date(lastPlan.savedAt).toLocaleDateString()})
+            </p>
+            <p className="mt-1 text-sm font-semibold text-foreground">{lastPlan.headline}</p>
+            <ul className="mt-1.5 space-y-1 text-xs text-(--color-muted)">
+              {lastPlan.steps.map((s, i) => (
+                <li key={i} className="flex gap-2">
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-(--color-brand)" aria-hidden="true" />
+                  <span>{s}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <label htmlFor="adapt-update" className="block text-xs font-semibold text-(--color-muted)">
+              How did it go? What's different now?
+            </label>
+            <textarea
+              id="adapt-update"
+              value={adaptUpdate}
+              onChange={(e) => setAdaptUpdate(e.target.value)}
+              rows={3}
+              maxLength={800}
+              placeholder="e.g. Crushed it, felt strong. Slightly more time today."
+              className="mt-2 w-full resize-none rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-3 text-sm text-foreground placeholder:text-(--color-muted)/60 focus:border-(--color-brand) focus:outline-none focus:ring-2 focus:ring-(--color-brand)/15"
+            />
+          </div>
+        </div>
+      )}
 
       <div className="mt-4 flex items-center justify-between gap-3">
         <label className="flex items-center gap-2 text-xs text-(--color-muted)">
@@ -229,14 +336,22 @@ export function AiCheckIn() {
         <button
           type="button"
           onClick={submit}
-          disabled={isPending || (mode === "plan" && text.trim().length < 4)}
+          disabled={
+            isPending ||
+            (mode === "plan" && text.trim().length < 4) ||
+            (mode === "adapt" && (!lastPlan || adaptUpdate.trim().length < 4))
+          }
           className="inline-flex items-center gap-1.5 rounded-full bg-(--color-brand) px-5 py-2 text-sm font-semibold text-white transition-opacity disabled:opacity-50"
         >
-          {isPending
-            ? "Thinking…"
-            : mode === "plan"
-              ? (<>Get my plan <Send size={13} aria-hidden="true" /></>)
-              : (<>Generate workout <Send size={13} aria-hidden="true" /></>)}
+          {isPending ? (
+            "Thinking…"
+          ) : mode === "plan" ? (
+            <>Get my plan <Send size={13} aria-hidden="true" /></>
+          ) : mode === "workout" ? (
+            <>Generate workout <Send size={13} aria-hidden="true" /></>
+          ) : (
+            <>Adapt my plan <Send size={13} aria-hidden="true" /></>
+          )}
         </button>
       </div>
 
@@ -321,6 +436,16 @@ function PlanCard({
         <p className="mt-3 rounded-xl bg-(--color-bg-soft) px-3 py-2 text-xs italic leading-5 text-(--color-muted)">
           {plan.reasoning}
         </p>
+      )}
+
+      {plan.nudge && (
+        <div className="mt-3 flex items-start gap-2 rounded-xl border border-(--color-brand)/20 bg-(--color-cream)/60 px-3 py-2">
+          <Zap size={13} aria-hidden="true" className="mt-0.5 shrink-0 text-(--color-brand-strong)" />
+          <p className="text-xs leading-5 text-foreground">
+            <span className="font-semibold">If the day folds:</span>{" "}
+            <span className="text-(--color-muted)">{plan.nudge}</span>
+          </p>
+        </div>
       )}
 
       {/* Post-plan CTA — the highest-conversion moment */}

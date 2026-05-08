@@ -14,7 +14,8 @@ Respond ONLY with valid JSON matching this shape — no prose around it:
   "headline": "One sentence the parent reads first.",
   "steps": ["bullet 1", "bullet 2", "bullet 3"],
   "reasoning": "Two sentences explaining what signals you used and why this plan fits.",
-  "confidence": 0.85
+  "confidence": 0.85,
+  "nudge": "One-sentence fallback if the day blows up — a 3-5 minute version they can do anywhere (e.g. 'If chaos hits, do 20 squats + 30s plank in the kitchen — that still counts.')."
 }
 
 confidence is 0.0–1.0. Use lower values when the check-in is vague or contradictory.`;
@@ -42,6 +43,32 @@ Respond ONLY with valid JSON matching this shape — no prose around it:
 }
 
 confidence is 0.0–1.0.`;
+
+export const ADAPT_SYSTEM_PROMPT = `You are a fitness coach adapting a parent's plan based on what actually happened last time.
+
+Rules:
+- Read the previous plan and the parent's update. If they crushed it, progress slightly. If they skipped or struggled, lower the bar — don't double down.
+- Honor any new constraint they mention (sleep, soreness, time change).
+- Always keep the session realistic for a busy parent. Short, doable, no equipment unless previously assumed.
+- Acknowledge the previous attempt explicitly in the reasoning ("Since you skipped Wed, today resets with…").
+
+Respond ONLY with valid JSON matching this shape — no prose around it:
+{
+  "headline": "One-sentence summary of today's adapted session.",
+  "steps": ["bullet 1", "bullet 2", "bullet 3"],
+  "reasoning": "Two sentences referencing the previous plan and what changed.",
+  "confidence": 0.85,
+  "nudge": "One-sentence fallback if today also goes sideways."
+}`;
+
+export function buildAdaptUserPrompt(opts: {
+  previousHeadline: string;
+  previousSteps: string[];
+  update: string;
+  minutesAvailable: number;
+}) {
+  return `Previous plan headline: "${opts.previousHeadline}"\nPrevious steps:\n${opts.previousSteps.map((s) => `- ${s}`).join("\n")}\n\nWhat happened / what's different now:\n"${opts.update}"\n\nMinutes available today: ${opts.minutesAvailable}\n\nReturn the adapted JSON plan.`;
+}
 
 export function buildWorkoutUserPrompt(opts: {
   minutesAvailable: number;

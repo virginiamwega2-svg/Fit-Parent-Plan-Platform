@@ -7,6 +7,13 @@ export type CheckIn = {
 
 export type Equipment = "none" | "dumbbells" | "bands" | "full-gym";
 
+export type AdaptInput = {
+  previousHeadline: string;
+  previousSteps: string[];
+  update: string;
+  minutesAvailable: number;
+};
+
 export type WorkoutInput = {
   minutesAvailable: number;
   equipment: Equipment;
@@ -25,6 +32,8 @@ export type AiPlan = {
   reasoning: string;
   /** Confidence 0–1. Drives "I'm 70% sure — confirm?" UI. */
   confidence: number;
+  /** One-sentence "if today goes sideways, do X" fallback. Always actionable. */
+  nudge?: string;
 };
 
 export type PlanResult = {
