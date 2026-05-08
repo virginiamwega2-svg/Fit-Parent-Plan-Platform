@@ -137,7 +137,8 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="border-t border-(--color-border)" aria-hidden="true" />
+      {/* Soft fade between hero and AI section — invisible glue, no hard stitch */}
+      <div className="h-20 bg-gradient-to-b from-transparent to-(--color-cream)" aria-hidden="true" />
 
       {/* ── 1. AI ASSISTANT — the wow ──────────────────────────────── */}
       <AiDemoSection />
@@ -206,7 +207,7 @@ export default function Home() {
                     ))}
                   </ul>
                 </div>
-                <div className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-(--shadow-card)">
+                <div className="rounded-3xl border border-(--color-brand)/20 bg-gradient-to-b from-white to-(--color-cream)/40 p-6 shadow-(--shadow-card)">
                   <p className="eyebrow text-(--color-muted)">Monthly</p>
                   <div className="mt-2 flex items-baseline gap-1">
                     <span className="tabular-price text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$199</span>
