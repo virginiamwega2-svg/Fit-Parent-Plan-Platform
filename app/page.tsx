@@ -225,7 +225,7 @@ export default function Home() {
                     ))}
                   </ul>
                 </div>
-                <div className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.18)]">
+                <div className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-(--shadow-card)">
                   <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">Monthly</p>
                   <div className="mt-2 flex items-baseline gap-1">
                     <span className="font-display text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$199</span>
@@ -356,7 +356,7 @@ export default function Home() {
         {/* ── 7. APPLY — final form ────────────────────────────────── */}
         <Reveal>
           <section id="apply" className="scroll-mt-24 mt-14 sm:mt-20 lg:mt-24">
-            <div className="overflow-hidden rounded-3xl border border-(--color-border) bg-(--color-bg-soft) shadow-[0_18px_40px_-28px_rgba(0,0,0,0.3)]">
+            <div className="overflow-hidden rounded-3xl border border-(--color-border) bg-(--color-bg-soft) shadow-(--shadow-card-strong)">
               <div className="grid lg:grid-cols-2">
 
                 <div className="p-6 sm:p-10">

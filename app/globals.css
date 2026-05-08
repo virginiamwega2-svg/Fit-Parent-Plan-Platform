@@ -19,12 +19,11 @@ html {
   --color-cream: #f0f5f2;        /* light sage — hover / highlight surfaces */
   --color-melon-soft: #fef3e8;   /* warm — dashboard pages */
   --color-melon-glow: #fde8cc;
-  --color-cream-glow: #d8eae0;   /* sage glow */
   --color-mint-soft: #e4eeea;    /* sage tint — result badges */
-  --color-mint-glow: #d0e3d8;
-  --color-sage-soft: #e4eeea;
   --color-border: #e2e8e4;       /* neutral sage border */
   --shadow-soft: 0 24px 60px -38px rgba(28, 23, 18, 0.12);
+  --shadow-card: 0 18px 40px -28px rgba(0, 0, 0, 0.18);
+  --shadow-card-strong: 0 18px 40px -28px rgba(0, 0, 0, 0.30);
   --button-shadow: 0 24px 50px -28px rgba(45, 90, 61, 0.40);
   --motion-fast: 220ms;
   --motion-normal: 520ms;

@@ -130,7 +130,7 @@ export function AiCheckIn() {
   return (
     <div
       id="section-ai-try"
-      className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.18)] sm:p-7"
+      className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-(--shadow-card) sm:p-7"
     >
       <div className="flex items-center justify-between">
         <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">

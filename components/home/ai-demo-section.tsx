@@ -1,12 +1,27 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Sparkles, Mic, Calendar, Clock } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { AiCheckIn } from "@/components/home/ai-check-in";
+
+const AiCheckIn = dynamic(
+  () => import("@/components/home/ai-check-in").then((m) => m.AiCheckIn),
+  {
+    loading: () => (
+      <div className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-(--shadow-card) sm:p-7">
+        <div className="space-y-3">
+          <div className="h-3 w-1/3 animate-pulse rounded bg-(--color-cream)" />
+          <div className="h-20 w-full animate-pulse rounded-2xl bg-(--color-cream)" />
+          <div className="h-10 w-full animate-pulse rounded-full bg-(--color-cream)" />
+        </div>
+      </div>
+    ),
+  },
+);
 
 export function AiDemoSection() {
   return (
-    <div className="mt-14 bg-(--color-cream) sm:mt-20 lg:mt-28">
+    <div className="mt-14 bg-(--color-cream) sm:mt-20 lg:mt-24">
       <div className="mx-auto w-full max-w-5xl px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
         <Reveal>
           <section id="section-ai" className="scroll-mt-24">
