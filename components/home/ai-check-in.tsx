@@ -91,6 +91,22 @@ export function AiCheckIn() {
     }
   }, []);
 
+  // Rotating "thinking" labels — keeps the wait feeling intelligent, not slow.
+  const [thinkingIdx, setThinkingIdx] = useState(0);
+  useEffect(() => {
+    if (!isPending) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset rotating index when a new request starts; the interval below drives the rest
+    setThinkingIdx(0);
+    const id = setInterval(() => setThinkingIdx((i) => i + 1), 900);
+    return () => clearInterval(id);
+  }, [isPending]);
+  const thinkingLabels = [
+    "Reading your week…",
+    "Matching to your time…",
+    "Picking the lowest-friction win…",
+  ];
+  const thinkingLabel = thinkingLabels[Math.min(thinkingIdx, thinkingLabels.length - 1)];
+
   const voice = useVoiceInput(setText);
 
   const switchMode = (next: Mode) => {
@@ -231,6 +247,11 @@ export function AiCheckIn() {
           )}
         </div>
         {voice.error && <p className="mt-1.5 text-xs text-red-600">{voice.error}</p>}
+        {!voice.error && text.trim().length >= 40 && (
+          <p className="mt-1.5 inline-flex items-center gap-1 text-xs text-(--color-brand)">
+            <Check size={11} aria-hidden="true" /> Got what I need.
+          </p>
+        )}
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -367,7 +388,7 @@ export function AiCheckIn() {
           className="inline-flex items-center gap-1.5 rounded-full bg-(--color-brand) px-5 py-2 text-sm font-semibold text-white transition-opacity disabled:opacity-50"
         >
           {isPending ? (
-            "Thinking…"
+            thinkingLabel
           ) : mode === "plan" ? (
             <>Get my plan <Send size={13} aria-hidden="true" /></>
           ) : mode === "workout" ? (
