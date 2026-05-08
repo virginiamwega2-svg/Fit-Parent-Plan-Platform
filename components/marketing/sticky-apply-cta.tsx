@@ -2,14 +2,42 @@
 
 import { useEffect, useState } from "react";
 
+type Phase = "try" | "apply";
+
 export function StickyApplyCta() {
   const [visible, setVisible] = useState(false);
+  const [phase, setPhase] = useState<Phase>("try");
 
   useEffect(() => {
-    const handler = () => setVisible(window.scrollY > 480);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const onScroll = () => setVisible(window.scrollY > 480);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Once the pricing section enters the viewport, switch the CTA from
+  // "Try it" (push to AI demo) to "Apply" (push to the form). Same
+  // sticky bar, copy adapts to scroll position.
+  useEffect(() => {
+    const target = document.getElementById("section-offer");
+    if (!target) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting || e.boundingClientRect.top < 0) {
+            setPhase("apply");
+          }
+        }
+      },
+      { rootMargin: "0px 0px -60% 0px" },
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
+  const isApply = phase === "apply";
+  const href = isApply ? "#apply" : "#section-ai";
+  const primary = isApply ? "Apply — 2 min" : "Try it — 30 seconds";
+  const secondary = isApply ? "No card" : "No signup";
 
   return (
     <div
@@ -19,13 +47,13 @@ export function StickyApplyCta() {
       aria-hidden={!visible}
     >
       <a
-        href="#section-ai"
+        href={href}
         tabIndex={visible ? 0 : -1}
         className="flex h-12 w-full items-center justify-center gap-3 rounded-full bg-(--color-brand) text-sm font-semibold text-white transition hover:bg-(--color-brand-strong)"
       >
-        <span>Try it — 30 seconds</span>
+        <span>{primary}</span>
         <span className="text-white/50">·</span>
-        <span className="text-white/70 text-xs font-normal">No signup</span>
+        <span className="text-white/70 text-xs font-normal">{secondary}</span>
       </a>
     </div>
   );

@@ -517,6 +517,8 @@ function PlanCard({
   );
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function EmailCaptureRow() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sent" | "error">("idle");
@@ -536,6 +538,19 @@ function EmailCaptureRow() {
       }
     });
   };
+
+  // Lead recovery: if the visitor types a valid-looking email but bounces
+  // before clicking Send, fire-and-forget the save on pagehide so the
+  // lead isn't lost. Safe to run multiple times — server logs by IP+email.
+  useEffect(() => {
+    const handler = () => {
+      const trimmed = email.trim();
+      if (status === "sent" || isPending || !EMAIL_RE.test(trimmed)) return;
+      void savePlanEmailAction({ email: trimmed });
+    };
+    window.addEventListener("pagehide", handler);
+    return () => window.removeEventListener("pagehide", handler);
+  }, [email, status, isPending]);
 
   if (status === "sent") {
     return (
