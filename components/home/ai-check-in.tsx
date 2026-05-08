@@ -133,7 +133,7 @@ export function AiCheckIn() {
       className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-(--shadow-card) sm:p-7"
     >
       <div className="flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">
+        <p className="eyebrow text-(--color-muted)">
           Live preview
         </p>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-(--color-mint-soft) px-2.5 py-0.5 text-xs font-medium text-foreground">
@@ -295,7 +295,7 @@ export function AiCheckIn() {
       {mode === "adapt" && lastPlan && (
         <div className="mt-4 space-y-3">
           <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">
+            <p className="eyebrow text-(--color-muted)">
               Last plan ({new Date(lastPlan.savedAt).toLocaleDateString()})
             </p>
             <p className="mt-1 text-sm font-semibold text-foreground">{lastPlan.headline}</p>

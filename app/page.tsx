@@ -226,7 +226,7 @@ export default function Home() {
                   </ul>
                 </div>
                 <div className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-(--shadow-card)">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">Monthly</p>
+                  <p className="eyebrow text-(--color-muted)">Monthly</p>
                   <div className="mt-2 flex items-baseline gap-1">
                     <span className="tabular-price text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$199</span>
                     <span className="text-sm text-(--color-muted)">/mo</span>
@@ -373,7 +373,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="mt-5 rounded-2xl border border-(--color-border) bg-(--color-bg) p-4">
-                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-(--color-muted)">Quick check — three questions</p>
+                    <p className="eyebrow mb-3 text-(--color-muted)">Quick check — three questions</p>
                     <FitQuiz />
                   </div>
                   <div className="mt-5">
