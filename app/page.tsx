@@ -10,14 +10,10 @@ import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
 import { AiDemoSection } from "@/components/home/ai-demo-section";
 import { HeroCta } from "@/components/home/hero-cta";
+import { HeroSlideshow } from "@/components/home/hero-slideshow";
 import { useCountUp } from "@/hooks/use-count-up";
 
 export const dynamic = "force-static";
-
-/* ─── blur placeholders ─────────────────────────────────────────── */
-const BLUR = {
-  hero: "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAED/8QAHhABAAICAQUAAAAAAAAAAAAAAQIRAAMEBSExQaH/xAAUAQEAAAAAAAAAAAAAAAAAAAAB/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AwhDdvjqNkztdhJq/Xy8j0/kKpypRHwF0YxgX/9k=",
-} as const;
 
 const LeadCaptureForm = dynamicImport(
   () => import("@/components/marketing/lead-capture-form"),
@@ -86,18 +82,8 @@ export default function Home() {
                    flex min-h-[100svh] items-center justify-center
                    sm:min-h-[92svh] lg:min-h-[96svh]"
       >
-        <Image
-          src="/images/about-banner.webp"
-          alt="Parents building healthy habits together"
-          fill
-          sizes="100vw"
-          quality={90}
-          className="hero-img-enter object-cover object-[center_40%] sm:object-center"
-          priority
-          placeholder="blur"
-          blurDataURL={BLUR.hero}
-        />
-        <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
+        <HeroSlideshow />
+        <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
 
         <div className="relative z-10 mx-auto w-full max-w-sm px-6 py-20 text-center sm:max-w-2xl sm:px-10 sm:py-28">
           <p className="hero-line-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">

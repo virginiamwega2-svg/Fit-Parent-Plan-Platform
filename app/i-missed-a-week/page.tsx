@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Pause, RefreshCw, MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { buildMetadata } from "@/lib/metadata";
+
+const MISSED_BLUR =
+  "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIDBv/EACAQAAIBBAEFAAAAAAAAAAAAAAECAwAEETEFEiEzYXH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABcRAQADAAAAAAAAAAAAAAAAAAAREiH/2gAMAwEAAhEDEQA/AF4DmBHZGKfLFAek57AAa9VPmreS8mgvYgpLhVwrZA3us9H4notpPtTrpS//2Q==";
 
 export const metadata: Metadata = buildMetadata(
   "I missed a week. Now what?",
@@ -40,7 +44,23 @@ export default function MissedAWeekPage() {
         </h1>
       </Reveal>
 
-      <Reveal className="mt-6" delayMs={60}>
+      <Reveal className="mt-8" delayMs={50}>
+        <div className="relative aspect-video w-full overflow-hidden rounded-3xl">
+          <Image
+            src="/images/missed.webp"
+            alt="Empty kitchen at golden hour — coffee mugs catching the morning light"
+            fill
+            sizes="(max-width: 768px) 100vw, 768px"
+            quality={82}
+            placeholder="blur"
+            blurDataURL={MISSED_BLUR}
+            loading="lazy"
+            className="object-cover"
+          />
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-6" delayMs={80}>
         <p className="text-base leading-7 text-(--color-muted)">
           You opened an app three weeks ago. You did great for nine days. Then a kid got sick, work blew up, and the streak counter started feeling like an accusation. You closed the tab. You haven&apos;t opened it since.
         </p>

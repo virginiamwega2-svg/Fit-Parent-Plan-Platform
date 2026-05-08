@@ -36,7 +36,7 @@ const team = [
   },
 ];
 
-const BLUR_BANNER = "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAbEAACAgMBAAAAAAAAAAAAAAABAgADBRFBIf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/8QAFREBAQAAAAAAAAAAAAAAAAAAADH/2gAMAwEAAhEDEQA/ALrMm7BgtTovh0RzujERIhX/2Q==";
+const BLUR_BANNER = "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAHABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAED/8QAHRABAAIBBQEAAAAAAAAAAAAAAQIDAAQREiFRof/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/AKTjq2qNxxQLQi9Pm/3M7a7DTxsVknGCed4xkmv/2Q==";
 
 export default function AboutPage() {
   return (
@@ -54,8 +54,8 @@ export default function AboutPage() {
       <Reveal className="mt-6" delayMs={40}>
         <div className="relative aspect-21/9 w-full overflow-hidden rounded-3xl">
           <Image
-            src="/images/about-banner.webp"
-            alt="Parents building healthy habits together"
+            src="/images/about.webp"
+            alt="A parent and child cooking together at home"
             fill
             sizes="(max-width: 1280px) 100vw, 1152px"
             quality={85}
