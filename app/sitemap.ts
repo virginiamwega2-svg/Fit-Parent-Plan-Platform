@@ -7,6 +7,7 @@ const PUBLIC_ROUTES: Array<{ path: string; priority: number; freq: MetadataRoute
   { path: "",                 priority: 1.0,  freq: "weekly"  },
   { path: "/about",           priority: 0.85, freq: "monthly" },
   { path: "/i-missed-a-week", priority: 0.80, freq: "yearly"  },
+  { path: "/decisions",       priority: 0.60, freq: "monthly" },
   { path: "/contact",         priority: 0.75, freq: "monthly" },
   { path: "/privacy",         priority: 0.30, freq: "yearly"  },
   { path: "/terms",           priority: 0.30, freq: "yearly"  },
