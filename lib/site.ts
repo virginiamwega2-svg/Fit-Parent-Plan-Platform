@@ -16,7 +16,4 @@ export const navLinks = [
 
 export const memberLinks = [
   { href: "/workouts", label: "Workouts" },
-  { href: "/meal-plans", label: "Meal Plans" },
-  { href: "/planner", label: "Planner" },
-  { href: "/tools", label: "Tools" },
 ];

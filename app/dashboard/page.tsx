@@ -114,8 +114,8 @@ export default async function DashboardPage() {
                 You haven&apos;t started a meal plan yet. When you follow a plan, your weekly adherence and prep stats will appear here.
               </p>
             )}
-            <Button href="/meal-plans" variant="secondary" className="mt-5 w-full sm:w-fit">
-              Open meal plans
+            <Button href="/#section-offer" variant="secondary" className="mt-5 w-full sm:w-fit">
+              See what&apos;s included
             </Button>
           </Card>
 
