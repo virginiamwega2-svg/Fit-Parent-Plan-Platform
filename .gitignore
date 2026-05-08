@@ -13,3 +13,8 @@ tsconfig.tsbuildinfo
 next-env.d.ts
 data/
 "public/images/hero.jpg (4).jpg"
+
+# Test / e2e artifacts — generated locally, never commit
+test-results/
+playwright-report/
+playwright/.cache/
