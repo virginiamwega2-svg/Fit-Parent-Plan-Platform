@@ -14,7 +14,7 @@ export default function NotFound() {
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Button href="/">Back to home</Button>
-        <Button href="/workouts" variant="secondary">Browse workouts</Button>
+        <Button href="/#section-ai" variant="secondary">Try the assistant</Button>
       </div>
       <p className="mt-6 text-xs text-(--color-muted)">
         Something broken?{" "}

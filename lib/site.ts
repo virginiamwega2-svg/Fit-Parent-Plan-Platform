@@ -14,6 +14,4 @@ export const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-export const memberLinks = [
-  { href: "/workouts", label: "Workouts" },
-];
+export const memberLinks: Array<{ href: string; label: string }> = [];

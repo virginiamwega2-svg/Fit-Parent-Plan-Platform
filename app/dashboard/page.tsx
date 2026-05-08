@@ -43,11 +43,11 @@ export default async function DashboardPage() {
             </div>
             <p className="mt-3 text-sm text-(--color-muted)">{todayWorkout.description}</p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <Button href={`/workouts/${todayWorkout.slug}`} className="w-full sm:w-auto">
+              <Button href="/#section-ai" className="w-full sm:w-auto">
                 Start now
               </Button>
-              <Button href="/workouts" variant="secondary" className="w-full sm:w-auto">
-                Switch workout
+              <Button href="/#section-ai" variant="secondary" className="w-full sm:w-auto">
+                Adapt today
               </Button>
             </div>
           </Card>
@@ -64,7 +64,7 @@ export default async function DashboardPage() {
                 <p className="text-sm text-(--color-muted)">
                   No workouts logged yet this week. Start today&apos;s 20-minute session to see your progress here.
                 </p>
-                <Button href={`/workouts/${todayWorkout.slug}`} className="mt-4 w-full sm:w-auto">
+                <Button href="/#section-ai" className="mt-4 w-full sm:w-auto">
                   Start today&apos;s session
                 </Button>
               </div>
@@ -137,8 +137,8 @@ export default async function DashboardPage() {
                     ? `• Last completed ${snapshot.lastWorkoutAgeDays} day${snapshot.lastWorkoutAgeDays === 1 ? "" : "s"} ago`
                     : null}
                 </p>
-                <Button href={`/workouts/${snapshot.lastWorkoutSlug}`} className="mt-5 w-full sm:w-fit">
-                  Resume workout
+                <Button href="/#section-ai" className="mt-5 w-full sm:w-fit">
+                  Open assistant
                 </Button>
               </>
             ) : (
@@ -147,7 +147,7 @@ export default async function DashboardPage() {
                 <p className="mt-2 text-sm text-(--color-muted)">
                   Once you complete a workout, we&apos;ll surface it here so you can pick up where you left off in one click.
                 </p>
-                <Button href={`/workouts/${todayWorkout.slug}`} className="mt-5 w-full sm:w-fit">
+                <Button href="/#section-ai" className="mt-5 w-full sm:w-fit">
                   Start your first session
                 </Button>
               </>

@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { workouts } from "@/lib/data/workouts";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -15,19 +14,10 @@ const PUBLIC_ROUTES: Array<{ path: string; priority: number; freq: MetadataRoute
 const lastModified = new Date();
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = PUBLIC_ROUTES.map(({ path, priority, freq }) => ({
+  return PUBLIC_ROUTES.map(({ path, priority, freq }) => ({
     url: `${siteUrl}${path}`,
     lastModified,
     changeFrequency: freq,
     priority,
   }));
-
-  const workoutPages = workouts.map((workout) => ({
-    url: `${siteUrl}/workouts/${workout.slug}`,
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: 0.65,
-  }));
-
-  return [...staticPages, ...workoutPages];
 }
