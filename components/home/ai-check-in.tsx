@@ -65,7 +65,11 @@ export function AiCheckIn() {
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    setLastPlan(loadLastPlan());
+    const stored = loadLastPlan();
+    if (stored) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from localStorage post-mount to avoid SSR/client mismatch
+      setLastPlan(stored);
+    }
   }, []);
 
   const voice = useVoiceInput(setText);
@@ -306,7 +310,7 @@ export function AiCheckIn() {
           </div>
           <div>
             <label htmlFor="adapt-update" className="block text-xs font-semibold text-(--color-muted)">
-              How did it go? What's different now?
+              How did it go? What&apos;s different now?
             </label>
             <textarea
               id="adapt-update"
