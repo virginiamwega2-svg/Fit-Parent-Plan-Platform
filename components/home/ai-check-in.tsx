@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { Mic, MicOff, Send, Sparkles, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw } from "lucide-react";
+import { Mic, MicOff, Send, Sparkles, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw, Pause } from "lucide-react";
+import { readPausedUntil, setPaused, clearPaused, formatPauseEnd } from "@/lib/pause";
 import {
   adaptPlanAction,
   generatePlanAction,
@@ -513,7 +514,50 @@ function PlanCard({
 
       {/* Soft email capture — converts non-buyers into leads */}
       <EmailCaptureRow />
+
+      {/* Pause-the-week — the brand-defining "no guilt" feature */}
+      <PauseLink />
     </div>
+  );
+}
+
+function PauseLink() {
+  const [until, setUntil] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const stored = readPausedUntil();
+    if (stored) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- post-mount hydration from localStorage
+      setUntil(stored);
+    }
+  }, []);
+
+  if (until) {
+    return (
+      <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-(--color-muted)">
+        <Pause size={11} aria-hidden="true" /> Paused until {formatPauseEnd(until)}.{" "}
+        <button
+          type="button"
+          onClick={() => {
+            clearPaused();
+            setUntil(null);
+          }}
+          className="underline underline-offset-2 hover:text-foreground"
+        >
+          Resume
+        </button>
+      </p>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => setUntil(setPaused(7))}
+      className="mt-3 inline-flex items-center gap-1.5 text-xs text-(--color-muted) underline underline-offset-2 hover:text-foreground"
+    >
+      <Pause size={11} aria-hidden="true" /> Need a real break? Pause for 7 days — no guilt.
+    </button>
   );
 }
 
