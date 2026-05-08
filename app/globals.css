@@ -372,6 +372,18 @@ textarea {
 }
 
 /* ── Soft pulse for scarcity / urgency badges ────────────── */
+/* Result card arrival — fade + slide-up so plans don't pop in cold. */
+@keyframes result-arrive {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-result-arrive {
+  animation: result-arrive 280ms var(--motion-ease) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-result-arrive { animation: none; }
+}
+
 @keyframes badge-pulse {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.6; }

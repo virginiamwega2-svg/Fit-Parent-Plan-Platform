@@ -178,43 +178,7 @@ export function AiCheckIn() {
         </span>
       </div>
 
-      <div role="tablist" aria-label="AI mode" className="mt-3 inline-flex rounded-full border border-(--color-border) bg-(--color-bg-soft) p-0.5 text-xs font-semibold">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={mode === "plan"}
-          onClick={() => switchMode("plan")}
-          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors ${
-            mode === "plan" ? "bg-white text-foreground shadow-sm" : "text-(--color-muted)"
-          }`}
-        >
-          <MessageCircle size={12} aria-hidden="true" /> Plan my window
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={mode === "workout"}
-          onClick={() => switchMode("workout")}
-          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors ${
-            mode === "workout" ? "bg-white text-foreground shadow-sm" : "text-(--color-muted)"
-          }`}
-        >
-          <Dumbbell size={12} aria-hidden="true" /> Generate workout
-        </button>
-        {lastPlan && (
-          <button
-            type="button"
-            role="tab"
-            aria-selected={mode === "adapt"}
-            onClick={() => switchMode("adapt")}
-            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors ${
-              mode === "adapt" ? "bg-white text-foreground shadow-sm" : "text-(--color-muted)"
-            }`}
-          >
-            <RefreshCw size={12} aria-hidden="true" /> Adapt last
-          </button>
-        )}
-      </div>
+      <ModeTabs mode={mode} hasLastPlan={!!lastPlan} onSwitch={switchMode} />
 
       {mode === "plan" && (
       <>
@@ -233,18 +197,26 @@ export function AiCheckIn() {
             className="w-full resize-none rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-3 pr-14 text-sm text-foreground placeholder:text-(--color-muted)/60 focus:border-(--color-brand) focus:outline-none focus:ring-2 focus:ring-(--color-brand)/15"
           />
           {voice.supported && (
-            <button
-              type="button"
-              onClick={voice.listening ? voice.stop : voice.start}
-              aria-label={voice.listening ? "Stop recording" : "Start voice input"}
-              className={`absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full border transition-colors ${
-                voice.listening
-                  ? "border-(--color-brand) bg-(--color-brand) text-white"
-                  : "border-(--color-border) bg-white text-(--color-muted) hover:text-foreground"
-              }`}
-            >
-              {voice.listening ? <MicOff size={15} /> : <Mic size={15} />}
-            </button>
+            <div className="absolute bottom-3 right-3">
+              {voice.listening && (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 animate-ping rounded-full bg-(--color-brand) opacity-60"
+                />
+              )}
+              <button
+                type="button"
+                onClick={voice.listening ? voice.stop : voice.start}
+                aria-label={voice.listening ? "Stop recording" : "Start voice input"}
+                className={`relative inline-flex h-9 w-9 items-center justify-center rounded-full border transition-colors ${
+                  voice.listening
+                    ? "border-(--color-brand) bg-(--color-brand) text-white"
+                    : "border-(--color-border) bg-white text-(--color-muted) hover:text-foreground"
+                }`}
+              >
+                {voice.listening ? <MicOff size={15} /> : <Mic size={15} />}
+              </button>
+            </div>
           )}
         </div>
         {voice.error && <p className="mt-1.5 text-xs text-red-600">{voice.error}</p>}
@@ -454,7 +426,7 @@ function PlanCard({
   const { plan } = response.result;
   const confidencePct = Math.round(plan.confidence * 100);
   return (
-    <div className="rounded-2xl border border-(--color-brand)/15 bg-white p-4 text-sm leading-6">
+    <div className="animate-result-arrive rounded-2xl border border-(--color-brand)/15 bg-white p-4 text-sm leading-6">
       <p className="font-semibold text-foreground">{plan.headline}</p>
       <ul className="mt-2 space-y-1.5 text-(--color-muted)">
         {plan.steps.map((step, i) => (
@@ -484,8 +456,8 @@ function PlanCard({
       )}
 
       {plan.nudge && (
-        <div className="mt-3 flex items-start gap-2 rounded-xl border border-(--color-brand)/20 bg-(--color-cream)/60 px-3 py-2">
-          <Zap size={13} aria-hidden="true" className="mt-0.5 shrink-0 text-(--color-brand-strong)" />
+        <div className="mt-3 flex items-start gap-2 rounded-xl border border-(--color-clay)/35 bg-(--color-clay)/10 px-3 py-2">
+          <Zap size={13} aria-hidden="true" className="mt-0.5 shrink-0 text-(--color-clay)" />
           <p className="text-xs leading-5 text-foreground">
             <span className="font-semibold">If the day folds:</span>{" "}
             <span className="text-(--color-muted)">{plan.nudge}</span>
@@ -517,6 +489,54 @@ function PlanCard({
 
       {/* Pause-the-week — the brand-defining "no guilt" feature */}
       <PauseLink />
+    </div>
+  );
+}
+
+function ModeTabs({
+  mode,
+  hasLastPlan,
+  onSwitch,
+}: {
+  mode: Mode;
+  hasLastPlan: boolean;
+  onSwitch: (m: Mode) => void;
+}) {
+  const tabs: { id: Mode; label: string; Icon: typeof MessageCircle }[] = [
+    { id: "plan",    label: "Plan my window",    Icon: MessageCircle },
+    { id: "workout", label: "Generate workout",  Icon: Dumbbell      },
+  ];
+  if (hasLastPlan) tabs.push({ id: "adapt", label: "Adapt last", Icon: RefreshCw });
+
+  const activeIndex = tabs.findIndex((t) => t.id === mode);
+  const widthPct = 100 / tabs.length;
+
+  return (
+    <div
+      role="tablist"
+      aria-label="AI mode"
+      className="relative mt-3 inline-flex rounded-full border border-(--color-border) bg-(--color-bg-soft) p-0.5 text-xs font-semibold"
+    >
+      {/* Sliding indicator pill — animates between tabs */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-y-0.5 rounded-full bg-white shadow-sm transition-[left,width] duration-300 ease-out"
+        style={{ width: `calc(${widthPct}% - 4px)`, left: `calc(${activeIndex * widthPct}% + 2px)` }}
+      />
+      {tabs.map(({ id, label, Icon }) => (
+        <button
+          key={id}
+          type="button"
+          role="tab"
+          aria-selected={mode === id}
+          onClick={() => onSwitch(id)}
+          className={`relative z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors duration-200 ${
+            mode === id ? "text-foreground" : "text-(--color-muted) hover:text-foreground"
+          }`}
+        >
+          <Icon size={12} aria-hidden="true" /> {label}
+        </button>
+      ))}
     </div>
   );
 }
