@@ -30,6 +30,23 @@ html {
   --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
+/* ── PROTOTYPE: Option B "Calm + clay" palette ─────────────────────
+   Scoped override — apply via `theme-cool` class on a wrapper to flip
+   the palette inside that subtree only. Lets us A/B the rebrand on a
+   single section before committing globally. */
+.theme-cool {
+  --color-bg-soft: #fbf8f2;       /* warm white for cards inside the band */
+  --color-ink: #181c24;           /* cool ink */
+  --color-muted: #6b6f78;         /* warm slate */
+  --color-brand: #0e5c5c;         /* deep teal — CTA & accent */
+  --color-brand-strong: #0a4848;  /* deeper teal */
+  --color-cream: #f1e9d9;         /* butter cream band */
+  --color-mint-soft: #e8e1cf;     /* cream chip / pill tint */
+  --color-border: #e2dcca;        /* warm border */
+  --color-clay: #d08566;          /* warm accent for nudge strips */
+  --button-shadow: 0 24px 50px -28px rgba(14, 92, 92, 0.40);
+}
+
 @theme inline {
   --color-background: var(--color-bg);
   --color-foreground: var(--color-ink);
