@@ -7,45 +7,30 @@ html {
 }
 
 :root {
-  --color-bg: #ffffff;           /* pure white — page background */
-  --color-bg-soft: #ffffff;      /* pure white — card surfaces */
-  --color-ink: #1c1712;          /* warm near-black */
-  --color-muted: #7a6e60;        /* warm taupe */
-  --color-brand: #2d5a3d;        /* forest green — CTA & accent */
-  --color-brand-strong: #234831; /* deep forest green */
-  --color-secondary: #3a7d5a;    /* medium green — secondary actions */
-  --color-secondary-strong: #2d6a4b;
+  --color-bg: #f9f6f1;           /* warm white — page background */
+  --color-bg-soft: #fbf8f2;      /* slightly lighter — card surfaces */
+  --color-ink: #181c24;          /* cool ink — body text */
+  --color-muted: #6b6f78;        /* warm slate */
+  --color-brand: #0e5c5c;        /* deep teal — CTA & accent */
+  --color-brand-strong: #0a4848; /* deeper teal */
+  --color-secondary: #1a6b6b;    /* slightly lighter teal — secondary */
+  --color-secondary-strong: #0e5c5c;
   --color-on-brand: #ffffff;
-  --color-cream: #f0f5f2;        /* light sage — hover / highlight surfaces */
+  --color-cream: #f1e9d9;        /* butter cream — section bands */
   --color-melon-soft: #fef3e8;   /* warm — dashboard pages */
   --color-melon-glow: #fde8cc;
-  --color-mint-soft: #e4eeea;    /* sage tint — result badges */
-  --color-border: #e2e8e4;       /* neutral sage border */
-  --shadow-soft: 0 24px 60px -38px rgba(28, 23, 18, 0.12);
+  --color-mint-soft: #e8e1cf;    /* cream chip / pill tint */
+  --color-border: #e2dcca;       /* warm border */
+  --color-clay: #d08566;         /* warm accent — nudge strips, urgency */
+  --shadow-soft: 0 24px 60px -38px rgba(24, 28, 36, 0.12);
   --shadow-card: 0 18px 40px -28px rgba(0, 0, 0, 0.18);
   --shadow-card-strong: 0 18px 40px -28px rgba(0, 0, 0, 0.30);
-  --button-shadow: 0 24px 50px -28px rgba(45, 90, 61, 0.40);
+  --button-shadow: 0 24px 50px -28px rgba(14, 92, 92, 0.40);
   --motion-fast: 220ms;
   --motion-normal: 520ms;
   --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* ── PROTOTYPE: Option B "Calm + clay" palette ─────────────────────
-   Scoped override — apply via `theme-cool` class on a wrapper to flip
-   the palette inside that subtree only. Lets us A/B the rebrand on a
-   single section before committing globally. */
-.theme-cool {
-  --color-bg-soft: #fbf8f2;       /* warm white for cards inside the band */
-  --color-ink: #181c24;           /* cool ink */
-  --color-muted: #6b6f78;         /* warm slate */
-  --color-brand: #0e5c5c;         /* deep teal — CTA & accent */
-  --color-brand-strong: #0a4848;  /* deeper teal */
-  --color-cream: #f1e9d9;         /* butter cream band */
-  --color-mint-soft: #e8e1cf;     /* cream chip / pill tint */
-  --color-border: #e2dcca;        /* warm border */
-  --color-clay: #d08566;          /* warm accent for nudge strips */
-  --button-shadow: 0 24px 50px -28px rgba(14, 92, 92, 0.40);
-}
 
 @theme inline {
   --color-background: var(--color-bg);
@@ -132,8 +117,8 @@ blockquote {
 .section-bg-morning  { background: #ffffff; }
 .section-bg-midday   { background: #ffffff; }
 .section-bg-afternoon{ background: #ffffff; }
-.section-bg-evening  { background: #eef4f0; } /* light sage */
-.section-bg-night    { background: #e4eeea; } /* sage — deepest */
+.section-bg-evening  { background: #f4ecdb; } /* light butter cream */
+.section-bg-night    { background: #ede3cf; } /* butter cream — deepest */
 
 .font-display {
   font-family: var(--font-display), Georgia, serif;

@@ -21,7 +21,7 @@ const AiCheckIn = dynamic(
 
 export function AiDemoSection() {
   return (
-    <div className="theme-cool mt-14 bg-(--color-cream) sm:mt-20 lg:mt-24">
+    <div className="mt-14 bg-(--color-cream) sm:mt-20 lg:mt-24">
       <div className="mx-auto w-full max-w-5xl px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
         <Reveal>
           <section id="section-ai" className="scroll-mt-24">
