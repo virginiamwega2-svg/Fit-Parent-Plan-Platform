@@ -9,6 +9,7 @@ import { FitQuiz } from "@/components/ui/fit-quiz";
 import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
 import { AiDemoSection } from "@/components/home/ai-demo-section";
+import { HeroCta } from "@/components/home/hero-cta";
 import { useCountUp } from "@/hooks/use-count-up";
 
 export const dynamic = "force-static";
@@ -127,13 +128,7 @@ export default function Home() {
           </div>
 
           <div className="hero-line-4 mt-6 flex flex-col items-center">
-            <a
-              href="#section-ai"
-              className="group cta-button inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold"
-            >
-              Try it — 30 seconds
-              <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-            </a>
+            <HeroCta />
             <p className="mt-2.5 text-xs text-white/60">
               No signup · 14-day money-back guarantee on paid plans
             </p>

@@ -44,16 +44,35 @@ function saveLastPlan(plan: SavedPlan) {
   }
 }
 
-const EXAMPLES = [
-  "Slept badly, kids up early. 18 minutes before school run.",
-  "Feeling decent, no equipment, 25 min before work calls.",
-  "Back is tight after carrying the toddler all day. 15 min, gentle please.",
+const EXAMPLES_EARLY = [
+  "Up since 5, kid woke up early. 12 minutes before they're hungry again.",
+  "Slept badly. 15 min before the school run.",
+  "Coffee in hand, kids still asleep. 20 min and counting.",
 ];
+const EXAMPLES_MIDDAY = [
+  "Feeling decent, no equipment, 25 min before work calls.",
+  "Lunch break, 15 min before pickup.",
+  "Toddler napping. 20 min, no jumping or it's all over.",
+];
+const EXAMPLES_EVENING = [
+  "Just put them down. 15 min before I crash.",
+  "Back is tight after carrying the toddler all day. 15 min, gentle please.",
+  "Kids in bed, I have 20 min before I want to sleep too.",
+];
+
+function pickExamples(): string[] {
+  const h = new Date().getHours();
+  if (h < 11) return EXAMPLES_EARLY;
+  if (h < 17) return EXAMPLES_MIDDAY;
+  return EXAMPLES_EVENING;
+}
 
 export function AiCheckIn() {
   const [mode, setMode] = useState<Mode>("plan");
   // Pre-fill so visitors don't face a blank box — lowers friction massively.
-  const [text, setText] = useState(EXAMPLES[0]);
+  // Examples vary by time of day so the demo feels alive on first paint.
+  const [examples] = useState(pickExamples);
+  const [text, setText] = useState(examples[0]);
   const [minutes, setMinutes] = useState<number>(20);
   const [equipment, setEquipment] = useState<Equipment>("none");
   const [energy, setEnergy] = useState<number>(3);
@@ -215,7 +234,7 @@ export function AiCheckIn() {
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        {EXAMPLES.map((ex) => (
+        {examples.map((ex) => (
           <button
             key={ex}
             type="button"
