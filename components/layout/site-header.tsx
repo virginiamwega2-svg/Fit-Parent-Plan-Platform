@@ -159,7 +159,7 @@ export function SiteHeader() {
                 <Button href="/dashboard" variant="ghost">Dashboard</Button>
               ) : (
                 <a href="#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
-                  Apply · $199/mo
+                  Apply — 2 min
                 </a>
               )}
             </>
@@ -263,7 +263,7 @@ export function SiteHeader() {
                   onClick={() => setOpen(false)}
                   className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-(--color-cream)"
                 >
-                  Apply · $199/mo
+                  Apply — 2 min
                 </a>
               )}
             </>
@@ -297,7 +297,7 @@ export function SiteHeader() {
               <>
                 <Button href="/login" variant="secondary" className="flex-1">Login</Button>
                 <Link href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-3 text-sm font-semibold">
-                  Apply · $199/mo
+                  Apply — 2 min
                 </Link>
               </>
             )}

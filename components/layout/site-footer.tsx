@@ -57,7 +57,7 @@ export function SiteFooter() {
             </div>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-(--color-bg)/40">Quick links</p>
+            <p className="eyebrow text-(--color-bg)/40">Quick links</p>
             <ul className="mt-3 grid gap-2 text-sm text-(--color-bg)/50">
               <li><Link href="/#section-how" className="transition-colors hover:text-(--color-bg)">How it works</Link></li>
               <li><Link href="/#section-results" className="transition-colors hover:text-(--color-bg)">Results</Link></li>
@@ -67,7 +67,7 @@ export function SiteFooter() {
             </ul>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-(--color-bg)/40">Legal</p>
+            <p className="eyebrow text-(--color-bg)/40">Legal</p>
             <ul className="mt-3 grid gap-2 text-sm text-(--color-bg)/50">
               <li><Link href="/privacy" className="transition-colors hover:text-(--color-bg)">Privacy Policy</Link></li>
               <li><Link href="/terms" className="transition-colors hover:text-(--color-bg)">Terms of Use</Link></li>
