@@ -1,9 +1,17 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Mic, MicOff, Send, Sparkles, Info, Mail, Check } from "lucide-react";
-import { generatePlanAction, savePlanEmailAction, type GeneratePlanResponse } from "@/app/actions/ai";
+import { Mic, MicOff, Send, Sparkles, Info, Mail, Check, Dumbbell, MessageCircle } from "lucide-react";
+import {
+  generatePlanAction,
+  generateWorkoutAction,
+  savePlanEmailAction,
+  type GeneratePlanResponse,
+} from "@/app/actions/ai";
 import { useVoiceInput } from "@/hooks/use-voice-input";
+import type { Equipment } from "@/lib/ai/types";
+
+type Mode = "plan" | "workout";
 
 const EXAMPLES = [
   "Slept badly, kids up early. 18 minutes before school run.",
@@ -12,23 +20,46 @@ const EXAMPLES = [
 ];
 
 export function AiCheckIn() {
+  const [mode, setMode] = useState<Mode>("plan");
   // Pre-fill so visitors don't face a blank box — lowers friction massively.
   const [text, setText] = useState(EXAMPLES[0]);
   const [minutes, setMinutes] = useState<number>(20);
+  const [equipment, setEquipment] = useState<Equipment>("none");
+  const [energy, setEnergy] = useState<number>(3);
+  const [workoutNotes, setWorkoutNotes] = useState("");
   const [response, setResponse] = useState<GeneratePlanResponse | null>(null);
   const [showReasoning, setShowReasoning] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const voice = useVoiceInput(setText);
 
-  const submit = () => {
-    if (text.trim().length < 4) return;
+  const switchMode = (next: Mode) => {
+    if (next === mode) return;
+    setMode(next);
     setResponse(null);
     setShowReasoning(false);
-    startTransition(async () => {
-      const result = await generatePlanAction({ text: text.trim(), minutesAvailable: minutes });
-      setResponse(result);
-    });
+  };
+
+  const submit = () => {
+    setResponse(null);
+    setShowReasoning(false);
+    if (mode === "plan") {
+      if (text.trim().length < 4) return;
+      startTransition(async () => {
+        const result = await generatePlanAction({ text: text.trim(), minutesAvailable: minutes });
+        setResponse(result);
+      });
+    } else {
+      startTransition(async () => {
+        const result = await generateWorkoutAction({
+          minutesAvailable: minutes,
+          equipment,
+          energy,
+          notes: workoutNotes.trim() || undefined,
+        });
+        setResponse(result);
+      });
+    }
   };
 
   return (
@@ -46,6 +77,33 @@ export function AiCheckIn() {
         </span>
       </div>
 
+      <div role="tablist" aria-label="AI mode" className="mt-3 inline-flex rounded-full border border-(--color-border) bg-(--color-bg-soft) p-0.5 text-xs font-semibold">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mode === "plan"}
+          onClick={() => switchMode("plan")}
+          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors ${
+            mode === "plan" ? "bg-white text-foreground shadow-sm" : "text-(--color-muted)"
+          }`}
+        >
+          <MessageCircle size={12} aria-hidden="true" /> Plan my window
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mode === "workout"}
+          onClick={() => switchMode("workout")}
+          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors ${
+            mode === "workout" ? "bg-white text-foreground shadow-sm" : "text-(--color-muted)"
+          }`}
+        >
+          <Dumbbell size={12} aria-hidden="true" /> Generate workout
+        </button>
+      </div>
+
+      {mode === "plan" ? (
+      <>
       <div className="mt-4">
         <label className="block text-xs font-semibold text-(--color-muted)" htmlFor="ai-checkin">
           Tell me about today
@@ -90,6 +148,71 @@ export function AiCheckIn() {
           </button>
         ))}
       </div>
+      </>
+      ) : (
+      <div className="mt-4 space-y-3">
+        <div>
+          <label className="block text-xs font-semibold text-(--color-muted)" htmlFor="wo-equipment">
+            Equipment
+          </label>
+          <div role="radiogroup" aria-labelledby="wo-equipment" className="mt-2 flex flex-wrap gap-1.5">
+            {([
+              ["none", "Bodyweight"],
+              ["dumbbells", "Dumbbells"],
+              ["bands", "Bands"],
+              ["full-gym", "Full gym"],
+            ] as const).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                role="radio"
+                aria-checked={equipment === value}
+                onClick={() => setEquipment(value)}
+                className={`rounded-full border px-3 py-1 text-xs ${
+                  equipment === value
+                    ? "border-(--color-brand) bg-(--color-mint-soft) text-foreground"
+                    : "border-(--color-border) bg-white text-(--color-muted) hover:border-(--color-brand)/40"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div>
+          <label htmlFor="wo-energy" className="flex items-center justify-between text-xs font-semibold text-(--color-muted)">
+            <span>Energy today</span>
+            <span className="text-foreground">
+              {energy}/5 {energy <= 2 ? "· wiped" : energy >= 4 ? "· fresh" : "· steady"}
+            </span>
+          </label>
+          <input
+            id="wo-energy"
+            type="range"
+            min={1}
+            max={5}
+            step={1}
+            value={energy}
+            onChange={(e) => setEnergy(Number(e.target.value))}
+            className="mt-2 w-full accent-(--color-brand)"
+          />
+        </div>
+        <div>
+          <label htmlFor="wo-notes" className="block text-xs font-semibold text-(--color-muted)">
+            Anything to work around? <span className="font-normal text-(--color-muted)/70">(optional)</span>
+          </label>
+          <input
+            id="wo-notes"
+            type="text"
+            value={workoutNotes}
+            onChange={(e) => setWorkoutNotes(e.target.value)}
+            maxLength={300}
+            placeholder="e.g. tight back, sore knees, no jumping"
+            className="mt-2 w-full rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-2.5 text-sm text-foreground placeholder:text-(--color-muted)/60 focus:border-(--color-brand) focus:outline-none focus:ring-2 focus:ring-(--color-brand)/15"
+          />
+        </div>
+      </div>
+      )}
 
       <div className="mt-4 flex items-center justify-between gap-3">
         <label className="flex items-center gap-2 text-xs text-(--color-muted)">
@@ -106,10 +229,14 @@ export function AiCheckIn() {
         <button
           type="button"
           onClick={submit}
-          disabled={isPending || text.trim().length < 4}
+          disabled={isPending || (mode === "plan" && text.trim().length < 4)}
           className="inline-flex items-center gap-1.5 rounded-full bg-(--color-brand) px-5 py-2 text-sm font-semibold text-white transition-opacity disabled:opacity-50"
         >
-          {isPending ? "Thinking…" : (<>Get my plan <Send size={13} aria-hidden="true" /></>)}
+          {isPending
+            ? "Thinking…"
+            : mode === "plan"
+              ? (<>Get my plan <Send size={13} aria-hidden="true" /></>)
+              : (<>Generate workout <Send size={13} aria-hidden="true" /></>)}
         </button>
       </div>
 

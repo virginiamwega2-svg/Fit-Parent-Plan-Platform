@@ -5,6 +5,17 @@ export type CheckIn = {
   minutesAvailable?: number;
 };
 
+export type Equipment = "none" | "dumbbells" | "bands" | "full-gym";
+
+export type WorkoutInput = {
+  minutesAvailable: number;
+  equipment: Equipment;
+  /** 1 (wiped) – 5 (fresh). Drives intensity. */
+  energy: number;
+  /** Optional free-text constraint, e.g. "back is tight". */
+  notes?: string;
+};
+
 export type AiPlan = {
   /** One-sentence headline the parent reads first. */
   headline: string;
