@@ -400,6 +400,19 @@ textarea {
 }
 
 /* ── Soft pulse for scarcity / urgency badges ────────────── */
+/* Hero Ken Burns — active slide slow-zooms ~5% over the dwell time.
+   Cinematic, GPU-accelerated, skipped under reduced-motion. */
+@keyframes hero-kenburns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
+}
+.animate-hero-kenburns {
+  animation: hero-kenburns 7000ms var(--motion-ease) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-kenburns { animation: none; }
+}
+
 /* Result card arrival — fade + slide-up so plans don't pop in cold. */
 @keyframes result-arrive {
   from { opacity: 0; transform: translateY(8px); }

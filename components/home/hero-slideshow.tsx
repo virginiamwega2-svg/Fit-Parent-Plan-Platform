@@ -41,7 +41,7 @@ export function HeroSlideshow() {
           placeholder={i === 0 ? "blur" : "empty"}
           blurDataURL={i === 0 ? HERO_BLUR : undefined}
           className={`object-cover object-[center_40%] transition-opacity duration-1000 ease-in-out sm:object-center ${
-            i === active ? "opacity-100" : "opacity-0"
+            i === active ? "opacity-100 animate-hero-kenburns" : "opacity-0"
           }`}
         />
       ))}

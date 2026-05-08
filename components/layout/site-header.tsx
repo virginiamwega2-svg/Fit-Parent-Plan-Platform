@@ -207,15 +207,24 @@ export function SiteHeader() {
           aria-label="Toggle navigation"
           aria-expanded={open}
         >
-          {open ? (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          ) : (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          )}
+          {/* Animated hamburger — three lines morph into an X via CSS transforms */}
+          <span className="relative flex h-5 w-5 items-center justify-center" aria-hidden="true">
+            <span
+              className={`absolute h-[1.5px] w-3.5 rounded-full bg-current transition-transform duration-300 ${
+                open ? "translate-y-0 rotate-45" : "-translate-y-1.5"
+              }`}
+            />
+            <span
+              className={`absolute h-[1.5px] w-3.5 rounded-full bg-current transition-opacity duration-200 ${
+                open ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`absolute h-[1.5px] w-3.5 rounded-full bg-current transition-transform duration-300 ${
+                open ? "translate-y-0 -rotate-45" : "translate-y-1.5"
+              }`}
+            />
+          </span>
         </button>
       </div>
 
