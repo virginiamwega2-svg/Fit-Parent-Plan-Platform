@@ -104,7 +104,7 @@ export default function Home() {
           </p>
           <h1 className="mt-4 leading-[1.05]">
             <span className="hero-line-2 block text-[clamp(1rem,1.6vw+0.4rem,2rem)] font-thin italic text-white/75">
-              For parents who don&apos;t have time.
+              For parents who never finish what they start.
             </span>
             <span className="hero-line-3 block text-[clamp(1.9rem,3vw+0.5rem,3.8rem)] font-black text-white">
               Tell it your week.{" "}
@@ -131,7 +131,7 @@ export default function Home() {
               href="#section-ai"
               className="group cta-button inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold"
             >
-              Try the assistant — free
+              Try it — 30 seconds
               <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
             </a>
             <p className="mt-3 text-xs text-white/60">
@@ -206,7 +206,7 @@ export default function Home() {
             <section id="section-offer" className="scroll-mt-24">
               <div className="grid gap-8 lg:grid-cols-[1fr_340px] lg:gap-12">
                 <div>
-                  <p className="eyebrow mb-3 text-(--color-brand)">Pricing</p>
+                  <p className="eyebrow mb-3 text-(--color-brand)">Membership</p>
                   <h2 className="text-3xl tracking-tight sm:text-4xl">
                     <span className="font-light italic text-(--color-muted)">One price. </span>
                     <span className="font-black text-foreground">Everything included.</span>
@@ -241,7 +241,7 @@ export default function Home() {
                     ))}
                   </ul>
                   <a href="#apply" className="cta-button mt-6 inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold">
-                    Claim your spot <ArrowRight size={14} aria-hidden="true" />
+                    Apply for a spot <ArrowRight size={14} aria-hidden="true" />
                   </a>
                   <p className="mt-3 text-center text-xs text-(--color-muted)/70">14-day guarantee · No contract · Cancel anytime</p>
                 </div>
@@ -278,8 +278,8 @@ export default function Home() {
               <div>
                 <p className="eyebrow mb-3 text-(--color-muted)">Not for you if</p>
                 <h2 className="text-3xl tracking-tight sm:text-4xl">
-                  <span className="font-light italic text-(--color-muted)">Better look </span>
-                  <span className="font-black text-foreground">elsewhere.</span>
+                  <span className="font-light italic text-(--color-muted)">This isn&apos;t </span>
+                  <span className="font-black text-foreground">your fit.</span>
                 </h2>
                 <ul className="mt-6 grid gap-3">
                   {([
@@ -312,8 +312,8 @@ export default function Home() {
               </h2>
               <div className="grid gap-4 sm:grid-cols-3">
                 {([
-                  { n: "1", title: "Apply in 2 minutes", body: "Tell us your schedule and goals. No payment upfront." },
-                  { n: "2", title: "Coach replies in 24 hours", body: "A personal message — not an automated sequence." },
+                  { n: "1", title: "Apply in 2 minutes", body: "Two minutes. No card needed." },
+                  { n: "2", title: "Coach replies in 24 hours", body: "Maya replies herself. Within 24 hours." },
                   { n: "3", title: "Start Monday", body: "Your first AI plan and meal plan arrive the same week." },
                 ] as const).map(({ n, title, body }, i) => (
                   <div key={n} className="relative flex gap-4 rounded-2xl border border-(--color-border) bg-white p-5">
@@ -344,8 +344,8 @@ export default function Home() {
           <section id="section-faq" className="scroll-mt-24 pt-14 sm:pt-20 lg:pt-24">
             <p className="eyebrow mb-3 text-(--color-brand)">Quick answers</p>
             <h2 className="text-3xl tracking-tight sm:text-4xl">
-              <span className="font-light italic text-(--color-muted)">Common </span>
-              <span className="font-black text-foreground">questions.</span>
+              <span className="font-light italic text-(--color-muted)">Before </span>
+              <span className="font-black text-foreground">you apply.</span>
             </h2>
             <div className="mt-6 max-w-3xl">
               <FaqAccordion items={FAQ} />

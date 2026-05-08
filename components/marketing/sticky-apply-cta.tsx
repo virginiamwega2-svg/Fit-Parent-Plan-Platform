@@ -23,7 +23,7 @@ export function StickyApplyCta() {
         tabIndex={visible ? 0 : -1}
         className="flex h-12 w-full items-center justify-center gap-3 rounded-full bg-(--color-brand) text-sm font-semibold text-white transition hover:bg-(--color-brand-strong)"
       >
-        <span>Try the assistant — free</span>
+        <span>Try it — 30 seconds</span>
         <span className="text-white/50">·</span>
         <span className="text-white/70 text-xs font-normal">No signup</span>
       </a>

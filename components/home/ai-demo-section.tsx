@@ -31,8 +31,8 @@ export function AiDemoSection() {
                   <Sparkles size={13} aria-hidden="true" /> New · AI assistant
                 </p>
                 <h2 className="text-3xl tracking-tight sm:text-4xl">
-                  <span className="font-light italic text-(--color-muted)">Tell it your week. </span>
-                  <span className="font-black text-foreground">Get a plan that fits.</span>
+                  <span className="font-light italic text-(--color-muted)">See it </span>
+                  <span className="font-black text-foreground">in action.</span>
                 </h2>
                 <p className="mt-4 max-w-md text-base leading-7 text-(--color-muted)">
                   Speak for 30 seconds — sleep, schedule, soreness, the kid who&apos;s up at 5am again.
@@ -41,7 +41,7 @@ export function AiDemoSection() {
                 <ul className="mt-6 grid gap-3">
                   {[
                     { icon: Mic, label: "Voice-first — no forms, no typing required" },
-                    { icon: Calendar, label: "Looks at your week, not yesterday's plan" },
+                    { icon: Calendar, label: "Adjusts every Monday — not a static PDF" },
                     { icon: Clock, label: "Finds the 18-minute window you didn't see" },
                   ].map(({ icon: Icon, label }) => (
                     <li key={label} className="flex items-start gap-2.5 text-sm text-(--color-muted)">
