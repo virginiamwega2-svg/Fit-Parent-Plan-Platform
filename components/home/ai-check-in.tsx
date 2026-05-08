@@ -507,7 +507,7 @@ function EmailCaptureRow() {
   }
 
   return (
-    <div className="mt-3">
+    <div className="mt-4">
       <label htmlFor="plan-email" className="flex items-center gap-1.5 text-xs text-(--color-muted)">
         <Mail size={11} aria-hidden="true" />
         Or email me this plan to do later:

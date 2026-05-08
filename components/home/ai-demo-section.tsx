@@ -38,7 +38,7 @@ export function AiDemoSection() {
                   Speak for 30 seconds — sleep, schedule, soreness, the kid who&apos;s up at 5am again.
                   Your assistant returns one realistic thing for today, in the time you actually have.
                 </p>
-                <ul className="mt-6 grid gap-3">
+                <ul className="mt-6 grid gap-3.5">
                   {[
                     { icon: Mic, label: "Voice-first — no forms, no typing required" },
                     { icon: Calendar, label: "Adjusts every Monday — not a static PDF" },

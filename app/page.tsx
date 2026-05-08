@@ -134,11 +134,11 @@ export default function Home() {
               Try it — 30 seconds
               <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
             </a>
-            <p className="mt-3 text-xs text-white/60">
+            <p className="mt-2.5 text-xs text-white/60">
               No signup · 14-day money-back guarantee on paid plans
             </p>
             {/* Trust strip — credentials at a glance */}
-            <p className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/50">
+            <p className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/50">
               <span>NASM-CPT coaches</span>
               <span aria-hidden="true">·</span>
               <span>Pre/postnatal specialists</span>
@@ -228,11 +228,11 @@ export default function Home() {
                 <div className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-(--shadow-card)">
                   <p className="text-xs font-semibold uppercase tracking-widest text-(--color-muted)">Monthly</p>
                   <div className="mt-2 flex items-baseline gap-1">
-                    <span className="font-display text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$199</span>
+                    <span className="tabular-price text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$199</span>
                     <span className="text-sm text-(--color-muted)">/mo</span>
                   </div>
                   <p className="mt-1 text-sm text-(--color-muted)">3-month minimum · then month-to-month</p>
-                  <ul className="mt-5 grid gap-2">
+                  <ul className="mt-5 grid gap-2.5">
                     {(["AI assistant — adjusts your plan weekly", "3× weekly workouts", "Weekly meal plan", "Personal coach check-ins", "14-day money-back guarantee"] as const).map((line) => (
                       <li key={line} className="flex items-center gap-2 text-sm text-(--color-muted)">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-(--color-brand)" aria-hidden="true"><path d="M2 7.5l2.5 2.5 7.5-7.5"/></svg>
@@ -401,13 +401,13 @@ export default function Home() {
                         <p className="text-sm text-(--color-muted)">Head Coach</p>
                       </div>
                     </div>
-                    <div className="mt-8 grid grid-cols-2 gap-4">
+                    <div className="mt-10 grid grid-cols-2 gap-4">
                       <div className="rounded-2xl border border-(--color-border) bg-white p-4 text-center">
-                        <p className="font-display text-3xl font-black text-foreground">74</p>
+                        <p className="tabular-price text-3xl font-black text-foreground">74</p>
                         <p className="mt-0.5 text-xs text-(--color-muted)">parents coached</p>
                       </div>
                       <div className="rounded-2xl border border-(--color-border) bg-white p-4 text-center">
-                        <p className="font-display text-3xl font-black text-foreground">4.9</p>
+                        <p className="tabular-price text-3xl font-black text-foreground">4.9</p>
                         <p className="mt-0.5 text-xs text-(--color-muted)">avg. rating</p>
                       </div>
                     </div>
