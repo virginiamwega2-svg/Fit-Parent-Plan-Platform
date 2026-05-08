@@ -170,9 +170,9 @@ export default function Home() {
       <AiDemoSection />
 
       {/* ── 2. REAL RESULTS — proof before price ──────────────────── */}
-      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
         <Reveal>
-          <section id="section-results" className="scroll-mt-24 pt-14 sm:pt-20 lg:pt-24">
+          <section id="section-results" className="scroll-mt-24 pt-16 lg:pt-24">
             <p className="eyebrow mb-3 text-(--color-brand)">Real result · No edits</p>
             <h2 className="mb-8 text-3xl tracking-tight sm:text-4xl">
               <span className="font-light italic text-(--color-muted)">One parent. </span>
@@ -208,8 +208,8 @@ export default function Home() {
       </div>
 
       {/* ── 3. PRICING — moved up ─────────────────────────────────── */}
-      <div className="mt-14 bg-(--color-cream) sm:mt-20 lg:mt-24">
-        <div className="mx-auto w-full max-w-5xl px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
+      <div className="mt-16 bg-(--color-cream) lg:mt-24">
+        <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
           <Reveal>
             <section id="section-offer" className="scroll-mt-24">
               <div className="grid gap-8 lg:grid-cols-[1fr_340px] lg:gap-12">
@@ -226,7 +226,7 @@ export default function Home() {
                       "Cancel anytime after your first 3 months.",
                       "Your plan adjusts every week — not a static PDF.",
                     ] as const).map((line) => (
-                      <li key={line} className="flex items-start gap-2.5 text-sm text-(--color-muted)">
+                      <li key={line} className="flex items-start gap-3 text-sm text-(--color-muted)">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-(--color-brand)" aria-hidden="true"><path d="M2 7.5l2.5 2.5 7.5-7.5"/></svg>
                         {line}
                       </li>
@@ -260,9 +260,9 @@ export default function Home() {
       </div>
 
       {/* ── 4. IS THIS YOU? + NOT FOR YOU — combined qualifier ────── */}
-      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
         <Reveal>
-          <section id="section-fit" className="scroll-mt-24 pt-14 sm:pt-20 lg:pt-24">
+          <section id="section-fit" className="scroll-mt-24 pt-16 lg:pt-24">
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
               <div>
                 <p className="eyebrow mb-3 text-(--color-brand)">Built for you if</p>
@@ -296,7 +296,7 @@ export default function Home() {
                     "You'd rather have an app than a real person checking in",
                     "You want an 8-week transformation — this is steady progress",
                   ] as const).map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-(--color-muted)">
+                    <li key={item} className="flex items-start gap-3 text-sm text-(--color-muted)">
                       <X size={14} className="mt-0.5 shrink-0 text-(--color-border)" aria-hidden="true" />
                       {item}
                     </li>
@@ -309,8 +309,8 @@ export default function Home() {
       </div>
 
       {/* ── 5. HOW IT WORKS — cream band, compressed ─────────────── */}
-      <div className="mt-14 bg-(--color-cream) sm:mt-20 lg:mt-24">
-        <div className="mx-auto w-full max-w-5xl px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
+      <div className="mt-16 bg-(--color-cream) lg:mt-24">
+        <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
           <Reveal>
             <section id="section-how" className="scroll-mt-24">
               <p className="eyebrow mb-3 text-(--color-brand)">How it starts</p>
@@ -345,11 +345,11 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
 
         {/* ── 6. FAQ — top 4 only ──────────────────────────────────── */}
         <Reveal>
-          <section id="section-faq" className="scroll-mt-24 pt-14 sm:pt-20 lg:pt-24">
+          <section id="section-faq" className="scroll-mt-24 pt-16 lg:pt-24">
             <p className="eyebrow mb-3 text-(--color-brand)">Quick answers</p>
             <h2 className="text-3xl tracking-tight sm:text-4xl">
               <span className="font-light italic text-(--color-muted)">Before </span>
@@ -363,7 +363,7 @@ export default function Home() {
 
         {/* ── 7. APPLY — final form ────────────────────────────────── */}
         <Reveal>
-          <section id="apply" className="scroll-mt-24 mt-14 sm:mt-20 lg:mt-24">
+          <section id="apply" className="scroll-mt-24 mt-16 lg:mt-24">
             <div className="overflow-hidden rounded-3xl border border-(--color-border) bg-(--color-bg-soft) shadow-(--shadow-card-strong)">
               <div className="grid lg:grid-cols-2">
 

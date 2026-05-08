@@ -347,7 +347,7 @@ export function AiCheckIn() {
             max={120}
             value={minutes}
             onChange={(e) => setMinutes(Math.max(5, Math.min(120, Number(e.target.value) || 20)))}
-            className="w-16 rounded-lg border border-(--color-border) bg-white px-2 py-1 text-sm text-foreground focus:border-(--color-brand) focus:outline-none"
+            className="w-16 rounded-xl border border-(--color-border) bg-white px-2.5 py-1.5 text-sm text-foreground focus:border-(--color-brand) focus:outline-none focus:ring-2 focus:ring-(--color-brand)/15"
           />
         </label>
         <button
@@ -639,13 +639,13 @@ function EmailCaptureRow() {
           onChange={(e) => setEmail(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && submit()}
           placeholder="you@example.com"
-          className="flex-1 rounded-lg border border-(--color-border) bg-white px-3 py-1.5 text-xs text-foreground placeholder:text-(--color-muted)/50 focus:border-(--color-brand) focus:outline-none"
+          className="flex-1 rounded-xl border border-(--color-border) bg-white px-3 py-2 text-xs text-foreground placeholder:text-(--color-muted)/50 focus:border-(--color-brand) focus:outline-none focus:ring-2 focus:ring-(--color-brand)/15"
         />
         <button
           type="button"
           onClick={submit}
           disabled={isPending || !email.trim()}
-          className="inline-flex shrink-0 items-center rounded-lg border border-(--color-border) bg-white px-3 py-1.5 text-xs font-semibold text-foreground hover:border-(--color-brand)/40 disabled:opacity-50"
+          className="inline-flex shrink-0 items-center rounded-xl border border-(--color-border) bg-white px-3 py-2 text-xs font-semibold text-foreground transition-colors hover:border-(--color-brand)/40 disabled:opacity-50"
         >
           {isPending ? "Sending…" : "Send"}
         </button>

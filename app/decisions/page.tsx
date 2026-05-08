@@ -46,7 +46,7 @@ const DECISIONS = [
 
 export default function DecisionsPage() {
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-12 sm:px-6 sm:pt-16">
+    <div className="mx-auto w-full max-w-3xl px-6 pb-16 pt-12 lg:px-8 lg:pt-16">
 
       <Reveal>
         <p className="eyebrow text-(--color-brand)">Working notes</p>

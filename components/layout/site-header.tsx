@@ -111,7 +111,7 @@ export function SiteHeader() {
       "sticky top-0 z-30 bg-(--color-bg)/90 backdrop-blur transition-[border-color,box-shadow] duration-300",
       scrolled ? "border-b border-(--color-border) shadow-sm" : "border-b border-transparent",
     )}>
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-3 lg:px-8">
         {/* Logo — smaller on mobile to leave breathing room */}
         {isHome ? (
           <button
@@ -235,7 +235,7 @@ export function SiteHeader() {
           open ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0",
         )}
       >
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 overflow-y-auto px-4 py-4 sm:px-6">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 overflow-y-auto px-6 py-4 lg:px-8">
           {isHome ? (
             <>
               {HOME_SECTIONS.map((item) => (

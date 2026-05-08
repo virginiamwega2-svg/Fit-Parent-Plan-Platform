@@ -22,7 +22,7 @@ const AiCheckIn = dynamic(
 export function AiDemoSection() {
   return (
     <div className="bg-(--color-cream)">
-      <div className="mx-auto w-full max-w-5xl px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
+      <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
         <Reveal>
           <section id="section-ai" className="scroll-mt-24">
             <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">
@@ -38,13 +38,13 @@ export function AiDemoSection() {
                   Speak for 30 seconds — sleep, schedule, soreness, the kid who&apos;s up at 5am again.
                   Your assistant returns one realistic thing for today, in the time you actually have.
                 </p>
-                <ul className="mt-6 grid gap-3.5">
+                <ul className="mt-6 grid gap-4">
                   {[
                     { icon: Mic, label: "Voice-first — no forms, no typing required" },
                     { icon: Calendar, label: "Adjusts every Monday — not a static PDF" },
                     { icon: Clock, label: "Finds the 18-minute window you didn't see" },
                   ].map(({ icon: Icon, label }) => (
-                    <li key={label} className="flex items-start gap-2.5 text-sm text-(--color-muted)">
+                    <li key={label} className="flex items-start gap-3 text-sm text-(--color-muted)">
                       <Icon size={16} className="mt-0.5 shrink-0 text-(--color-brand)" aria-hidden="true" />
                       {label}
                     </li>
@@ -52,7 +52,7 @@ export function AiDemoSection() {
                 </ul>
                 <a
                   href="#section-ai-try"
-                  className="cta-button mt-7 inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold"
+                  className="cta-button mt-8 inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold"
                 >
                   Try it — no signup
                 </a>

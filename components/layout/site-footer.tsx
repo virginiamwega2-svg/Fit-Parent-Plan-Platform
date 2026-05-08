@@ -9,7 +9,7 @@ export function SiteFooter() {
     <footer className="mt-20 bg-foreground text-(--color-bg)">
       {/* Sign-off — the brand voice closing line */}
       <div className="border-b border-(--color-bg)/10">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+        <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
           <p className="font-display text-[clamp(2rem,5vw,4.5rem)] font-thin italic leading-tight text-(--color-bg)/30">
             See you
           </p>
@@ -19,7 +19,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
+      <div className="mx-auto w-full max-w-6xl px-6 py-12 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <p className="font-display text-xl font-black text-(--color-bg)">{siteConfig.name}</p>
