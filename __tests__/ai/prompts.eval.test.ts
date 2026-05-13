@@ -15,8 +15,8 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { adaptPlan, generatePlan, generateWorkout } from "@/lib/ai/adapter";
-import type { AiPlan } from "@/lib/ai/types";
+import { adaptPlan, generatePantry, generatePlan, generateWorkout } from "@/lib/ai/adapter";
+import type { AiPlan, PantryMeal } from "@/lib/ai/types";
 
 /* ────────────────────────────────────────────────────────────────────
  * Shared invariants — every plan, regardless of which path, must satisfy
@@ -206,6 +206,99 @@ const ADAPT_CASES = [
     },
   },
 ] as const;
+
+/* ────────────────────────────────────────────────────────────────────
+ * Pantry eval — meal-from-what-you-have agent
+ * ──────────────────────────────────────────────────────────────────── */
+
+function assertPantryContract(meal: PantryMeal, label: string) {
+  expect(meal.meal, `${label}: meal name`).toBeTypeOf("string");
+  expect(meal.meal.length, `${label}: meal name non-empty`).toBeGreaterThan(4);
+  expect(meal.meal.length, `${label}: meal name not bloated`).toBeLessThan(140);
+
+  expect(Array.isArray(meal.steps), `${label}: steps array`).toBe(true);
+  expect(meal.steps.length, `${label}: steps min`).toBeGreaterThanOrEqual(2);
+  expect(meal.steps.length, `${label}: steps max`).toBeLessThanOrEqual(6);
+  for (const step of meal.steps) {
+    expect(typeof step, `${label}: step is string`).toBe("string");
+    expect(step.trim().length, `${label}: step non-empty`).toBeGreaterThan(3);
+  }
+
+  expect(Array.isArray(meal.gapList), `${label}: gapList array`).toBe(true);
+  expect(meal.gapList.length, `${label}: gapList capped`).toBeLessThanOrEqual(6);
+
+  expect(typeof meal.timeMinutes, `${label}: timeMinutes number`).toBe("number");
+  expect(meal.timeMinutes, `${label}: timeMinutes positive`).toBeGreaterThan(0);
+
+  expect(typeof meal.reasoning, `${label}: reasoning string`).toBe("string");
+  expect(meal.reasoning.length, `${label}: reasoning non-empty`).toBeGreaterThan(20);
+
+  expect(meal.confidence, `${label}: confidence range`).toBeGreaterThanOrEqual(0);
+  expect(meal.confidence, `${label}: confidence range`).toBeLessThanOrEqual(1);
+}
+
+const PANTRY_CASES = [
+  {
+    name: "pasta-night",
+    input: { pantry: "pasta, garlic, parmesan, olive oil", minutesAvailable: 20, pickyEater: false },
+    expect: {
+      mustMatch: /pasta|noodle/i,
+      reason: "When pasta is on hand, dinner uses it",
+    },
+  },
+  {
+    name: "egg-quick",
+    input: { pantry: "eggs, onion, peppers, cheese", minutesAvailable: 12, pickyEater: false },
+    expect: {
+      mustMatch: /egg|omelette|scramble/i,
+      reason: "Eggs are the fastest dinner — should anchor the meal",
+    },
+  },
+  {
+    name: "rice-bowl",
+    input: { pantry: "rice, canned beans, salsa", minutesAvailable: 25, pickyEater: false },
+    expect: {
+      mustMatch: /rice|bowl/i,
+      reason: "Rice + protein → rice bowl",
+    },
+  },
+  {
+    name: "sparse-pantry-honest",
+    input: { pantry: "ketchup, soda", minutesAvailable: 15, pickyEater: false },
+    expect: {
+      reason: "Sparse pantry → low confidence + non-empty gap list",
+    },
+  },
+] as const;
+
+describe("eval: generatePantry", () => {
+  for (const c of PANTRY_CASES) {
+    it(`[${c.name}] satisfies contract + case expectations`, async () => {
+      const r = await generatePantry(c.input);
+      expect(r.source).toBe("mock");
+      assertPantryContract(r.meal, c.name);
+
+      const haystack = `${r.meal.meal} ${r.meal.steps.join(" ")} ${r.meal.reasoning}`;
+      if ("mustMatch" in c.expect) {
+        expect(haystack, `${c.name}: ${c.expect.reason}`).toMatch(c.expect.mustMatch);
+      }
+    });
+  }
+
+  it("[sparse-pantry-honest] returns low confidence and a non-empty gap list", async () => {
+    const sparse = PANTRY_CASES[3];
+    const r = await generatePantry(sparse.input);
+    expect(r.meal.confidence, "sparse pantry → low confidence").toBeLessThan(0.7);
+    expect(r.meal.gapList.length, "sparse pantry → suggests staples to buy").toBeGreaterThan(0);
+  });
+
+  it("[time-honored] meal time never blows past the constraint", async () => {
+    for (const c of PANTRY_CASES) {
+      const r = await generatePantry(c.input);
+      expect(r.meal.timeMinutes, `${c.name}: time fits window`).toBeLessThanOrEqual(c.input.minutesAvailable);
+    }
+  });
+});
 
 describe("eval: adaptPlan", () => {
   for (const c of ADAPT_CASES) {

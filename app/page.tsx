@@ -44,6 +44,21 @@ const FaqAccordion = dynamicImport(
   },
 );
 
+const PantryAgent = dynamicImport(
+  () => import("@/components/home/pantry-agent").then((m) => m.PantryAgent),
+  {
+    loading: () => (
+      <div className="rounded-3xl border border-(--color-brand)/20 bg-white p-6 shadow-(--shadow-card) sm:p-7">
+        <div className="space-y-3">
+          <div className="h-3 w-1/3 animate-pulse rounded bg-(--color-cream)" />
+          <div className="h-20 w-full animate-pulse rounded-2xl bg-(--color-cream)" />
+          <div className="h-10 w-full animate-pulse rounded-full bg-(--color-cream)" />
+        </div>
+      </div>
+    ),
+  },
+);
+
 const FitQuiz = dynamicImport(
   () => import("@/components/ui/fit-quiz").then((m) => m.FitQuiz),
   {
@@ -168,6 +183,32 @@ export default function Home() {
 
       {/* ── 1. AI ASSISTANT — the wow ──────────────────────────────── */}
       <AiDemoSection />
+
+      {/* ── 1b. PANTRY-TO-PLATE — second AI agent ─────────────────── */}
+      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
+        <Reveal>
+          <section id="section-pantry-card" className="scroll-mt-24 pt-16 lg:pt-24">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">
+              <div>
+                <p className="eyebrow mb-3 text-(--color-brand)">Also new · For dinner tonight</p>
+                <h2 className="text-3xl tracking-tight sm:text-4xl">
+                  <span className="font-light italic text-(--color-muted)">What&apos;s in </span>
+                  <span className="font-black text-foreground">your fridge?</span>
+                </h2>
+                <p className="mt-4 max-w-md text-base leading-7 text-(--color-muted)">
+                  The same assistant that plans your 20-minute window can plan your 20-minute dinner. Type what you have, get one realistic meal — plus a 1-tap list of what&apos;s missing.
+                </p>
+                <ul className="mt-6 grid gap-3 text-sm text-(--color-muted)">
+                  <li>· Built around what you actually have, not what a blog says you should</li>
+                  <li>· Honors the time you have, including prep</li>
+                  <li>· Picky-eater toggle for the kids</li>
+                </ul>
+              </div>
+              <PantryAgent />
+            </div>
+          </section>
+        </Reveal>
+      </div>
 
       {/* ── 2. REAL RESULTS — proof before price ──────────────────── */}
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">

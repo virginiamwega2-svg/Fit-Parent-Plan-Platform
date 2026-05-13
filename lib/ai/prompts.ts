@@ -70,6 +70,35 @@ export function buildAdaptUserPrompt(opts: {
   return `Previous plan headline: "${opts.previousHeadline}"\nPrevious steps:\n${opts.previousSteps.map((s) => `- ${s}`).join("\n")}\n\nWhat happened / what's different now:\n"${opts.update}"\n\nMinutes available today: ${opts.minutesAvailable}\n\nReturn the adapted JSON plan.`;
 }
 
+export const PANTRY_SYSTEM_PROMPT = `You are a no-nonsense kitchen helper for busy parents. Given what's in the pantry/fridge and the time they have, return ONE realistic meal — not three options, not a meal plan, just dinner tonight.
+
+Rules:
+- Build the meal mostly from items they listed. It's okay to assume staples like salt, pepper, oil, water.
+- Match the time exactly. If they have 18 minutes, prep + cook fits in 18 minutes.
+- If picky-eater mode is on, keep flavors mild and familiar (no strong spice, no unusual textures).
+- The gap list is items they probably need but didn't list — keep it to 0–4 items. If they have everything, return an empty array.
+- Steps are imperative and concrete: "Boil pasta 8 min" beats "cook the pasta".
+
+Respond ONLY with valid JSON matching this shape — no prose around it:
+{
+  "meal": "One-sentence name of the meal.",
+  "steps": ["step 1", "step 2", "step 3"],
+  "gapList": ["item 1", "item 2"],
+  "timeMinutes": 18,
+  "reasoning": "Two sentences explaining what you used and why this fits.",
+  "confidence": 0.85
+}
+
+confidence is 0.0–1.0. Lower when the pantry is sparse or the constraints conflict.`;
+
+export function buildPantryUserPrompt(opts: {
+  pantry: string;
+  minutesAvailable: number;
+  pickyEater: boolean;
+}) {
+  return `Pantry items:\n"${opts.pantry}"\n\nMinutes available: ${opts.minutesAvailable}\nPicky eater: ${opts.pickyEater ? "yes" : "no"}\n\nReturn the JSON meal.`;
+}
+
 export function buildWorkoutUserPrompt(opts: {
   minutesAvailable: number;
   equipment: string;

@@ -36,6 +36,39 @@ export type AiPlan = {
   nudge?: string;
 };
 
+export type PantryInput = {
+  /** Comma/newline separated pantry items the parent has on hand. */
+  pantry: string;
+  /** Total minutes the parent has including prep + cook. */
+  minutesAvailable: number;
+  /** Picky-eater mode — bias toward mild, familiar flavors. */
+  pickyEater: boolean;
+};
+
+export type PantryMeal = {
+  /** One-sentence name of the meal. */
+  meal: string;
+  /** 2–5 short, ordered cooking steps. */
+  steps: string[];
+  /** Items the parent likely needs but didn't list — the shopping snippet. */
+  gapList: string[];
+  /** Estimated total time in minutes. */
+  timeMinutes: number;
+  /** Why this meal fits the constraints — surfaced behind a toggle. */
+  reasoning: string;
+  /** Confidence 0–1. */
+  confidence: number;
+};
+
+export type PantryResult = {
+  meal: PantryMeal;
+  source: "live" | "mock";
+  inputTokens: number;
+  outputTokens: number;
+  costUsd: number;
+  latencyMs: number;
+};
+
 export type PlanResult = {
   plan: AiPlan;
   /** Source: "live" (real Claude call) or "mock" (no API key fallback). */

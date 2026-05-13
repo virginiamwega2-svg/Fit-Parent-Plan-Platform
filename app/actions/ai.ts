@@ -2,9 +2,9 @@
 
 import { headers } from "next/headers";
 import { z } from "zod";
-import { adaptPlan, generatePlan, generateWorkout } from "@/lib/ai/adapter";
+import { adaptPlan, generatePantry, generatePlan, generateWorkout } from "@/lib/ai/adapter";
 import { rateLimit } from "@/lib/ai/rate-limit";
-import type { PlanResult } from "@/lib/ai/types";
+import type { PantryResult, PlanResult } from "@/lib/ai/types";
 
 const emailSchema = z.object({
   email: z.string().trim().email("Use a valid email address."),
@@ -132,6 +132,48 @@ export async function adaptPlanAction(input: unknown): Promise<GeneratePlanRespo
   } catch (err) {
     const detail = err instanceof Error ? err.message : "Unknown error";
     console.error("adaptPlanAction failed:", err);
+    return {
+      ok: false,
+      error:
+        process.env.NODE_ENV === "production"
+          ? "The assistant hit a snag. Try again in a moment."
+          : `Assistant error: ${detail}`,
+    };
+  }
+}
+
+const pantrySchema = z.object({
+  pantry: z.string().trim().min(2, "List a few items.").max(600, "Keep it under 600 characters."),
+  minutesAvailable: z.number().int().min(5).max(120),
+  pickyEater: z.boolean(),
+});
+
+export type GeneratePantryResponse =
+  | { ok: true; result: PantryResult; remaining: number }
+  | { ok: false; error: string; retryInMinutes?: number };
+
+export async function generatePantryAction(input: unknown): Promise<GeneratePantryResponse> {
+  const parsed = pantrySchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input." };
+  }
+
+  const ip = await getClientIp();
+  const limit = rateLimit(ip);
+  if (!limit.allowed) {
+    return {
+      ok: false,
+      error: "Daily limit reached. Come back tomorrow or sign up for unlimited.",
+      retryInMinutes: Math.ceil(limit.resetInMs / 60_000),
+    };
+  }
+
+  try {
+    const result = await generatePantry(parsed.data);
+    return { ok: true, result, remaining: limit.remaining };
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : "Unknown error";
+    console.error("generatePantryAction failed:", err);
     return {
       ok: false,
       error:
