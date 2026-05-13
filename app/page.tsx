@@ -6,7 +6,6 @@ import type React from "react";
 import { ArrowRight, X, Star } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
-import { AiDemoSection } from "@/components/home/ai-demo-section";
 import { HeroCta } from "@/components/home/hero-cta";
 import { HeroSlideshow } from "@/components/home/hero-slideshow";
 import { useCountUp } from "@/hooks/use-count-up";
@@ -39,6 +38,27 @@ const FaqAccordion = dynamicImport(
         <div className="h-4 w-2/3 rounded bg-(--color-cream)" />
         <div className="h-4 w-3/5 rounded bg-(--color-cream)" />
         <div className="h-4 w-3/4 rounded bg-(--color-cream)" />
+      </div>
+    ),
+  },
+);
+
+const AiDemoSection = dynamicImport(
+  () => import("@/components/home/ai-demo-section").then((m) => m.AiDemoSection),
+  {
+    loading: () => (
+      <div className="bg-(--color-cream)">
+        <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">
+            <div className="space-y-4">
+              <div className="h-3 w-1/3 animate-pulse rounded bg-(--color-bg-soft)" />
+              <div className="h-9 w-2/3 animate-pulse rounded bg-(--color-bg-soft)" />
+              <div className="h-20 w-full animate-pulse rounded-2xl bg-(--color-bg-soft)" />
+              <div className="h-12 w-44 animate-pulse rounded-full bg-(--color-bg-soft)" />
+            </div>
+            <div className="h-72 w-full animate-pulse rounded-3xl bg-(--color-bg-soft)" />
+          </div>
+        </div>
       </div>
     ),
   },
@@ -298,7 +318,7 @@ export default function Home() {
       </div>
 
       {/* ── 4. PRICING — after qualifier so readers self-select first */}
-      <div className="mt-16 bg-(--color-cream) lg:mt-24">
+      <div className="bg-(--color-cream)">
         <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
           <Reveal>
             <section id="section-offer" className="scroll-mt-24">
