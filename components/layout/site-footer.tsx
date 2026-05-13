@@ -14,7 +14,7 @@ export function SiteFooter() {
             See you
           </p>
           <p className="font-display text-[clamp(2rem,5vw,4.5rem)] font-black leading-tight tracking-tighter text-(--color-bg)">
-            Tuesday, 06:22.
+            Monday, 06:22.
           </p>
         </div>
       </div>
