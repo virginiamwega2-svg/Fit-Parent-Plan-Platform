@@ -7,25 +7,25 @@ html {
 }
 
 :root {
-  --color-bg: #f9f6f1;           /* warm white — page background */
-  --color-bg-soft: #fbf8f2;      /* slightly lighter — card surfaces */
-  --color-ink: #181c24;          /* cool ink — body text */
-  --color-muted: #6b6f78;        /* warm slate */
-  --color-brand: #0e5c5c;        /* deep teal — CTA & accent */
-  --color-brand-strong: #0a4848; /* deeper teal */
-  --color-secondary: #1a6b6b;    /* slightly lighter teal — secondary */
-  --color-secondary-strong: #0e5c5c;
+  --color-bg: #f4ede2;            /* almond — page background */
+  --color-bg-soft: #f8f2e8;       /* slightly lighter — card surfaces */
+  --color-ink: #2a1f15;            /* warm cocoa-ink — body text */
+  --color-muted: #5b4a3a;          /* cocoa */
+  --color-brand: #c1502e;          /* burnt coral — CTA & accent */
+  --color-brand-strong: #9a3c1f;   /* deep coral */
+  --color-secondary: #d06b3f;      /* lighter coral — secondary */
+  --color-secondary-strong: #c1502e;
   --color-on-brand: #ffffff;
-  --color-cream: #f1e9d9;        /* butter cream — section bands */
-  --color-melon-soft: #fef3e8;   /* warm — dashboard pages */
-  --color-melon-glow: #fde8cc;
-  --color-mint-soft: #e8e1cf;    /* cream chip / pill tint */
-  --color-border: #e2dcca;       /* warm border */
-  --color-clay: #d08566;         /* warm accent — nudge strips, urgency */
-  --shadow-soft: 0 24px 60px -38px rgba(24, 28, 36, 0.12);
-  --shadow-card: 0 18px 40px -28px rgba(0, 0, 0, 0.18);
-  --shadow-card-strong: 0 18px 40px -28px rgba(0, 0, 0, 0.30);
-  --button-shadow: 0 24px 50px -28px rgba(14, 92, 92, 0.40);
+  --color-cream: #ebe0c9;          /* latte — section bands */
+  --color-melon-soft: #faeede;     /* warm — dashboard pages */
+  --color-melon-glow: #f6dcc1;
+  --color-mint-soft: #e2d6bd;      /* latte chip / pill tint */
+  --color-border: #ddd0b8;         /* warm border */
+  --color-clay: #c1502e;           /* warm accent — nudge strips, urgency */
+  --shadow-soft: 0 24px 60px -38px rgba(42, 31, 21, 0.14);
+  --shadow-card: 0 18px 40px -28px rgba(42, 31, 21, 0.20);
+  --shadow-card-strong: 0 18px 40px -28px rgba(42, 31, 21, 0.32);
+  --button-shadow: 0 24px 50px -28px rgba(193, 80, 46, 0.42);
   --motion-fast: 220ms;
   --motion-normal: 520ms;
   --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
