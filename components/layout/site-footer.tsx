@@ -63,7 +63,6 @@ export function SiteFooter() {
               <li><Link href="/#section-results" className="transition-colors hover:text-(--color-bg)">Results</Link></li>
               <li><Link href="/#section-offer" className="transition-colors hover:text-(--color-bg)">Pricing</Link></li>
               <li><Link href="/#section-faq" className="transition-colors hover:text-(--color-bg)">FAQ</Link></li>
-              <li><Link href="/decisions" className="transition-colors hover:text-(--color-bg)">Decisions</Link></li>
               <li><Link href="/#apply" className="transition-colors hover:text-(--color-bg)">Apply</Link></li>
             </ul>
           </div>
