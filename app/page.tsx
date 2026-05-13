@@ -187,7 +187,7 @@ export default function Home() {
       {/* ── 1b. PANTRY-TO-PLATE — second AI agent ─────────────────── */}
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
         <Reveal>
-          <section id="section-pantry-card" className="scroll-mt-24 pt-16 lg:pt-24">
+          <section id="section-pantry-card" className="scroll-mt-24">
             <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">
               <div>
                 <p className="eyebrow mb-3 text-(--color-brand)">Also new · For dinner tonight</p>
@@ -350,7 +350,7 @@ export default function Home() {
       </div>
 
       {/* ── 5. HOW IT WORKS — white now (pricing owns the cream band) */}
-      <div className="mx-auto w-full max-w-6xl px-6 pt-16 lg:px-8 lg:pt-24">
+      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
         <Reveal>
             <section id="section-how" className="scroll-mt-24">
               <p className="eyebrow mb-3 text-(--color-brand)">How it starts</p>
