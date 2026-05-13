@@ -248,59 +248,7 @@ export default function Home() {
         </Reveal>
       </div>
 
-      {/* ── 3. PRICING — moved up ─────────────────────────────────── */}
-      <div className="mt-16 bg-(--color-cream) lg:mt-24">
-        <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
-          <Reveal>
-            <section id="section-offer" className="scroll-mt-24">
-              <div className="grid gap-8 lg:grid-cols-[1fr_340px] lg:gap-12">
-                <div>
-                  <p className="eyebrow mb-3 text-(--color-brand)">Membership</p>
-                  <h2 className="text-3xl tracking-tight sm:text-4xl">
-                    <span className="font-light italic text-(--color-muted)">One price. </span>
-                    <span className="font-black text-foreground">Everything included.</span>
-                  </h2>
-                  <p className="mt-3 max-w-md text-base leading-7 text-(--color-muted)">No upsells, no add-ons. Training, nutrition, the AI assistant, and a real coach — one monthly price.</p>
-                  <ul className="mt-6 grid gap-3">
-                    {([
-                      "Not right? Email in the first 14 days — full refund, no hoops.",
-                      "Cancel anytime after your first 3 months.",
-                      "Your plan adjusts every week — not a static PDF.",
-                    ] as const).map((line) => (
-                      <li key={line} className="flex items-start gap-3 text-sm text-(--color-muted)">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-(--color-brand)" aria-hidden="true"><path d="M2 7.5l2.5 2.5 7.5-7.5"/></svg>
-                        {line}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="rounded-3xl border border-(--color-brand)/20 bg-gradient-to-b from-white to-(--color-cream)/40 p-6 shadow-(--shadow-card)">
-                  <p className="eyebrow text-(--color-muted)">Monthly</p>
-                  <div className="mt-2 flex items-baseline gap-1">
-                    <span className="tabular-price text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$199</span>
-                    <span className="text-sm text-(--color-muted)">/mo</span>
-                  </div>
-                  <p className="mt-1 text-sm text-(--color-muted)">3-month minimum · then month-to-month</p>
-                  <ul className="mt-5 grid gap-2.5">
-                    {(["AI assistant — adjusts your plan weekly", "3× weekly workouts", "Weekly meal plan", "Personal coach check-ins", "14-day money-back guarantee"] as const).map((line) => (
-                      <li key={line} className="flex items-center gap-2 text-sm text-(--color-muted)">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-(--color-brand)" aria-hidden="true"><path d="M2 7.5l2.5 2.5 7.5-7.5"/></svg>
-                        {line}
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="#apply" className="cta-button mt-6 inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold">
-                    Apply for a spot <ArrowRight size={14} aria-hidden="true" />
-                  </a>
-                  <p className="mt-3 text-center text-xs text-(--color-muted)/70">14-day guarantee · No contract · Cancel anytime</p>
-                </div>
-              </div>
-            </section>
-          </Reveal>
-        </div>
-      </div>
-
-      {/* ── 4. IS THIS YOU? + NOT FOR YOU — combined qualifier ────── */}
+      {/* ── 3. IS THIS YOU? + NOT FOR YOU — qualifier before price ── */}
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
         <Reveal>
           <section id="section-fit" className="scroll-mt-24 pt-16 lg:pt-24">
@@ -349,10 +297,61 @@ export default function Home() {
         </Reveal>
       </div>
 
-      {/* ── 5. HOW IT WORKS — cream band, compressed ─────────────── */}
+      {/* ── 4. PRICING — after qualifier so readers self-select first */}
       <div className="mt-16 bg-(--color-cream) lg:mt-24">
         <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
           <Reveal>
+            <section id="section-offer" className="scroll-mt-24">
+              <div className="grid gap-8 lg:grid-cols-[1fr_340px] lg:gap-12">
+                <div>
+                  <p className="eyebrow mb-3 text-(--color-brand)">Membership</p>
+                  <h2 className="text-3xl tracking-tight sm:text-4xl">
+                    <span className="font-light italic text-(--color-muted)">One price. </span>
+                    <span className="font-black text-foreground">Everything included.</span>
+                  </h2>
+                  <p className="mt-3 max-w-md text-base leading-7 text-(--color-muted)">The AI assistant, weekly workouts, the meal plan, and Maya checking in — one monthly price. No upsells, ever.</p>
+                  <ul className="mt-6 grid gap-3">
+                    {([
+                      "Not right? Email in the first 14 days — full refund, no hoops.",
+                      "Cancel anytime after your first 3 months.",
+                      "Your plan adjusts every week — not a static PDF.",
+                    ] as const).map((line) => (
+                      <li key={line} className="flex items-start gap-3 text-sm text-(--color-muted)">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-(--color-brand)" aria-hidden="true"><path d="M2 7.5l2.5 2.5 7.5-7.5"/></svg>
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="rounded-3xl border border-(--color-brand)/20 bg-gradient-to-b from-white to-(--color-cream)/40 p-6 shadow-(--shadow-card)">
+                  <p className="eyebrow text-(--color-muted)">Monthly</p>
+                  <div className="mt-2 flex items-baseline gap-1">
+                    <span className="tabular-price text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$199</span>
+                    <span className="text-sm text-(--color-muted)">/mo</span>
+                  </div>
+                  <p className="mt-1 text-sm text-(--color-muted)">3-month minimum · then month-to-month</p>
+                  <ul className="mt-5 grid gap-2.5">
+                    {(["AI assistant — adjusts your plan weekly", "3× weekly workouts", "Weekly meal plan", "Personal coach check-ins", "14-day money-back guarantee"] as const).map((line) => (
+                      <li key={line} className="flex items-center gap-2 text-sm text-(--color-muted)">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-(--color-brand)" aria-hidden="true"><path d="M2 7.5l2.5 2.5 7.5-7.5"/></svg>
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
+                  <a href="#apply" className="cta-button mt-6 inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold">
+                    Apply for a spot <ArrowRight size={14} aria-hidden="true" />
+                  </a>
+                  <p className="mt-3 text-center text-xs text-(--color-muted)/70">14-day guarantee · No contract · Cancel anytime</p>
+                </div>
+              </div>
+            </section>
+          </Reveal>
+        </div>
+      </div>
+
+      {/* ── 5. HOW IT WORKS — white now (pricing owns the cream band) */}
+      <div className="mx-auto w-full max-w-6xl px-6 pt-16 lg:px-8 lg:pt-24">
+        <Reveal>
             <section id="section-how" className="scroll-mt-24">
               <p className="eyebrow mb-3 text-(--color-brand)">How it starts</p>
               <h2 className="mb-8 text-3xl tracking-tight sm:text-4xl">
@@ -383,7 +382,6 @@ export default function Home() {
               </div>
             </section>
           </Reveal>
-        </div>
       </div>
 
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
