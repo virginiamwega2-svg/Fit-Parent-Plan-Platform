@@ -6,6 +6,7 @@ import {
   generatePantryAction,
   type GeneratePantryResponse,
 } from "@/app/actions/ai";
+import { logSession } from "@/lib/anon-user";
 
 const EXAMPLES = [
   "pasta, garlic, parmesan, olive oil, frozen spinach",
@@ -33,6 +34,13 @@ export function PantryAgent() {
         pickyEater,
       });
       setResponse(res);
+      if (res.ok) {
+        logSession({
+          planHeadline: res.result.meal.meal,
+          planSource: res.result.source,
+          mode: "pantry",
+        });
+      }
     });
   };
 

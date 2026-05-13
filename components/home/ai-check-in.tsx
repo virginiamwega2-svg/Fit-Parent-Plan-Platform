@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { Mic, MicOff, Send, Sparkles, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw, Pause } from "lucide-react";
 import { readPausedUntil, setPaused, clearPaused, formatPauseEnd } from "@/lib/pause";
+import { logSession } from "@/lib/anon-user";
 import {
   adaptPlanAction,
   generatePlanAction,
@@ -127,6 +128,11 @@ export function AiCheckIn() {
       };
       saveLastPlan(saved);
       setLastPlan(saved);
+      logSession({
+        planHeadline: result.result.plan.headline,
+        planSource: result.result.source,
+        mode,
+      });
     }
   };
 
@@ -596,6 +602,14 @@ function EmailCaptureRow() {
       const res = await savePlanEmailAction({ email: email.trim() });
       if (res.ok) {
         setStatus("sent");
+        // Re-emit a log row so n8n associates this userKey with an email
+        // for the weekly Parent Pulse digest.
+        logSession({
+          planHeadline: "(email-opt-in)",
+          planSource: "mock",
+          mode: "plan",
+          email: email.trim(),
+        });
       } else {
         setStatus("error");
         setError(res.error);
