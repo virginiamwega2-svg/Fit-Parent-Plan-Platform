@@ -380,7 +380,7 @@ export function AiCheckIn() {
 
       {/* Result area */}
       <div className="mt-5">
-        {isPending && <PlanSkeleton />}
+        {isPending && <PlanSkeleton label={thinkingLabel} />}
         {response && !isPending && (
           response.ok ? (
             <PlanCard
@@ -410,12 +410,25 @@ export function AiCheckIn() {
   );
 }
 
-function PlanSkeleton() {
+function PlanSkeleton({ label }: { label: string }) {
   return (
-    <div className="space-y-2 rounded-2xl border border-(--color-brand)/15 bg-white p-4">
-      <div className="h-3 w-2/3 animate-pulse rounded bg-(--color-cream)" />
-      <div className="h-3 w-full animate-pulse rounded bg-(--color-cream)" />
-      <div className="h-3 w-5/6 animate-pulse rounded bg-(--color-cream)" />
+    <div
+      role="status"
+      aria-live="polite"
+      className="rounded-2xl border border-(--color-brand)/15 bg-white p-4"
+    >
+      <div className="flex items-center gap-2.5">
+        <span className="relative inline-flex h-2 w-2 shrink-0">
+          <span className="absolute inset-0 animate-ping rounded-full bg-(--color-brand) opacity-70" aria-hidden="true" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-(--color-brand)" />
+        </span>
+        <span className="text-sm font-medium text-foreground/80">{label}</span>
+      </div>
+      <div className="mt-3 space-y-2">
+        <div className="h-3 w-2/3 animate-pulse rounded bg-(--color-cream)" />
+        <div className="h-3 w-full animate-pulse rounded bg-(--color-cream)" />
+        <div className="h-3 w-5/6 animate-pulse rounded bg-(--color-cream)" />
+      </div>
     </div>
   );
 }

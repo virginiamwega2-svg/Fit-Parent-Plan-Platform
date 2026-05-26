@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Send, Sparkles, Info, Check, ChefHat, Copy } from "lucide-react";
 import {
   generatePantryAction,
@@ -22,6 +22,21 @@ export function PantryAgent() {
   const [showReasoning, setShowReasoning] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const [thinkingIdx, setThinkingIdx] = useState(0);
+  useEffect(() => {
+    if (!isPending) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset rotating index when a new request starts
+    setThinkingIdx(0);
+    const id = setInterval(() => setThinkingIdx((i) => i + 1), 900);
+    return () => clearInterval(id);
+  }, [isPending]);
+  const thinkingLabels = [
+    "Looking at what you have…",
+    "Honoring your time…",
+    "Picking one realistic meal…",
+  ];
+  const thinkingLabel = thinkingLabels[Math.min(thinkingIdx, thinkingLabels.length - 1)];
 
   const submit = () => {
     if (pantry.trim().length < 2) return;
@@ -130,12 +145,12 @@ export function PantryAgent() {
           disabled={isPending || pantry.trim().length < 2}
           className="inline-flex items-center gap-1.5 rounded-full bg-(--color-brand) px-5 py-2 text-sm font-semibold text-white transition-opacity disabled:opacity-50"
         >
-          {isPending ? "Cooking up an idea…" : (<>Plan dinner <Send size={13} aria-hidden="true" /></>)}
+          {isPending ? thinkingLabel : (<>Plan dinner <Send size={13} aria-hidden="true" /></>)}
         </button>
       </div>
 
       <div className="mt-5">
-        {isPending && <MealSkeleton />}
+        {isPending && <MealSkeleton label={thinkingLabel} />}
         {response && !isPending && (
           response.ok ? (
             <MealCard
@@ -167,12 +182,25 @@ export function PantryAgent() {
   );
 }
 
-function MealSkeleton() {
+function MealSkeleton({ label }: { label: string }) {
   return (
-    <div className="space-y-2 rounded-2xl border border-(--color-brand)/15 bg-white p-4">
-      <div className="h-3 w-2/3 animate-pulse rounded bg-(--color-cream)" />
-      <div className="h-3 w-full animate-pulse rounded bg-(--color-cream)" />
-      <div className="h-3 w-5/6 animate-pulse rounded bg-(--color-cream)" />
+    <div
+      role="status"
+      aria-live="polite"
+      className="rounded-2xl border border-(--color-brand)/15 bg-white p-4"
+    >
+      <div className="flex items-center gap-2.5">
+        <span className="relative inline-flex h-2 w-2 shrink-0">
+          <span className="absolute inset-0 animate-ping rounded-full bg-(--color-brand) opacity-70" aria-hidden="true" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-(--color-brand)" />
+        </span>
+        <span className="text-sm font-medium text-foreground/80">{label}</span>
+      </div>
+      <div className="mt-3 space-y-2">
+        <div className="h-3 w-2/3 animate-pulse rounded bg-(--color-cream)" />
+        <div className="h-3 w-full animate-pulse rounded bg-(--color-cream)" />
+        <div className="h-3 w-5/6 animate-pulse rounded bg-(--color-cream)" />
+      </div>
     </div>
   );
 }
