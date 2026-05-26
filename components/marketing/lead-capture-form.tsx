@@ -65,19 +65,19 @@ export default function LeadCaptureForm() {
   const validate = () => {
     const nextErrors: FormErrors = {};
     if (form.name.trim().length < 2) {
-      nextErrors.name = "Please enter at least 2 characters.";
+      nextErrors.name = "Just your first name is fine.";
     }
     if (!/\S+@\S+\.\S+/.test(form.email.trim())) {
-      nextErrors.email = "Please enter a valid email address.";
+      nextErrors.email = "Hmm — that email looks off.";
     }
     if (form.challenge.trim().length < 10) {
-      nextErrors.challenge = "Please share at least 10 characters.";
+      nextErrors.challenge = "A sentence or two helps us reply usefully.";
     }
     if (!form.goal) {
-      nextErrors.goal = "Select your primary goal.";
+      nextErrors.goal = "Pick what you'd love to feel.";
     }
     if (!form.timePerDay) {
-      nextErrors.timePerDay = "Select your daily time window.";
+      nextErrors.timePerDay = "Pick a realistic window.";
     }
     return nextErrors;
   };
@@ -138,13 +138,13 @@ export default function LeadCaptureForm() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
       setStatus("error");
-      setMessage("Please fix the highlighted fields and try again.");
+      setMessage("Just a couple of things to fill in above.");
       return;
     }
 
     if (turnstileSiteKey && !form.turnstileToken) {
       setStatus("error");
-      setMessage("Please complete the security check and try again.");
+      setMessage("One more tap to prove you're not a bot.");
       return;
     }
 
@@ -158,7 +158,7 @@ export default function LeadCaptureForm() {
       const data = (await response.json()) as { message?: string };
       if (!response.ok) {
         setStatus("error");
-        setMessage(data.message ?? "Please check your details and try again.");
+        setMessage(data.message ?? "Something didn't go through — give it another try.");
         trackEvent("lead_submit_error", {
           category: "conversion",
           label: "lead_form",
@@ -179,7 +179,7 @@ export default function LeadCaptureForm() {
       window.location.href = `/thank-you?name=${name}`;
     } catch {
       setStatus("error");
-      setMessage("Network error. Please retry in a moment.");
+      setMessage("Lost the connection — try once more?");
       trackEvent("lead_submit_error", {
         category: "conversion",
         label: "lead_form_network",
@@ -226,7 +226,7 @@ export default function LeadCaptureForm() {
         />
 
         <label className="grid gap-1">
-          <span className="text-sm font-medium text-foreground">Your Name</span>
+          <span className="text-sm font-medium text-foreground">What should we call you?</span>
           <input
             required
             type="text"
@@ -251,7 +251,7 @@ export default function LeadCaptureForm() {
         </label>
 
         <label className="grid gap-1">
-          <span className="text-sm font-medium text-foreground">Email Address</span>
+          <span className="text-sm font-medium text-foreground">Where can Maya reply?</span>
           <input
             required
             type="email"
@@ -277,7 +277,7 @@ export default function LeadCaptureForm() {
 
         <label className="grid gap-1">
           <span className="text-sm font-medium text-foreground">
-            Biggest challenge right now
+            What&apos;s getting in the way?
           </span>
           <textarea
             required
@@ -293,7 +293,7 @@ export default function LeadCaptureForm() {
             className={`rounded-xl border px-3 py-2 outline-none ring-(--color-brand) transition focus-visible:ring-2 ${
               errors.challenge ? "border-red-400" : "border-(--color-border)"
             }`}
-            placeholder="Example: I miss workouts after school pickup and struggle with late-night snacking."
+            placeholder="e.g. I miss workouts after school pickup and end up snacking late."
           />
           {errors.challenge ? (
             <span id="lead-challenge-error" className="text-xs text-red-700">
@@ -303,7 +303,7 @@ export default function LeadCaptureForm() {
         </label>
 
         <label className="grid gap-1">
-          <span className="text-sm font-medium text-foreground">Primary goal</span>
+          <span className="text-sm font-medium text-foreground">What you&apos;d love to feel</span>
           <select
             required
             name="goal"
@@ -332,7 +332,7 @@ export default function LeadCaptureForm() {
         </label>
 
         <label className="grid gap-1">
-          <span className="text-sm font-medium text-foreground">Time available per day</span>
+          <span className="text-sm font-medium text-foreground">How long do you actually have?</span>
           <select
             required
             name="timePerDay"
@@ -374,7 +374,7 @@ export default function LeadCaptureForm() {
           disabled={status === "loading"}
           className="cta-button inline-flex h-12 w-full items-center justify-center px-6 text-sm font-semibold"
         >
-          {status === "loading" ? "Sending..." : "Send my application →"}
+          {status === "loading" ? "On its way…" : "Send to Maya →"}
         </button>
       </div>
 
@@ -388,7 +388,7 @@ export default function LeadCaptureForm() {
         {message}
       </p>
       <p className="mt-1 text-xs text-(--color-muted)">
-        No spam. Unsubscribe anytime.
+        Maya reads every application herself. No funnel.
       </p>
     </form>
   );
