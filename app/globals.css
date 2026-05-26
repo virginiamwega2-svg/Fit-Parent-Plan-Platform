@@ -7,25 +7,25 @@ html {
 }
 
 :root {
-  --color-bg: #f4ede2;            /* almond — page background */
-  --color-bg-soft: #f8f2e8;       /* slightly lighter — card surfaces */
-  --color-ink: #2a1f15;            /* warm cocoa-ink — body text */
-  --color-muted: #5b4a3a;          /* cocoa */
-  --color-brand: #c1502e;          /* burnt coral — CTA & accent */
-  --color-brand-strong: #9a3c1f;   /* deep coral */
-  --color-secondary: #d06b3f;      /* lighter coral — secondary */
-  --color-secondary-strong: #c1502e;
+  --color-bg: #f4ece1;            /* warm linen — page background */
+  --color-bg-soft: #fdf8ee;       /* cream — card surfaces */
+  --color-ink: #2a1a22;            /* deep plum-brown — body text */
+  --color-muted: #6b5560;          /* faded mulberry */
+  --color-brand: #b5586a;          /* muted strawberry-jam — CTA & accent */
+  --color-brand-strong: #8e3a4d;   /* crushed berry */
+  --color-secondary: #7d8b76;      /* quiet thyme — calm secondary */
+  --color-secondary-strong: #5e6e58;
   --color-on-brand: #ffffff;
-  --color-cream: #ebe0c9;          /* latte — section bands */
-  --color-melon-soft: #faeede;     /* warm — dashboard pages */
-  --color-melon-glow: #f6dcc1;
-  --color-mint-soft: #e2d6bd;      /* latte chip / pill tint */
-  --color-border: #ddd0b8;         /* warm border */
-  --color-clay: #c1502e;           /* warm accent — nudge strips, urgency */
-  --shadow-soft: 0 24px 60px -38px rgba(42, 31, 21, 0.14);
-  --shadow-card: 0 18px 40px -28px rgba(42, 31, 21, 0.20);
-  --shadow-card-strong: 0 18px 40px -28px rgba(42, 31, 21, 0.32);
-  --button-shadow: 0 24px 50px -28px rgba(193, 80, 46, 0.42);
+  --color-cream: #ece0d0;          /* oat — section bands */
+  --color-melon-soft: #f6e6dc;     /* jam-tinged warm — dashboard pages */
+  --color-melon-glow: #efd2c9;
+  --color-mint-soft: #d8e1d2;      /* whisper of thyme — chip / pill tint */
+  --color-border: #e2d4c8;         /* warm hairline */
+  --color-clay: #b5586a;           /* strawberry accent — nudge strips, urgency */
+  --shadow-soft: 0 24px 60px -38px rgba(42, 26, 34, 0.14);
+  --shadow-card: 0 18px 40px -28px rgba(42, 26, 34, 0.20);
+  --shadow-card-strong: 0 18px 40px -28px rgba(42, 26, 34, 0.32);
+  --button-shadow: 0 24px 50px -28px rgba(181, 88, 106, 0.42);
   --motion-fast: 220ms;
   --motion-normal: 520ms;
   --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -117,8 +117,8 @@ blockquote {
 .section-bg-morning  { background: #ffffff; }
 .section-bg-midday   { background: #ffffff; }
 .section-bg-afternoon{ background: #ffffff; }
-.section-bg-evening  { background: #f4ecdb; } /* light butter cream */
-.section-bg-night    { background: #ede3cf; } /* butter cream — deepest */
+.section-bg-evening  { background: #f4ebe0; } /* warm linen — softest band */
+.section-bg-night    { background: #ece0d0; } /* oat — deepest band */
 
 .font-display {
   font-family: var(--font-display), Georgia, serif;
