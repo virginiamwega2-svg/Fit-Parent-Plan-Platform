@@ -56,20 +56,25 @@ export function HeroCta() {
     );
   }
 
-  const label =
-    state.kind === "returning" && state.gapDays >= GAP_DAYS
-      ? `Welcome back — it's been ${state.gapDays} days. Restart smaller.`
-      : state.kind === "returning"
-        ? "Welcome back — adapt last week"
-        : "Try it — 30 seconds";
+  const isLongAbsent = state.kind === "returning" && state.gapDays >= GAP_DAYS;
+  const label = isLongAbsent
+    ? "Welcome back — restart smaller"
+    : state.kind === "returning"
+      ? "Welcome back — adapt last week"
+      : "Try it — 30 seconds";
 
   return (
-    <a
-      href="#section-ai"
-      className="group cta-button inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold"
-    >
-      {label}
-      <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-    </a>
+    <div className="flex flex-col items-center gap-1.5">
+      <a
+        href="#section-ai"
+        className="group cta-button inline-flex max-w-full items-center justify-center gap-2 text-balance px-6 py-3.5 text-sm font-semibold sm:px-7"
+      >
+        <span>{label}</span>
+        <ArrowRight size={13} className="shrink-0 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+      </a>
+      {isLongAbsent && (
+        <p className="text-[11px] text-white/55">It&apos;s been {state.gapDays} days — no pressure.</p>
+      )}
+    </div>
   );
 }

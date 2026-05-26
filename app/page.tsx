@@ -146,15 +146,15 @@ export default function Home() {
         <HeroSlideshow />
         <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
 
-        <div className="relative z-10 mx-auto w-full max-w-sm px-6 py-20 text-center sm:max-w-2xl sm:px-10 sm:py-28">
-          <p className="hero-line-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">
+        <div className="relative z-10 mx-auto w-full max-w-sm px-6 py-16 text-center sm:max-w-2xl sm:px-10 sm:py-28">
+          <p className="hero-line-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-[10px]">
             20-minute window · No equipment
           </p>
           <h1 className="mt-4 leading-[1.05]">
             <span className="hero-line-2 block text-[clamp(1rem,1.6vw+0.4rem,2rem)] font-thin italic text-white/75">
               For parents who never finish what they start.
             </span>
-            <span className="hero-line-3 block text-[clamp(1.9rem,3vw+0.5rem,3.8rem)] font-black text-white">
+            <span className="hero-line-3 mt-1 block text-[clamp(2rem,3vw+0.5rem,3.8rem)] font-black text-white">
               Tell it your week.{" "}
               <span className="underline decoration-(--color-brand) decoration-[3px] underline-offset-4">
                 Get a plan that fits.
@@ -163,20 +163,20 @@ export default function Home() {
           </h1>
 
           {/* Inline social proof — above the fold */}
-          <div className="hero-line-4 mt-5 flex items-center justify-center gap-2 text-sm text-white/80">
+          <div className="hero-line-4 mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-white/80">
             <span className="flex items-center gap-0.5 text-(--color-brand)">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} size={13} fill="currentColor" strokeWidth={0} aria-hidden="true" />
               ))}
             </span>
             <span className="font-semibold text-white">4.9</span>
-            <span className="text-white/50">·</span>
+            <span className="text-white/50" aria-hidden="true">·</span>
             <span>74 parents coached</span>
           </div>
 
           <div className="hero-line-4 mt-6 flex flex-col items-center">
             <HeroCta />
-            <p className="mt-2.5 text-xs text-white/60">
+            <p className="mt-2.5 text-[13px] text-white/65 sm:text-xs">
               No signup · 14-day refund
             </p>
           </div>
