@@ -112,14 +112,20 @@ export default function AboutPage() {
             <span className="font-black text-white">work for you?</span>
           </h2>
           <p className="mt-3 max-w-2xl text-sm text-(--color-on-brand)/80">
-            Fill in a few details about your schedule and goals. We&apos;ll reply within 24 hours with an honest answer on whether this is the right fit.
+            $10/mo, 14-day refund. Or send Maya a note first — she replies personally within 24 hours.
           </p>
-          <div className="mt-5">
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              href="/#section-offer"
+              className="inline-flex rounded-full bg-(--color-brand) px-6 py-3 text-sm font-semibold text-white transition hover:bg-(--color-brand-strong)"
+            >
+              Start — $10/mo
+            </Link>
             <Link
               href="/#apply"
-              className="inline-flex rounded-full bg-(--color-secondary) px-6 py-3 text-sm font-semibold text-white transition hover:bg-(--color-secondary-strong)"
+              className="inline-flex rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
             >
-              Check if it fits you →
+              Talk to Maya
             </Link>
           </div>
         </Card>

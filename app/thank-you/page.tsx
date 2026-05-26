@@ -72,10 +72,14 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
 
       {/* Reassurance block */}
       <div className="mt-6 grid gap-3 sm:grid-cols-3">
-        {([
-          { icon: "🔒", label: "No payment taken yet", sub: "Checkout link comes after Maya's reply" },
+        {(isPayment ? [
+          { icon: "✉️", label: "Welcome email on its way", sub: "Should arrive within a few minutes" },
+          { icon: "🗓️", label: "First plan by Monday", sub: "Workout + meal plan ready to go" },
+          { icon: "↩️", label: "14-day refund", sub: "Cancel any time in the first 14 days" },
+        ] : [
+          { icon: "🔒", label: "No payment taken yet", sub: "We reply first — payment comes later" },
           { icon: "✉️", label: "Reply within 24 hours", sub: "Usually same day on weekdays" },
-          { icon: "↩️", label: "14-day guarantee", sub: "Full refund if it isn't right" },
+          { icon: "↩️", label: "14-day refund", sub: "Full refund if it isn't right" },
         ] as const).map((item) => (
           <div key={item.label} className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4 text-center">
             <p className="text-2xl" aria-hidden="true">{item.icon}</p>
