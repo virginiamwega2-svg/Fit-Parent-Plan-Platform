@@ -27,7 +27,7 @@ export async function POST(request: Request) {
           price_data: {
             currency: "usd",
             recurring: { interval: "month" },
-            unit_amount: 19900, // $199.00
+            unit_amount: 1000, // $10.00
             product_data: {
               name: "Fit Parent Plan — Monthly Coaching",
               description: "20-minute daily workouts built for busy parents. Cancel anytime.",

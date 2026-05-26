@@ -53,7 +53,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold">4. Payments and billing</h2>
           <ul className="mt-2 space-y-2 leading-7 text-(--color-muted)">
-            <li><strong className="text-foreground">Price</strong> — $199 per month (or as stated at the time of purchase).</li>
+            <li><strong className="text-foreground">Price</strong> — $10 per month (or as stated at the time of purchase).</li>
             <li><strong className="text-foreground">Billing</strong> — Payments are charged monthly on the same date each month via Stripe.</li>
             <li><strong className="text-foreground">Automatic renewal</strong> — Your membership renews automatically until you cancel.</li>
             <li><strong className="text-foreground">Failed payments</strong> — If a payment fails, access may be paused until the balance is settled.</li>

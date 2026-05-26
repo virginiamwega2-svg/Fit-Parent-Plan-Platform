@@ -338,10 +338,10 @@ export default function Home() {
                 <div className="rounded-3xl border border-(--color-brand)/20 bg-gradient-to-b from-white to-(--color-cream)/40 p-6 shadow-(--shadow-card)">
                   <p className="eyebrow text-(--color-muted)">Monthly</p>
                   <div className="mt-2 flex items-baseline gap-1">
-                    <span className="tabular-price text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$199</span>
+                    <span className="tabular-price text-[4.5rem] font-black leading-none tracking-tighter text-foreground">$10</span>
                     <span className="text-sm text-(--color-muted)">/mo</span>
                   </div>
-                  <p className="mt-1 text-sm text-(--color-muted)">3-month minimum · then month-to-month</p>
+                  <p className="mt-1 text-sm text-(--color-muted)">Cancel anytime · 14-day refund</p>
                   <ul className="mt-5 grid gap-2.5">
                     {(["AI assistant — adjusts your plan weekly", "3× weekly workouts", "Weekly meal plan", "Personal coach check-ins", "14-day money-back guarantee"] as const).map((line) => (
                       <li key={line} className="flex items-center gap-2 text-sm text-(--color-muted)">

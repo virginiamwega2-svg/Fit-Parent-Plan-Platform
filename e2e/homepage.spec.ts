@@ -67,8 +67,8 @@ test.describe("Homepage", () => {
     }
   });
 
-  test("pricing shows $199", async ({ page }) => {
-    await expect(page.locator("#section-offer").getByText("$199", { exact: true })).toBeVisible();
+  test("pricing shows $10", async ({ page }) => {
+    await expect(page.locator("#section-offer").getByText("$10", { exact: true })).toBeVisible();
   });
 
   test("apply form is present and ready", async ({ page }) => {

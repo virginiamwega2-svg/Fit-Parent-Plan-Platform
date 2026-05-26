@@ -45,7 +45,7 @@ const jsonLd = {
           name: "Monthly Fitness Coaching",
           description: "20-minute home workouts, weekly meal plans, and personal coach check-ins for busy parents.",
         },
-        price: "199",
+        price: "10",
         priceCurrency: "USD",
         priceSpecification: {
           "@type": "RecurringChargeSpecification",
