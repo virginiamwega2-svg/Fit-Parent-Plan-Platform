@@ -25,16 +25,16 @@ export function AuthForm({ mode }: Props) {
   function validate() {
     const nextErrors: Record<string, string> = {};
     if (!email.trim()) {
-      nextErrors.email = "Email is required";
+      nextErrors.email = "Email, please.";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      nextErrors.email = "Use a valid email address";
+      nextErrors.email = "Hmm — that email looks off.";
     }
 
     if (mode !== "forgot" && password.length < 8) {
-      nextErrors.password = "Password must be at least 8 characters";
+      nextErrors.password = "8 characters or more.";
     }
     if (mode === "signup" && !name.trim()) {
-      nextErrors.name = "Name is required";
+      nextErrors.name = "Just your first name is fine.";
     }
     return nextErrors;
   }
@@ -53,7 +53,7 @@ export function AuthForm({ mode }: Props) {
     if (mode === "forgot") {
       window.setTimeout(() => {
         setStatus("success");
-        setMessage("If this email exists, you’ll receive reset instructions.");
+        setMessage("If we have that email, reset instructions are on the way.");
       }, 500);
       return;
     }
@@ -70,18 +70,18 @@ export function AuthForm({ mode }: Props) {
       const data = (await response.json()) as { error?: string };
       if (!response.ok) {
         setStatus("error");
-        setMessage(data.error ?? "Unable to authenticate right now.");
+        setMessage(data.error ?? "Couldn't sign you in — try again?");
         return;
       }
 
       setStatus("success");
-      setMessage("Success. Redirecting to dashboard...");
+      setMessage("You're in. One moment…");
       const nextPath = new URLSearchParams(window.location.search).get("next");
       router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/dashboard");
       router.refresh();
     } catch {
       setStatus("error");
-      setMessage("Network error. Please try again.");
+      setMessage("Lost the connection — try once more?");
     }
   }
 
@@ -91,8 +91,8 @@ export function AuthForm({ mode }: Props) {
         {mode === "signup" ? (
           <Input
             id="name"
-            label="Full name"
-            placeholder="Alex Rivera"
+            label="Your first name"
+            placeholder="e.g. Alex"
             value={name}
             onChange={(event) => setName(event.target.value)}
             error={errors.name}
@@ -126,11 +126,11 @@ export function AuthForm({ mode }: Props) {
 
         <Button type="submit" disabled={status === "submitting"} className="w-full">
           {status === "submitting"
-            ? "Please wait..."
+            ? "Just a sec…"
             : mode === "forgot"
               ? "Send reset link"
               : mode === "login"
-                ? "Login"
+                ? "Log in"
                 : "Create account"}
         </Button>
 
@@ -140,7 +140,9 @@ export function AuthForm({ mode }: Props) {
           </p>
         ) : null}
         {status === "error" ? (
-          <p className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{message}</p>
+          <p className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm text-(--color-muted)">
+            {message}
+          </p>
         ) : null}
 
       </form>

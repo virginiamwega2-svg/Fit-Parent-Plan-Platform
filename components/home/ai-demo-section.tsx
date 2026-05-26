@@ -40,8 +40,8 @@ export function AiDemoSection() {
                 </p>
                 <ul className="mt-6 grid gap-4">
                   {[
-                    { icon: Mic, label: "Voice-first — no forms, no typing required" },
-                    { icon: Calendar, label: "Adjusts every Monday — not a static PDF" },
+                    { icon: Mic, label: "Speak it in 30 seconds — no forms" },
+                    { icon: Calendar, label: "Tunes itself when your week shifts" },
                     { icon: Clock, label: "Finds the 18-minute window you didn't see" },
                   ].map(({ icon: Icon, label }) => (
                     <li key={label} className="flex items-start gap-3 text-sm text-(--color-muted)">
@@ -56,9 +56,6 @@ export function AiDemoSection() {
                 >
                   Try it — no signup
                 </a>
-                <p className="mt-3 text-xs text-(--color-muted)/70">
-                  Free preview · Limited to a few minutes a day
-                </p>
               </div>
 
               <AiCheckIn />

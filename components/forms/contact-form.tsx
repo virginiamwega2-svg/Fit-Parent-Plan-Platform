@@ -17,11 +17,11 @@ export function ContactForm() {
 
   function validate() {
     const nextErrors: Record<string, string> = {};
-    if (!name.trim()) nextErrors.name = "Name is required";
-    if (!email.trim()) nextErrors.email = "Email is required";
-    if (email && !/\S+@\S+\.\S+/.test(email)) nextErrors.email = "Email is invalid";
-    if (!message.trim()) nextErrors.message = "Message is required";
-    if (message.trim().length < 20) nextErrors.message = "Please add at least 20 characters";
+    if (!name.trim()) nextErrors.name = "We need a name to reply.";
+    if (!email.trim()) nextErrors.email = "Where should we write you?";
+    if (email && !/\S+@\S+\.\S+/.test(email)) nextErrors.email = "Hmm — that email looks off.";
+    if (!message.trim()) nextErrors.message = "Tell us a bit so we can help.";
+    if (message.trim().length < 20) nextErrors.message = "A sentence or two helps us reply usefully.";
     return nextErrors;
   }
 
@@ -68,7 +68,7 @@ export function ContactForm() {
       <form className="grid gap-4" onSubmit={handleSubmit} noValidate>
         <Input
           id="contact-name"
-          label="Name"
+          label="What should we call you?"
           value={name}
           onChange={(event) => setName(event.target.value)}
           error={errors.name}
@@ -76,7 +76,7 @@ export function ContactForm() {
         />
         <Input
           id="contact-email"
-          label="Email"
+          label="Where can we reply?"
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
@@ -84,7 +84,7 @@ export function ContactForm() {
           required
         />
         <label htmlFor="contact-message" className="grid gap-2 text-sm font-medium text-foreground">
-          Message
+          What&apos;s on your mind?
           <textarea
             id="contact-message"
             className={`min-h-32 rounded-xl border px-3 py-2 text-sm outline-none transition focus-visible:border-(--color-brand) focus-visible:ring-2 focus-visible:ring-(--color-brand)/20 ${
@@ -92,23 +92,23 @@ export function ContactForm() {
             }`}
             value={message}
             onChange={(event) => setMessage(event.target.value)}
-            placeholder="Tell us your routine and your biggest challenge."
+            placeholder="e.g. The mornings keep falling apart — wondering if this would fit."
           />
           {errors.message ? <span className="text-xs text-red-600">{errors.message}</span> : null}
         </label>
         <Button type="submit" disabled={status === "submitting"} className="w-full sm:w-fit">
-          {status === "submitting" ? "Sending..." : "Send message"}
+          {status === "submitting" ? "On its way…" : "Send"}
         </Button>
 
         <div role="status" aria-live="polite">
           {status === "success" ? (
             <p className="rounded-xl bg-(--color-mint-soft) px-3 py-2 text-sm text-foreground">
-              Thanks! We received your message and will reply within 24 hours.
+              Got it — we&apos;ll reply within 24 hours.
             </p>
           ) : null}
           {status === "error" ? (
-            <p className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">
-              Something went wrong. Please try again in a minute.
+            <p className="rounded-xl border border-(--color-border) bg-(--color-bg-soft) px-3 py-2 text-sm text-(--color-muted)">
+              That didn&apos;t go through — give it another try?
             </p>
           ) : null}
         </div>
