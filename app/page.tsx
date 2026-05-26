@@ -148,7 +148,7 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto w-full max-w-sm px-6 py-20 text-center sm:max-w-2xl sm:px-10 sm:py-28">
           <p className="hero-line-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">
-            AI-guided · 20 minutes · No equipment
+            20-minute window · No equipment
           </p>
           <h1 className="mt-4 leading-[1.05]">
             <span className="hero-line-2 block text-[clamp(1rem,1.6vw+0.4rem,2rem)] font-thin italic text-white/75">
@@ -177,15 +177,7 @@ export default function Home() {
           <div className="hero-line-4 mt-6 flex flex-col items-center">
             <HeroCta />
             <p className="mt-2.5 text-xs text-white/60">
-              No signup · 14-day money-back guarantee on paid plans
-            </p>
-            {/* Trust strip — credentials at a glance */}
-            <p className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] font-medium uppercase tracking-[0.18em] text-white/50">
-              <span>NASM-CPT coaches</span>
-              <span aria-hidden="true">·</span>
-              <span>Pre/postnatal specialists</span>
-              <span aria-hidden="true">·</span>
-              <span>Built for parents since 2022</span>
+              No signup · 14-day refund
             </p>
           </div>
         </div>

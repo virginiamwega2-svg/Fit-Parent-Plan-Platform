@@ -35,7 +35,7 @@ html {
 @theme inline {
   --color-background: var(--color-bg);
   --color-foreground: var(--color-ink);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-body);
   --font-display: var(--font-fraunces);
 }
 

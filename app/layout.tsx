@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Instrument_Sans, Fraunces } from "next/font/google";
 import Script from "next/script";
 import type React from "react";
 import Analytics from "@/components/analytics/analytics";
@@ -9,8 +9,8 @@ import { ScrollProgressBar } from "@/components/ui/scroll-progress-bar";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-body",
   subsets: ["latin"],
 });
 
@@ -120,7 +120,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${fraunces.variable} antialiased`}>
+      <body className={`${instrumentSans.variable} ${fraunces.variable} antialiased`}>
         {gaId ? (
           <>
             <Script
