@@ -158,8 +158,8 @@ export function SiteHeader() {
               {loadingAuth ? null : user ? (
                 <Button href="/dashboard" variant="ghost">Dashboard</Button>
               ) : (
-                <a href="#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
-                  Apply — 2 min
+                <a href="#section-offer" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
+                  Start — $10/mo
                 </a>
               )}
             </>
@@ -190,8 +190,8 @@ export function SiteHeader() {
               ) : (
                 <>
                   <Button href="/login" variant="ghost">Login</Button>
-                  <Link href="/#apply" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
-                    See if it fits you
+                  <Link href="/#section-offer" className="cta-button px-4 py-2 text-xs font-semibold xl:text-sm">
+                    Start — $10/mo
                   </Link>
                 </>
               )}
@@ -268,11 +268,11 @@ export function SiteHeader() {
                 </Link>
               ) : (
                 <a
-                  href="#apply"
+                  href="#section-offer"
                   onClick={() => setOpen(false)}
                   className="rounded-xl px-3 py-3 text-sm font-semibold text-foreground hover:bg-(--color-cream)"
                 >
-                  Apply — 2 min
+                  Start — $10/mo
                 </a>
               )}
             </>
@@ -305,8 +305,8 @@ export function SiteHeader() {
             ) : (
               <>
                 <Button href="/login" variant="secondary" className="flex-1">Login</Button>
-                <Link href="/#apply" className="cta-button flex flex-1 items-center justify-center px-4 py-3 text-sm font-semibold">
-                  Apply — 2 min
+                <Link href="/#section-offer" className="cta-button flex flex-1 items-center justify-center px-4 py-3 text-sm font-semibold">
+                  Start — $10/mo
                 </Link>
               </>
             )}

@@ -74,9 +74,9 @@ export function StickyApplyCta() {
   }, []);
 
   const isApply = phase === "apply";
-  const href = isApply ? "#apply" : "#section-ai";
-  const primary = isApply ? "Apply — 2 min" : "Try it — 30 seconds";
-  const secondary = isApply ? "No card" : "No signup";
+  const href = isApply ? "#section-offer" : "#section-ai";
+  const primary = isApply ? "Start — $10/mo" : "Try it — 30 seconds";
+  const secondary = isApply ? "14-day refund" : "No signup";
   const shown = visible && !suppressed;
 
   return (

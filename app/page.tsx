@@ -3,9 +3,10 @@
 import dynamicImport from "next/dynamic";
 import Image from "next/image";
 import type React from "react";
-import { ArrowRight, X, Star } from "lucide-react";
+import { X, Star } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
+import { SubscribeButton } from "@/components/marketing/subscribe-button";
 import { HeroCta } from "@/components/home/hero-cta";
 import { HeroSlideshow } from "@/components/home/hero-slideshow";
 import { useCountUp } from "@/hooks/use-count-up";
@@ -313,9 +314,9 @@ export default function Home() {
                   <p className="eyebrow mb-3 text-(--color-brand)">Membership</p>
                   <h2 className="text-3xl tracking-tight sm:text-4xl">
                     <span className="font-light italic text-(--color-muted)">One price. </span>
-                    <span className="font-black text-foreground">Maya included.</span>
+                    <span className="font-black text-foreground">No fine print.</span>
                   </h2>
-                  <p className="mt-3 max-w-md text-base leading-7 text-(--color-muted)">The AI assistant, weekly workouts, the meal plan, and Maya checking in — one monthly price. No upsells, ever.</p>
+                  <p className="mt-3 max-w-md text-base leading-7 text-(--color-muted)">The AI assistant, weekly workouts, and the meal plan — one monthly price. No upsells, ever.</p>
                   <ul className="mt-6 grid gap-3">
                     {([
                       "Not right? Email in the first 14 days — full refund, no hoops.",
@@ -337,17 +338,21 @@ export default function Home() {
                   </div>
                   <p className="mt-1 text-sm text-(--color-muted)">Cancel anytime · 14-day refund</p>
                   <ul className="mt-5 grid gap-2.5">
-                    {(["AI assistant — adjusts your plan weekly", "3× weekly workouts", "Weekly meal plan", "Personal coach check-ins", "14-day money-back guarantee"] as const).map((line) => (
+                    {(["AI assistant — adjusts your plan weekly", "3× weekly workouts", "Weekly meal plan", "14-day free trial", "Cancel anytime"] as const).map((line) => (
                       <li key={line} className="flex items-center gap-2 text-sm text-(--color-muted)">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-(--color-brand)" aria-hidden="true"><path d="M2 7.5l2.5 2.5 7.5-7.5"/></svg>
                         {line}
                       </li>
                     ))}
                   </ul>
-                  <a href="#apply" className="cta-button mt-6 inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold">
-                    Apply for a spot <ArrowRight size={14} aria-hidden="true" />
-                  </a>
-                  <p className="mt-3 text-center text-xs text-(--color-muted)/70">14-day guarantee · No contract · Cancel anytime</p>
+                  <SubscribeButton className="cta-button mt-6 inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold" />
+                  <p className="mt-3 text-center text-xs text-(--color-muted)/70">14-day refund · No card needed for trial</p>
+                  <p className="mt-1 text-center text-xs text-(--color-muted)/70">
+                    Prefer to talk first?{" "}
+                    <a href="#apply" className="underline underline-offset-2 hover:text-foreground">
+                      Send Maya a note
+                    </a>
+                  </p>
                 </div>
               </div>
             </section>
@@ -414,16 +419,10 @@ export default function Home() {
 
                 <div className="p-6 sm:p-10">
                   <h2 className="text-3xl tracking-tight sm:text-4xl">
-                    <span className="font-light italic text-(--color-muted)">Apply for </span>
-                    <span className="font-black text-foreground">a spot.</span>
+                    <span className="font-light italic text-(--color-muted)">Prefer to </span>
+                    <span className="font-black text-foreground">talk first?</span>
                   </h2>
-                  <p className="mt-1 text-sm text-(--color-muted)">Maya replies personally within 24 hours.</p>
-                  <div className="mt-3 flex items-center gap-2 rounded-xl border border-(--color-brand)/20 bg-(--color-cream) px-3 py-2">
-                    <span className="h-2 w-2 shrink-0 rounded-full bg-(--color-brand) animate-badge-pulse" aria-hidden="true" />
-                    <p className="text-xs font-medium text-(--color-muted)">
-                      We take <span className="font-semibold text-foreground">a few new parents each month</span> so coaching stays personal.
-                    </p>
-                  </div>
+                  <p className="mt-1 text-sm text-(--color-muted)">Send Maya a note — she replies personally within 24 hours.</p>
                   <div className="mt-5 rounded-2xl border border-(--color-border) bg-(--color-bg) p-4">
                     <p className="eyebrow mb-3 text-(--color-muted)">Quick check — three questions</p>
                     <FitQuiz />

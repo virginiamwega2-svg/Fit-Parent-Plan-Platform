@@ -26,9 +26,9 @@ test.describe("Homepage", () => {
   });
 
   // ── Navigation ──────────────────────────────────────────────────────
-  test("header CTA links to apply section", async ({ page }) => {
-    const cta = page.locator("header a", { hasText: /apply/i }).first();
-    await expect(cta).toHaveAttribute("href", /#apply$/);
+  test("header CTA links to pricing section", async ({ page }) => {
+    const cta = page.locator("header a", { hasText: /start.*\$10/i }).first();
+    await expect(cta).toHaveAttribute("href", /#section-offer$/);
   });
 
   test("Price nav link scrolls to pricing section", async ({ page, viewport }) => {
@@ -73,7 +73,7 @@ test.describe("Homepage", () => {
 
   test("apply form is present and ready", async ({ page }) => {
     await page.locator("#apply").scrollIntoViewIfNeeded();
-    await expect(page.locator("#apply").getByText(/maya replies personally/i)).toBeVisible();
+    await expect(page.locator("#apply").getByText(/talk first/i)).toBeVisible();
   });
 
   // ── FitQuiz ─────────────────────────────────────────────────────────
@@ -130,9 +130,9 @@ test.describe("Homepage — Mobile", () => {
     await page.goto("/");
     // Sticky CTA only appears after scrollY > 480
     await page.evaluate(() => window.scrollTo(0, 600));
-    // Copy varies by scroll position: "Try it" above pricing, "Apply" past it
+    // Copy varies by scroll position: "Try it" above pricing, "Start" past it
     await expect(
-      page.getByRole("link", { name: /try it.*30 seconds|apply.*2 min/i })
+      page.getByRole("link", { name: /try it.*30 seconds|start.*\$10/i })
     ).toBeVisible();
   });
 });
