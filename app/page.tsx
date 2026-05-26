@@ -182,12 +182,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Soft scroll hint */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 sm:bottom-8" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="animate-float text-white/30">
-            <path d="M5 8l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
       </section>
 
       {/* Soft fade between hero and AI section — invisible glue, no hard stitch */}
@@ -253,8 +247,8 @@ export default function Home() {
             </div>
 
             <SocialProofStats />
-            <p className="mt-2 text-xs text-(--color-muted)/70">
-              * Names changed to protect privacy. Results are representative. Individual results vary.
+            <p className="mt-2 text-[10px] text-(--color-muted)/60">
+              * Names changed. Results representative; individual results vary.
             </p>
           </section>
         </Reveal>
@@ -319,7 +313,7 @@ export default function Home() {
                   <p className="eyebrow mb-3 text-(--color-brand)">Membership</p>
                   <h2 className="text-3xl tracking-tight sm:text-4xl">
                     <span className="font-light italic text-(--color-muted)">One price. </span>
-                    <span className="font-black text-foreground">Everything included.</span>
+                    <span className="font-black text-foreground">Maya included.</span>
                   </h2>
                   <p className="mt-3 max-w-md text-base leading-7 text-(--color-muted)">The AI assistant, weekly workouts, the meal plan, and Maya checking in — one monthly price. No upsells, ever.</p>
                   <ul className="mt-6 grid gap-3">
@@ -372,9 +366,9 @@ export default function Home() {
               </h2>
               <div className="grid gap-4 sm:grid-cols-3">
                 {([
-                  { n: "1", title: "Apply in 2 minutes", body: "Two minutes. No card needed." },
-                  { n: "2", title: "Coach replies in 24 hours", body: "Maya replies herself. Within 24 hours." },
-                  { n: "3", title: "Start Monday", body: "Your first AI plan and meal plan arrive the same week." },
+                  { n: "1", title: "Apply in 2 minutes", body: "No card needed." },
+                  { n: "2", title: "Maya replies in 24 hours", body: "Herself — not an autoresponder." },
+                  { n: "3", title: "Start Monday", body: "First plan arrives the same week." },
                 ] as const).map(({ n, title, body }, i) => (
                   <div key={n} className="relative flex gap-4 rounded-2xl border border-(--color-border) bg-white p-5">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-(--color-brand) text-sm font-bold text-white">{n}</div>
@@ -419,16 +413,15 @@ export default function Home() {
               <div className="grid lg:grid-cols-2">
 
                 <div className="p-6 sm:p-10">
-                  <p className="eyebrow text-(--color-muted)">Two minutes to apply</p>
-                  <h2 className="mt-2 text-3xl tracking-tight sm:text-4xl">
+                  <h2 className="text-3xl tracking-tight sm:text-4xl">
                     <span className="font-light italic text-(--color-muted)">Apply for </span>
                     <span className="font-black text-foreground">a spot.</span>
                   </h2>
-                  <p className="mt-1 text-sm text-(--color-muted)">We reply personally within 24 hours — not an automated email.</p>
+                  <p className="mt-1 text-sm text-(--color-muted)">Maya replies personally within 24 hours.</p>
                   <div className="mt-3 flex items-center gap-2 rounded-xl border border-(--color-brand)/20 bg-(--color-cream) px-3 py-2">
                     <span className="h-2 w-2 shrink-0 rounded-full bg-(--color-brand) animate-badge-pulse" aria-hidden="true" />
                     <p className="text-xs font-medium text-(--color-muted)">
-                      We take on <span className="font-semibold text-foreground">4–6 new parents per month</span> to keep coaching quality high.
+                      We take <span className="font-semibold text-foreground">a few new parents each month</span> so coaching stays personal.
                     </p>
                   </div>
                   <div className="mt-5 rounded-2xl border border-(--color-border) bg-(--color-bg) p-4">

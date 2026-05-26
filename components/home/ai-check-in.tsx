@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { Mic, MicOff, Send, Sparkles, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw, Pause } from "lucide-react";
+import { Mic, MicOff, Send, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw, Pause } from "lucide-react";
 import { readPausedUntil, setPaused, clearPaused, formatPauseEnd } from "@/lib/pause";
 import { logSession } from "@/lib/anon-user";
 import {
@@ -404,16 +404,6 @@ export function AiCheckIn() {
         )}
       </div>
 
-      <div className="mt-5 flex items-center justify-between border-t border-(--color-border) pt-4 text-xs text-(--color-muted)/70">
-        <span className="inline-flex items-center gap-1.5">
-          <Sparkles size={11} aria-hidden="true" /> Powered by Claude
-        </span>
-        {response?.ok && (
-          <span title="Honest cost — most calls are a fraction of a cent.">
-            This call: ${response.result.costUsd.toFixed(4)} · {response.result.latencyMs}ms
-          </span>
-        )}
-      </div>
     </div>
   );
 }
