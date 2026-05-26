@@ -389,9 +389,17 @@ export function AiCheckIn() {
               onToggleReasoning={() => setShowReasoning((v) => !v)}
             />
           ) : (
-            <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              {response.error}
-            </p>
+            <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-3 text-sm">
+              <p className="font-medium text-foreground">That didn&apos;t go through.</p>
+              <p className="mt-1 text-(--color-muted)">{response.error}</p>
+              <button
+                type="button"
+                onClick={submit}
+                className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-(--color-brand-strong) underline underline-offset-2"
+              >
+                Try again
+              </button>
+            </div>
           )
         )}
       </div>
