@@ -21,7 +21,7 @@ test.describe("Homepage", () => {
 
   test("hero trust line is visible", async ({ page }) => {
     await expect(
-      page.locator("#section-hero").getByText(/14-day money-back/i)
+      page.locator("#section-hero").getByText(/14-day refund/i)
     ).toBeVisible();
   });
 
@@ -73,7 +73,7 @@ test.describe("Homepage", () => {
 
   test("apply form is present and ready", async ({ page }) => {
     await page.locator("#apply").scrollIntoViewIfNeeded();
-    await expect(page.locator("#apply").getByText(/two minutes to apply/i)).toBeVisible();
+    await expect(page.locator("#apply").getByText(/maya replies personally/i)).toBeVisible();
   });
 
   // ── FitQuiz ─────────────────────────────────────────────────────────
