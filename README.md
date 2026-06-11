@@ -15,6 +15,10 @@
 
 <sub>The in-app assistant turns a 30-second check-in into a time-boxed plan — with a confidence score, on-demand reasoning, a fallback for when the day collapses, and a graceful "Practice mode" when no API key is set.</sub>
 
+![The authenticated member dashboard showing today's 20-minute workout, a weekly progress tracker, a meal-plan summary, and a resume-where-you-left-off card](docs/dashboard.png)
+
+<sub>The member dashboard after signup — today's 20-minute workout, weekly progress, meal-plan adherence, and a "resume where you left off" card, with a countdown to the next session.</sub>
+
 ---
 
 ## Why this project
