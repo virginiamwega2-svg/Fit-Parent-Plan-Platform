@@ -18,3 +18,11 @@ data/
 test-results/
 playwright-report/
 playwright/.cache/
+
+# OS / editor litter
+desktop.ini
+Thumbs.db
+
+# Accidental local git mirror — never commit a repo inside the repo
+my-nextjs-site-mirror/
+*.bare
