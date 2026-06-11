@@ -11,7 +11,9 @@
 
 **▶ Live demo: [fit-parent-plan-platform.vercel.app](https://fit-parent-plan-platform.vercel.app/)**
 
-![Fit Parent Plan](public/og-image.svg)
+![The Fit Parent Plan AI assistant turning a 30-second check-in into a time-boxed plan, with confidence and reasoning](docs/assistant.png)
+
+<sub>The in-app assistant turns a 30-second check-in into a time-boxed plan — with a confidence score, on-demand reasoning, a fallback for when the day collapses, and a graceful "Practice mode" when no API key is set.</sub>
 
 ---
 
