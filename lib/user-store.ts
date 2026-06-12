@@ -2,7 +2,7 @@ import "server-only";
 
 import { randomUUID } from "node:crypto";
 import { getDb } from "@/lib/db";
-import { ensureSchema, getSql, pgEnabled } from "@/lib/data/pg";
+import { ensureSchema, getSql, pgEnabled } from "@/lib/db-pg";
 
 export type UserRecord = {
   id: string;

@@ -1,7 +1,7 @@
 import "server-only";
 
 import { getDb } from "@/lib/db";
-import { ensureSchema, getSql, pgEnabled } from "@/lib/data/pg";
+import { ensureSchema, getSql, pgEnabled } from "@/lib/db-pg";
 
 export type UserState = {
   plannerDraft?: Record<string, unknown>;

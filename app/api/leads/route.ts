@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { leadCaptureSchema } from "@/lib/validation";
 import { getDb } from "@/lib/db";
-import { ensureSchema, getSql, pgEnabled } from "@/lib/data/pg";
+import { ensureSchema, getSql, pgEnabled } from "@/lib/db-pg";
 import { sendLeadAdminNotification, sendLeadWelcomeEmail } from "@/lib/email";
 
 type LeadPayload = {
