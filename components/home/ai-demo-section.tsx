@@ -28,7 +28,7 @@ export function AiDemoSection() {
             <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">
               <div>
                 <p className="eyebrow mb-3 inline-flex items-center gap-1.5 text-(--color-brand)">
-                  <Sparkles size={13} aria-hidden="true" /> New · AI assistant
+                  <Sparkles size={13} aria-hidden="true" /> Your fitness coach
                 </p>
                 <h2 className="text-3xl tracking-tight sm:text-4xl">
                   <span className="font-light italic text-(--color-muted)">See it </span>
