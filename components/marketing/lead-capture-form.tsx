@@ -387,9 +387,7 @@ export default function LeadCaptureForm() {
       >
         {message}
       </p>
-      <p className="mt-1 text-xs text-(--color-muted)">
-        Maya reads every application herself. No funnel.
-      </p>
+
     </form>
   );
 }
