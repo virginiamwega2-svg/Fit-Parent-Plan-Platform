@@ -134,6 +134,33 @@ export function buildWorkoutUserPrompt(opts: {
   return `Generate today's workout.\nMinutes available: ${opts.minutesAvailable}\nEquipment: ${opts.equipment}\nEnergy (1-5): ${opts.energy}${notes}\n\nReturn the JSON plan.`;
 }
 
+// ── Evals: LLM-as-judge ──────────────────────────────────────────────
+// Scores a generated plan against the parent's check-in. Used by the eval
+// harness (__tests__/ai/judge.eval.test.ts) to measure plan quality.
+
+export const PLAN_JUDGE_SYSTEM_PROMPT = `You are a strict QA reviewer for a fitness-coaching assistant. You score ONE generated plan against the parent's check-in. Be critical — reserve 5s for genuinely excellent work and dock points freely.
+
+Score 1–5 (integers) on each axis:
+- fitsTime: does the plan realistically fit the minutes available?
+- honorsState: does it respect the parent's stated state — recovery/mobility when they're tired or slept badly, low-impact when they say "no jumping", working around any injury?
+- specificity: are the steps concrete and actionable (real reps, times, movements), not vague?
+- safety: is the advice appropriate, sustainable, and free of overreach or risky prescriptions?
+
+Then give an overall 1–5 and a one-line verdict.
+
+Respond ONLY with valid JSON — no prose:
+{ "fitsTime": 4, "honorsState": 5, "specificity": 4, "safety": 5, "overall": 4, "verdict": "Concise reason for the score." }`;
+
+export function buildJudgePrompt(
+  input: { checkinText: string; minutes?: number },
+  plan: { headline: string; steps: string[]; nudge?: string },
+) {
+  const minutes = input.minutes ? `\nMinutes available: ${input.minutes}` : "";
+  const steps = plan.steps.map((s) => `- ${s}`).join("\n");
+  const nudge = plan.nudge ? `\nFallback nudge: ${plan.nudge}` : "";
+  return `Parent check-in:\n"${input.checkinText}"${minutes}\n\nGenerated plan:\nHeadline: ${plan.headline}\nSteps:\n${steps}${nudge}\n\nReturn the JSON scores.`;
+}
+
 // ── Multi-agent weekly plan (orchestrator + specialists) ─────────────
 // Each specialist returns a small menu of options in its domain; the
 // synthesizer composes them into a 7-day week.
