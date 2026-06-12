@@ -83,7 +83,7 @@ export function PantryAgent() {
         </p>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-(--color-mint-soft) px-2.5 py-0.5 text-xs font-medium text-foreground">
           <span className="h-1.5 w-1.5 rounded-full bg-(--color-brand)" aria-hidden="true" />
-          {response?.ok && response.result.source === "live" ? "Claude live" : "Practice mode"}
+          {response?.ok ? (response.result.source === "live" ? "Claude live" : "Practice mode") : "Try it"}
         </span>
       </div>
 
