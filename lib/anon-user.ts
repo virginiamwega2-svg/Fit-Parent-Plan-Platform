@@ -30,7 +30,7 @@ export type SessionLog = {
   email?: string;
   planHeadline: string;
   planSource: "live" | "mock";
-  mode: "plan" | "workout" | "adapt" | "pantry";
+  mode: "plan" | "workout" | "week" | "adapt" | "pantry";
   completedAt: string;
 };
 

@@ -85,3 +85,51 @@ export type PlanResult = {
    */
   toolsUsed?: string[];
 };
+
+// ── Multi-agent weekly plan ──────────────────────────────────────────
+// An orchestrator fans out to specialist sub-agents (strength, recovery,
+// nutrition) and a synthesizer composes their output into a 7-day week.
+
+export type WeekInput = {
+  /** Training days the parent can realistically commit to (2–6). */
+  daysPerWeek: number;
+  /** Minutes per session. */
+  minutesPerSession: number;
+  equipment: Equipment;
+  /** Free-text goal, e.g. "more energy", "get stronger", "lose a bit". */
+  goal: string;
+};
+
+export type WeekDay = {
+  /** "Monday" … "Sunday". */
+  day: string;
+  /** Category, e.g. "Strength", "Recovery", "Cardio", "Rest". */
+  focus: string;
+  /** Short session name. */
+  title: string;
+  /** One-line description of the day. */
+  detail: string;
+  /** Minutes for the day — 0 on a rest day. */
+  minutes: number;
+};
+
+export type WeekPlan = {
+  headline: string;
+  /** Exactly 7 entries, Monday → Sunday. */
+  days: WeekDay[];
+  /** 2–5 simple nutrition pointers for the week. */
+  nutrition: string[];
+  reasoning: string;
+  confidence: number;
+};
+
+export type WeekResult = {
+  plan: WeekPlan;
+  source: "live" | "mock";
+  inputTokens: number;
+  outputTokens: number;
+  costUsd: number;
+  latencyMs: number;
+  /** Which sub-agents contributed — surfaced in the UI to show the fan-out. */
+  agents?: string[];
+};

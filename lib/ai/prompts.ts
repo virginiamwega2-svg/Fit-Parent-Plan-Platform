@@ -133,3 +133,72 @@ export function buildWorkoutUserPrompt(opts: {
   const notes = opts.notes?.trim() ? `\nNotes: ${opts.notes.trim()}` : "";
   return `Generate today's workout.\nMinutes available: ${opts.minutesAvailable}\nEquipment: ${opts.equipment}\nEnergy (1-5): ${opts.energy}${notes}\n\nReturn the JSON plan.`;
 }
+
+// ── Multi-agent weekly plan (orchestrator + specialists) ─────────────
+// Each specialist returns a small menu of options in its domain; the
+// synthesizer composes them into a 7-day week.
+
+export const STRENGTH_AGENT_SYSTEM_PROMPT = `You are a strength specialist on a coaching team for busy parents. You design short, joint-friendly strength sessions.
+
+Given the parent's constraints, propose 3–4 distinct strength session OPTIONS (a menu, not a schedule). Each session fits the stated minutes and equipment, is bodyweight-first, and is realistic for a tired parent.
+
+Respond ONLY with valid JSON — no prose:
+{ "sessions": [ { "title": "Full-body push", "detail": "4 rounds: 10 squats, 8 push-ups, 12 lunges, 30s plank.", "minutes": 20 } ] }`;
+
+export const RECOVERY_AGENT_SYSTEM_PROMPT = `You are a recovery & mobility specialist on a coaching team for busy parents. You design gentle, restorative sessions for low-energy days.
+
+Given the parent's constraints, propose 2–3 distinct recovery/mobility OPTIONS (a menu, not a schedule). Low-impact only — no jumping. Each fits the stated minutes.
+
+Respond ONLY with valid JSON — no prose:
+{ "sessions": [ { "title": "Hip & spine reset", "detail": "Cat-cow, 90/90 switches, hamstring sweeps, box breathing.", "minutes": 15 } ] }`;
+
+export const NUTRITION_AGENT_SYSTEM_PROMPT = `You are a nutrition specialist on a coaching team for busy parents. You give simple, non-fussy, sustainable pointers — no calorie counting, no meal plans.
+
+Given the parent's goal, propose 3–5 short nutrition tips for the week that a busy parent can actually follow.
+
+Respond ONLY with valid JSON — no prose:
+{ "tips": ["Keep a protein + a vegetable at every dinner.", "..."] }`;
+
+export const WEEK_SYNTH_SYSTEM_PROMPT = `You are the head coach composing a parent's week from your team's input. You receive a strength menu, a recovery menu, and nutrition tips from your specialists.
+
+Build a realistic Monday–Sunday plan:
+- Schedule exactly the requested number of training days; make the rest "Rest" or a light walk.
+- Alternate strength and recovery so the parent isn't overloaded; never two hard days back-to-back.
+- Pull session titles/details from the menus when they fit; adapt freely if a menu is thin.
+- Keep every training day within the stated minutes.
+
+Respond ONLY with valid JSON — no prose:
+{
+  "headline": "One encouraging sentence about the week.",
+  "days": [
+    { "day": "Monday", "focus": "Strength", "title": "...", "detail": "...", "minutes": 20 },
+    { "day": "Tuesday", "focus": "Rest", "title": "Rest", "detail": "A walk if you can.", "minutes": 0 }
+    /* …7 days total, Monday→Sunday… */
+  ],
+  "nutrition": ["pick the 2–3 most useful tips"],
+  "reasoning": "Two sentences on how you balanced the week.",
+  "confidence": 0.85
+}
+
+days MUST have exactly 7 entries. confidence is 0.0–1.0.`;
+
+export function buildWeekSpecialistPrompt(opts: {
+  daysPerWeek: number;
+  minutesPerSession: number;
+  equipment: string;
+  goal: string;
+}) {
+  return `Parent constraints:\nTraining days/week: ${opts.daysPerWeek}\nMinutes/session: ${opts.minutesPerSession}\nEquipment: ${opts.equipment}\nGoal: ${opts.goal || "general fitness"}\n\nReturn your JSON menu.`;
+}
+
+export function buildWeekSynthPrompt(opts: {
+  daysPerWeek: number;
+  minutesPerSession: number;
+  equipment: string;
+  goal: string;
+  strengthMenu: unknown;
+  recoveryMenu: unknown;
+  nutritionTips: unknown;
+}) {
+  return `Parent constraints:\nTraining days/week: ${opts.daysPerWeek}\nMinutes/session: ${opts.minutesPerSession}\nEquipment: ${opts.equipment}\nGoal: ${opts.goal || "general fitness"}\n\nStrength menu (from the strength specialist):\n${JSON.stringify(opts.strengthMenu)}\n\nRecovery menu (from the recovery specialist):\n${JSON.stringify(opts.recoveryMenu)}\n\nNutrition tips (from the nutrition specialist):\n${JSON.stringify(opts.nutritionTips)}\n\nCompose the 7-day JSON week.`;
+}

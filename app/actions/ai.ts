@@ -4,8 +4,9 @@ import { headers } from "next/headers";
 import { z } from "zod";
 import { adaptPlan, generatePantry, generateWorkout } from "@/lib/ai/adapter";
 import { generatePlanWithTools } from "@/lib/ai/agent";
+import { generateWeekPlan } from "@/lib/ai/orchestrator";
 import { rateLimit } from "@/lib/ai/rate-limit";
-import type { PantryResult, PlanResult } from "@/lib/ai/types";
+import type { PantryResult, PlanResult, WeekResult } from "@/lib/ai/types";
 import { sendPlanEmail } from "@/lib/email";
 
 // Plan fields are optional so the lead-recovery path (pagehide fires with just
@@ -183,6 +184,56 @@ export async function generatePantryAction(input: unknown): Promise<GeneratePant
   } catch (err) {
     const detail = err instanceof Error ? err.message : "Unknown error";
     console.error("generatePantryAction failed:", err);
+    return {
+      ok: false,
+      error:
+        process.env.NODE_ENV === "production"
+          ? "The assistant hit a snag. Try again in a moment."
+          : `Assistant error: ${detail}`,
+    };
+  }
+}
+
+const weekSchema = z.object({
+  daysPerWeek: z.number().int().min(2).max(6),
+  minutesPerSession: z.number().int().min(5).max(120),
+  equipment: z.enum(["none", "dumbbells", "bands", "full-gym"]),
+  goal: z.string().trim().max(200).optional(),
+});
+
+export type GenerateWeekResponse =
+  | { ok: true; result: WeekResult; remaining: number }
+  | { ok: false; error: string; retryInMinutes?: number };
+
+export async function generateWeekPlanAction(input: unknown): Promise<GenerateWeekResponse> {
+  const parsed = weekSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input." };
+  }
+
+  const ip = await getClientIp();
+  const limit = rateLimit(ip);
+  if (!limit.allowed) {
+    return {
+      ok: false,
+      error: "Daily limit reached. Come back tomorrow or sign up for unlimited.",
+      retryInMinutes: Math.ceil(limit.resetInMs / 60_000),
+    };
+  }
+
+  try {
+    // The orchestrator fans out to specialist sub-agents and synthesizes;
+    // it has its own mock fallback so this never throws on AI failure.
+    const result = await generateWeekPlan({
+      daysPerWeek: parsed.data.daysPerWeek,
+      minutesPerSession: parsed.data.minutesPerSession,
+      equipment: parsed.data.equipment,
+      goal: parsed.data.goal ?? "",
+    });
+    return { ok: true, result, remaining: limit.remaining };
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : "Unknown error";
+    console.error("generateWeekPlanAction failed:", err);
     return {
       ok: false,
       error:

@@ -14,6 +14,8 @@ export const aiConfig = {
   // Hard cap on tool-call rounds before the agent must answer (guards latency
   // and runaway loops).
   agentMaxSteps: 5,
+  // The weekly synthesizer emits 7 days + nutrition, so it needs more room.
+  weekSynthMaxTokens: 1500,
   // Hard daily ceiling per IP/user. Graceful degradation when hit.
   dailyRequestCeiling: 30,
   // ~0.10 USD per call ceiling — guards against runaway prompts.

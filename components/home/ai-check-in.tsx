@@ -1,20 +1,22 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { Mic, MicOff, Send, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw, Pause, Wrench } from "lucide-react";
+import { Mic, MicOff, Send, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw, Pause, Wrench, CalendarDays, Users } from "lucide-react";
 import { readPausedUntil, setPaused, clearPaused, formatPauseEnd } from "@/lib/pause";
 import { logSession } from "@/lib/anon-user";
 import {
   adaptPlanAction,
   generatePlanAction,
+  generateWeekPlanAction,
   generateWorkoutAction,
   savePlanEmailAction,
   type GeneratePlanResponse,
+  type GenerateWeekResponse,
 } from "@/app/actions/ai";
 import { useVoiceInput } from "@/hooks/use-voice-input";
 import type { AiPlan, Equipment } from "@/lib/ai/types";
 
-type Mode = "plan" | "workout" | "adapt";
+type Mode = "plan" | "workout" | "week" | "adapt";
 
 type SavedPlan = {
   headline: string;
@@ -80,8 +82,11 @@ export function AiCheckIn() {
   const [energy, setEnergy] = useState<number>(3);
   const [workoutNotes, setWorkoutNotes] = useState("");
   const [adaptUpdate, setAdaptUpdate] = useState("");
+  const [daysPerWeek, setDaysPerWeek] = useState<number>(3);
+  const [goal, setGoal] = useState("");
   const [lastPlan, setLastPlan] = useState<SavedPlan | null>(null);
   const [response, setResponse] = useState<GeneratePlanResponse | null>(null);
+  const [weekResponse, setWeekResponse] = useState<GenerateWeekResponse | null>(null);
   const [showReasoning, setShowReasoning] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -102,11 +107,18 @@ export function AiCheckIn() {
     const id = setInterval(() => setThinkingIdx((i) => i + 1), 900);
     return () => clearInterval(id);
   }, [isPending]);
-  const thinkingLabels = [
-    "Reading your week…",
-    "Matching to your time…",
-    "Picking the lowest-friction win…",
-  ];
+  const thinkingLabels =
+    mode === "week"
+      ? [
+          "Briefing your strength coach…",
+          "Recovery & nutrition specialists working…",
+          "Synthesizing your week…",
+        ]
+      : [
+          "Reading your week…",
+          "Matching to your time…",
+          "Picking the lowest-friction win…",
+        ];
   const thinkingLabel = thinkingLabels[Math.min(thinkingIdx, thinkingLabels.length - 1)];
 
   const voice = useVoiceInput(setText);
@@ -115,6 +127,7 @@ export function AiCheckIn() {
     if (next === mode) return;
     setMode(next);
     setResponse(null);
+    setWeekResponse(null);
     setShowReasoning(false);
   };
 
@@ -138,6 +151,7 @@ export function AiCheckIn() {
 
   const submit = () => {
     setResponse(null);
+    setWeekResponse(null);
     setShowReasoning(false);
     if (mode === "plan") {
       if (text.trim().length < 4) return;
@@ -154,6 +168,23 @@ export function AiCheckIn() {
           notes: workoutNotes.trim() || undefined,
         });
         handleResult(result);
+      });
+    } else if (mode === "week") {
+      startTransition(async () => {
+        const result = await generateWeekPlanAction({
+          daysPerWeek,
+          minutesPerSession: minutes,
+          equipment,
+          goal: goal.trim() || undefined,
+        });
+        setWeekResponse(result);
+        if (result.ok) {
+          logSession({
+            planHeadline: result.result.plan.headline,
+            planSource: result.result.source,
+            mode: "week",
+          });
+        }
       });
     } else {
       if (!lastPlan || adaptUpdate.trim().length < 4) return;
@@ -180,7 +211,11 @@ export function AiCheckIn() {
         </p>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-(--color-mint-soft) px-2.5 py-0.5 text-xs font-medium text-foreground">
           <span className="h-1.5 w-1.5 rounded-full bg-(--color-brand)" aria-hidden="true" />
-          {response?.ok && response.result.source === "live" ? "Claude live" : "Practice mode"}
+          {(mode === "week"
+            ? weekResponse?.ok && weekResponse.result.source === "live"
+            : response?.ok && response.result.source === "live")
+            ? "Claude live"
+            : "Practice mode"}
         </span>
       </div>
 
@@ -311,6 +346,68 @@ export function AiCheckIn() {
         </div>
       </div>
       )}
+      {mode === "week" && (
+      <div className="mt-4 space-y-3">
+        <div>
+          <label className="block text-xs font-semibold text-(--color-muted)" htmlFor="wk-equipment">
+            Equipment
+          </label>
+          <div role="radiogroup" aria-labelledby="wk-equipment" className="mt-2 flex flex-wrap gap-1.5">
+            {([
+              ["none", "Bodyweight"],
+              ["dumbbells", "Dumbbells"],
+              ["bands", "Bands"],
+              ["full-gym", "Full gym"],
+            ] as const).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                role="radio"
+                aria-checked={equipment === value}
+                onClick={() => setEquipment(value)}
+                className={`rounded-full border px-3 py-1 text-xs ${
+                  equipment === value
+                    ? "border-(--color-brand) bg-(--color-mint-soft) text-foreground"
+                    : "border-(--color-border) bg-white text-(--color-muted) hover:border-(--color-brand)/40"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div>
+          <label htmlFor="wk-days" className="flex items-center justify-between text-xs font-semibold text-(--color-muted)">
+            <span>Days you can train</span>
+            <span className="text-foreground">{daysPerWeek} / week</span>
+          </label>
+          <input
+            id="wk-days"
+            type="range"
+            min={2}
+            max={6}
+            step={1}
+            value={daysPerWeek}
+            onChange={(e) => setDaysPerWeek(Number(e.target.value))}
+            className="mt-2 w-full accent-(--color-brand)"
+          />
+        </div>
+        <div>
+          <label htmlFor="wk-goal" className="block text-xs font-semibold text-(--color-muted)">
+            Your goal this season <span className="font-normal text-(--color-muted)/70">(optional)</span>
+          </label>
+          <input
+            id="wk-goal"
+            type="text"
+            value={goal}
+            onChange={(e) => setGoal(e.target.value)}
+            maxLength={200}
+            placeholder="e.g. more energy at 3pm, get a bit stronger"
+            className="mt-2 w-full rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-2.5 text-sm text-foreground placeholder:text-(--color-muted)/60 focus:border-(--color-brand) focus:outline-none focus:ring-2 focus:ring-(--color-brand)/15"
+          />
+        </div>
+      </div>
+      )}
       {mode === "adapt" && lastPlan && (
         <div className="mt-4 space-y-3">
           <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-3">
@@ -372,6 +469,8 @@ export function AiCheckIn() {
             <>Get my plan <Send size={13} aria-hidden="true" /></>
           ) : mode === "workout" ? (
             <>Generate workout <Send size={13} aria-hidden="true" /></>
+          ) : mode === "week" ? (
+            <>Plan my week <Send size={13} aria-hidden="true" /></>
           ) : (
             <>Adapt my plan <Send size={13} aria-hidden="true" /></>
           )}
@@ -381,7 +480,14 @@ export function AiCheckIn() {
       {/* Result area */}
       <div className="mt-5">
         {isPending && <PlanSkeleton label={thinkingLabel} />}
-        {response && !isPending && (
+        {!isPending && mode === "week" && weekResponse && (
+          weekResponse.ok ? (
+            <WeekCard response={weekResponse} />
+          ) : (
+            <ResultError error={weekResponse.error} onRetry={submit} />
+          )
+        )}
+        {!isPending && mode !== "week" && response && (
           response.ok ? (
             <PlanCard
               response={response}
@@ -389,17 +495,7 @@ export function AiCheckIn() {
               onToggleReasoning={() => setShowReasoning((v) => !v)}
             />
           ) : (
-            <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-3 text-sm">
-              <p className="font-medium text-foreground">That didn&apos;t go through.</p>
-              <p className="mt-1 text-(--color-muted)">{response.error}</p>
-              <button
-                type="button"
-                onClick={submit}
-                className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-(--color-brand-strong) underline underline-offset-2"
-              >
-                Try again
-              </button>
-            </div>
+            <ResultError error={response.error} onRetry={submit} />
           )
         )}
       </div>
@@ -526,6 +622,122 @@ function PlanCard({
   );
 }
 
+function ResultError({ error, onRetry }: { error: string; onRetry: () => void }) {
+  return (
+    <div className="rounded-2xl border border-(--color-border) bg-(--color-bg-soft) px-4 py-3 text-sm">
+      <p className="font-medium text-foreground">That didn&apos;t go through.</p>
+      <p className="mt-1 text-(--color-muted)">{error}</p>
+      <button
+        type="button"
+        onClick={onRetry}
+        className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-(--color-brand-strong) underline underline-offset-2"
+      >
+        Try again
+      </button>
+    </div>
+  );
+}
+
+// Labels for the multi-agent fan-out, surfaced so the orchestration is visible.
+const AGENT_LABELS: Record<string, string> = {
+  strength: "strength",
+  recovery: "recovery",
+  nutrition: "nutrition",
+  synthesis: "→ synthesis",
+};
+
+function WeekCard({ response }: { response: Extract<GenerateWeekResponse, { ok: true }> }) {
+  const { plan, agents } = response.result;
+  const [showReasoning, setShowReasoning] = useState(false);
+  const confidencePct = Math.round(plan.confidence * 100);
+  return (
+    <div className="animate-result-arrive rounded-2xl border border-(--color-brand)/15 bg-white p-4 text-sm leading-6">
+      <p className="font-semibold text-foreground">{plan.headline}</p>
+
+      <ul className="mt-3 divide-y divide-(--color-border)">
+        {plan.days.map((d) => {
+          const rest = d.minutes === 0;
+          return (
+            <li key={d.day} className="flex items-start gap-3 py-2">
+              <div className="w-14 shrink-0">
+                <p className="text-xs font-bold text-foreground">{d.day.slice(0, 3)}</p>
+                <p className={`text-[10px] font-semibold uppercase tracking-wide ${rest ? "text-(--color-muted)/50" : "text-(--color-brand)"}`}>
+                  {d.focus}
+                </p>
+              </div>
+              <div className="flex-1">
+                <p className={`text-sm ${rest ? "font-normal text-(--color-muted)" : "font-medium text-foreground"}`}>
+                  {d.title}
+                  {d.minutes > 0 && <span className="text-(--color-muted)"> · {d.minutes}m</span>}
+                </p>
+                {d.detail && <p className="mt-0.5 text-xs leading-5 text-(--color-muted)">{d.detail}</p>}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      {plan.nutrition.length > 0 && (
+        <div className="mt-3 rounded-xl bg-(--color-mint-soft)/50 px-3 py-2.5">
+          <p className="eyebrow text-(--color-muted)">Fuel for the week</p>
+          <ul className="mt-1.5 space-y-1 text-xs text-(--color-muted)">
+            {plan.nutrition.map((tip, i) => (
+              <li key={i} className="flex gap-2">
+                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-(--color-secondary)" aria-hidden="true" />
+                <span>{tip}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <span className="text-xs text-(--color-muted)/80">
+          {confidencePct >= 80 ? "Confident" : `${confidencePct}% sure`}
+        </span>
+        <button
+          type="button"
+          onClick={() => setShowReasoning((v) => !v)}
+          className="inline-flex items-center gap-1 text-xs font-semibold text-(--color-brand-strong) underline underline-offset-2"
+        >
+          <Info size={11} aria-hidden="true" />
+          {showReasoning ? "Hide reasoning" : "Why this week?"}
+        </button>
+      </div>
+      {showReasoning && plan.reasoning && (
+        <p className="mt-3 rounded-xl bg-(--color-bg-soft) px-3 py-2 text-xs italic leading-5 text-(--color-muted)">
+          {plan.reasoning}
+        </p>
+      )}
+
+      {agents && agents.length > 0 && (
+        <p className="mt-3 inline-flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[11px] text-(--color-muted)/90">
+          <Users size={11} aria-hidden="true" className="text-(--color-brand)" />
+          <span className="font-semibold text-foreground/70">Coaching team:</span>
+          {agents.map((a) => AGENT_LABELS[a] ?? a).join(" · ")}
+        </p>
+      )}
+
+      {/* Post-plan CTA */}
+      <div className="mt-4 flex flex-col gap-2 rounded-xl bg-(--color-mint-soft) px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs leading-5 text-foreground">
+          <span className="font-semibold">Want this every week?</span>{" "}
+          <span className="text-(--color-muted)">The team re-plans around your real life — automatically.</span>
+        </p>
+        <a
+          href="#section-offer"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-(--color-brand) px-4 py-1.5 text-xs font-semibold text-white"
+        >
+          Start — $10/mo
+          <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M3 7h8M7 3l4 4-4 4" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function ModeTabs({
   mode,
   hasLastPlan,
@@ -536,40 +748,43 @@ function ModeTabs({
   onSwitch: (m: Mode) => void;
 }) {
   const tabs: { id: Mode; label: string; Icon: typeof MessageCircle }[] = [
-    { id: "plan",    label: "Plan my window",    Icon: MessageCircle },
-    { id: "workout", label: "Generate workout",  Icon: Dumbbell      },
+    { id: "plan",    label: "Today",     Icon: MessageCircle },
+    { id: "workout", label: "Workout",   Icon: Dumbbell      },
+    { id: "week",    label: "This week", Icon: CalendarDays  },
   ];
-  if (hasLastPlan) tabs.push({ id: "adapt", label: "Adapt last", Icon: RefreshCw });
+  if (hasLastPlan) tabs.push({ id: "adapt", label: "Adapt", Icon: RefreshCw });
 
   const activeIndex = tabs.findIndex((t) => t.id === mode);
   const widthPct = 100 / tabs.length;
 
   return (
-    <div
-      role="tablist"
-      aria-label="AI mode"
-      className="relative mt-3 inline-flex rounded-full border border-(--color-border) bg-(--color-bg-soft) p-0.5 text-xs font-semibold"
-    >
-      {/* Sliding indicator pill — animates between tabs */}
-      <span
-        aria-hidden="true"
-        className="absolute inset-y-0.5 rounded-full bg-white shadow-sm transition-[left,width] duration-300 ease-out"
-        style={{ width: `calc(${widthPct}% - 4px)`, left: `calc(${activeIndex * widthPct}% + 2px)` }}
-      />
-      {tabs.map(({ id, label, Icon }) => (
-        <button
-          key={id}
-          type="button"
-          role="tab"
-          aria-selected={mode === id}
-          onClick={() => onSwitch(id)}
-          className={`relative z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors duration-200 ${
-            mode === id ? "text-foreground" : "text-(--color-muted) hover:text-foreground"
-          }`}
-        >
-          <Icon size={12} aria-hidden="true" /> {label}
-        </button>
-      ))}
+    <div className="mt-3 max-w-full overflow-x-auto">
+      <div
+        role="tablist"
+        aria-label="AI mode"
+        className="relative inline-flex rounded-full border border-(--color-border) bg-(--color-bg-soft) p-0.5 text-xs font-semibold"
+      >
+        {/* Sliding indicator pill — animates between tabs */}
+        <span
+          aria-hidden="true"
+          className="absolute inset-y-0.5 rounded-full bg-white shadow-sm transition-[left,width] duration-300 ease-out"
+          style={{ width: `calc(${widthPct}% - 4px)`, left: `calc(${activeIndex * widthPct}% + 2px)` }}
+        />
+        {tabs.map(({ id, label, Icon }) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={mode === id}
+            onClick={() => onSwitch(id)}
+            className={`relative z-10 inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 transition-colors duration-200 ${
+              mode === id ? "text-foreground" : "text-(--color-muted) hover:text-foreground"
+            }`}
+          >
+            <Icon size={12} aria-hidden="true" /> {label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
