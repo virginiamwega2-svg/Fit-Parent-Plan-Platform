@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { leadCaptureSchema } from "@/lib/validation";
 import { getDb } from "@/lib/db";
+import { ensureSchema, getSql, pgEnabled } from "@/lib/data/pg";
 import { sendLeadAdminNotification, sendLeadWelcomeEmail } from "@/lib/email";
 
 type LeadPayload = {
@@ -82,7 +83,7 @@ async function verifyTurnstileToken(token: string, ip: string) {
   return data.success === true;
 }
 
-function saveLead(lead: {
+async function saveLead(lead: {
   name: string;
   email: string;
   challenge: string;
@@ -92,6 +93,15 @@ function saveLead(lead: {
   createdAt: string;
 }) {
   try {
+    if (pgEnabled()) {
+      await ensureSchema();
+      const sql = getSql();
+      await sql`
+        INSERT INTO leads (name, email, challenge, goal, time_per_day, ip, created_at)
+        VALUES (${lead.name}, ${lead.email}, ${lead.challenge}, ${lead.goal}, ${lead.timePerDay}, ${lead.ip}, ${lead.createdAt})
+      `;
+      return;
+    }
     const db = getDb();
     db.prepare(
       `INSERT INTO leads (name, email, challenge, goal, time_per_day, ip, created_at)
@@ -181,7 +191,7 @@ export async function POST(request: Request) {
     };
 
     // Persist to database.
-    saveLead(lead);
+    await saveLead(lead);
 
     // Notify admin and welcome the applicant. Both are best-effort (no-op
     // without RESEND_API_KEY) and run in parallel so neither blocks the other.

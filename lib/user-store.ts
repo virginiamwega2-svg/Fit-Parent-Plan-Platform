@@ -2,6 +2,7 @@ import "server-only";
 
 import { randomUUID } from "node:crypto";
 import { getDb } from "@/lib/db";
+import { ensureSchema, getSql, pgEnabled } from "@/lib/data/pg";
 
 export type UserRecord = {
   id: string;
@@ -24,6 +25,17 @@ export function sanitizeUser(user: UserRecord): SafeUser {
 
 export async function findUserByEmail(email: string) {
   const normalizedEmail = email.trim().toLowerCase();
+
+  if (pgEnabled()) {
+    await ensureSchema();
+    const sql = getSql();
+    const rows = await sql`
+      SELECT id, name, email, password_hash AS "passwordHash", created_at AS "createdAt"
+      FROM users WHERE email = ${normalizedEmail}
+    `;
+    return (rows[0] as UserRecord | undefined) ?? null;
+  }
+
   const db = getDb();
   const row = db
     .prepare(
@@ -38,6 +50,16 @@ export async function findUserByEmail(email: string) {
 }
 
 export async function findUserById(id: string) {
+  if (pgEnabled()) {
+    await ensureSchema();
+    const sql = getSql();
+    const rows = await sql`
+      SELECT id, name, email, password_hash AS "passwordHash", created_at AS "createdAt"
+      FROM users WHERE id = ${id}
+    `;
+    return (rows[0] as UserRecord | undefined) ?? null;
+  }
+
   const db = getDb();
   const row = db
     .prepare(
@@ -53,12 +75,6 @@ export async function findUserById(id: string) {
 
 export async function createUser(input: { name: string; email: string; passwordHash: string }) {
   const normalizedEmail = input.email.trim().toLowerCase();
-  const db = getDb();
-  const exists = db.prepare("SELECT id FROM users WHERE email = ?").get(normalizedEmail);
-  if (exists) {
-    return null;
-  }
-
   const user: UserRecord = {
     id: randomUUID(),
     name: input.name.trim(),
@@ -66,6 +82,26 @@ export async function createUser(input: { name: string; email: string; passwordH
     passwordHash: input.passwordHash,
     createdAt: new Date().toISOString(),
   };
+
+  if (pgEnabled()) {
+    await ensureSchema();
+    const sql = getSql();
+    const exists = await sql`SELECT id FROM users WHERE email = ${normalizedEmail}`;
+    if (exists.length > 0) {
+      return null;
+    }
+    await sql`
+      INSERT INTO users (id, name, email, password_hash, created_at)
+      VALUES (${user.id}, ${user.name}, ${user.email}, ${user.passwordHash}, ${user.createdAt})
+    `;
+    return user;
+  }
+
+  const db = getDb();
+  const exists = db.prepare("SELECT id FROM users WHERE email = ?").get(normalizedEmail);
+  if (exists) {
+    return null;
+  }
 
   db.prepare(
     `
