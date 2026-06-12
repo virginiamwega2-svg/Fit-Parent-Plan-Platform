@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -92,31 +91,6 @@ export default function AboutPage() {
         </div>
       </Reveal>
 
-      <Reveal className="mt-10" delayMs={180}>
-        <Card className="hover-lift bg-foreground text-(--color-on-brand)">
-          <h2 className="text-2xl tracking-tight sm:text-3xl">
-            <span className="font-light italic text-white/70">Think this could </span>
-            <span className="font-black text-white">work for you?</span>
-          </h2>
-          <p className="mt-3 max-w-2xl text-sm text-(--color-on-brand)/80">
-            $10/mo, 14-day refund. Or send Maya a note first — she replies personally within 24 hours.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link
-              href="/#section-offer"
-              className="inline-flex rounded-full bg-(--color-brand) px-6 py-3 text-sm font-semibold text-white transition hover:bg-(--color-brand-strong)"
-            >
-              Start — $10/mo
-            </Link>
-            <Link
-              href="/#apply"
-              className="inline-flex rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              Talk to Maya
-            </Link>
-          </div>
-        </Card>
-      </Reveal>
     </div>
   );
 }
