@@ -2,7 +2,8 @@
 
 import { headers } from "next/headers";
 import { z } from "zod";
-import { adaptPlan, generatePantry, generatePlan, generateWorkout } from "@/lib/ai/adapter";
+import { adaptPlan, generatePantry, generateWorkout } from "@/lib/ai/adapter";
+import { generatePlanWithTools } from "@/lib/ai/agent";
 import { rateLimit } from "@/lib/ai/rate-limit";
 import type { PantryResult, PlanResult } from "@/lib/ai/types";
 import { sendPlanEmail } from "@/lib/email";
@@ -53,7 +54,9 @@ export async function generatePlanAction(input: unknown): Promise<GeneratePlanRe
   }
 
   try {
-    const result = await generatePlan(parsed.data);
+    // The "Plan my window" path runs as a tool-calling agent (with its own
+    // single-shot + mock fallbacks); the other skills stay single-shot.
+    const result = await generatePlanWithTools(parsed.data);
     return { ok: true, result, remaining: limit.remaining };
   } catch (err) {
     const detail = err instanceof Error ? err.message : "Unknown error";

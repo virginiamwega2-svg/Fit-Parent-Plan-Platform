@@ -36,7 +36,7 @@ function clampConfidence(n: unknown): number {
   return Math.max(0, Math.min(1, v));
 }
 
-function parsePlan(raw: string): AiPlan {
+export function parsePlan(raw: string): AiPlan {
   // Be defensive — Claude is good but JSON-around-text happens occasionally.
   const start = raw.indexOf("{");
   const end = raw.lastIndexOf("}");

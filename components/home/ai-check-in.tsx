@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { Mic, MicOff, Send, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw, Pause } from "lucide-react";
+import { Mic, MicOff, Send, Info, Mail, Check, Dumbbell, MessageCircle, Zap, RefreshCw, Pause, Wrench } from "lucide-react";
 import { readPausedUntil, setPaused, clearPaused, formatPauseEnd } from "@/lib/pause";
 import { logSession } from "@/lib/anon-user";
 import {
@@ -431,6 +431,14 @@ function PlanSkeleton({ label }: { label: string }) {
   );
 }
 
+// Human-readable labels for the coach agent's tool calls, surfaced under the
+// plan so the tool-calling is visible.
+const TOOL_LABELS: Record<string, string> = {
+  lookup_exercises: "looked up exercises",
+  get_time_context: "checked the time of day",
+  allocate_time: "did the timing math",
+};
+
 function PlanCard({
   response,
   showReasoning,
@@ -469,6 +477,14 @@ function PlanCard({
       {showReasoning && plan.reasoning && (
         <p className="mt-3 rounded-xl bg-(--color-bg-soft) px-3 py-2 text-xs italic leading-5 text-(--color-muted)">
           {plan.reasoning}
+        </p>
+      )}
+
+      {response.result.toolsUsed && response.result.toolsUsed.length > 0 && (
+        <p className="mt-3 inline-flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[11px] text-(--color-muted)/90">
+          <Wrench size={11} aria-hidden="true" className="text-(--color-brand)" />
+          <span className="font-semibold text-foreground/70">Agent steps:</span>
+          {response.result.toolsUsed.map((t) => TOOL_LABELS[t] ?? t).join(" · ")}
         </p>
       )}
 

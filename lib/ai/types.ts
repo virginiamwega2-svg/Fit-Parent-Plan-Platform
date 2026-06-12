@@ -78,4 +78,10 @@ export type PlanResult = {
   outputTokens: number;
   costUsd: number;
   latencyMs: number;
+  /**
+   * Names of tools the coach agent called while building this plan (e.g.
+   * "lookup_exercises"). Only set by the tool-calling path; undefined for the
+   * single-shot and mock paths.
+   */
+  toolsUsed?: string[];
 };

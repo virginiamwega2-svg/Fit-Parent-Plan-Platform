@@ -8,6 +8,12 @@ const HAIKU_OUTPUT_PER_MTOK = 5.0;
 export const aiConfig = {
   model: "claude-haiku-4-5-20251001",
   maxTokens: 600,
+  // Slightly higher ceiling for the tool-calling coach — each turn may emit a
+  // tool_use block plus the final JSON plan.
+  agentMaxTokens: 1024,
+  // Hard cap on tool-call rounds before the agent must answer (guards latency
+  // and runaway loops).
+  agentMaxSteps: 5,
   // Hard daily ceiling per IP/user. Graceful degradation when hit.
   dailyRequestCeiling: 30,
   // ~0.10 USD per call ceiling — guards against runaway prompts.
