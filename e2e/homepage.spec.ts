@@ -56,10 +56,8 @@ test.describe("Homepage", () => {
     for (const id of [
       "#section-hero",
       "#section-ai",
-      "#section-results",
+      "#section-pantry-card",
       "#section-offer",
-      "#section-fit",
-      "#section-how",
       "#section-faq",
       "#apply",
     ]) {
@@ -97,7 +95,7 @@ test.describe("Homepage", () => {
     const footer = page.locator("footer");
     await footer.scrollIntoViewIfNeeded();
     await expect(footer.getByRole("link", { name: "Pricing" })).toBeVisible();
-    await expect(footer.getByRole("link", { name: "How it works" })).toBeVisible();
+    await expect(footer.getByRole("link", { name: "FAQ" })).toBeVisible();
   });
 
   test("footer copyright is present", async ({ page }) => {
@@ -113,9 +111,8 @@ test.describe("Homepage — Mobile", () => {
     await page.goto("/");
     await page.getByRole("button", { name: /toggle navigation/i }).click();
     const mobileNav = page.locator("nav").last();
-    await expect(mobileNav.getByRole("link", { name: "How it works" })).toBeVisible();
-    await expect(mobileNav.getByRole("link", { name: "Results" })).toBeVisible();
     await expect(mobileNav.getByRole("link", { name: "Price" })).toBeVisible();
+    await expect(mobileNav.getByRole("link", { name: "FAQ" })).toBeVisible();
   });
 
   test("mobile nav closes after tapping a link", async ({ page }) => {
