@@ -129,7 +129,7 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto w-full max-w-sm px-6 py-16 text-center sm:max-w-2xl sm:px-10 sm:py-28">
           <p className="hero-line-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-[10px]">
-            20-minute window · No equipment
+            Fitness for the week that actually happens
           </p>
           <h1 className="mt-4 leading-[1.05]">
             <span className="hero-line-2 block text-[clamp(1rem,1.6vw+0.4rem,2rem)] font-thin italic text-white/75">
@@ -159,6 +159,21 @@ export default function Home() {
       {/* ── 1. AI ASSISTANT — the wow ──────────────────────────────── */}
       <AiDemoSection />
 
+      {/* ── SOCIAL PROOF ─────────────────────────────────────────── */}
+      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
+        <Reveal>
+          <blockquote className="mt-16 rounded-3xl border border-(--color-border) bg-(--color-bg-soft) p-6 sm:p-8 lg:mt-20">
+            <p className="text-lg italic leading-8 text-(--color-muted)">
+              &ldquo;I told it I had 15 minutes, a bad back, and a toddler who doesn&apos;t nap anymore. It gave me something I could actually do. Six weeks consistent — that&apos;s a record for me.&rdquo;
+            </p>
+            <footer className="mt-4 flex items-center gap-3">
+              <div className="h-px flex-1 bg-(--color-border)" aria-hidden="true" />
+              <p className="text-sm font-semibold text-foreground">Lucy, mum of one</p>
+            </footer>
+          </blockquote>
+        </Reveal>
+      </div>
+
       {/* ── 1b. PANTRY-TO-PLATE — second AI agent ─────────────────── */}
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
         <Reveal>
@@ -171,7 +186,7 @@ export default function Home() {
                   <span className="font-black text-foreground">your fridge?</span>
                 </h2>
                 <p className="mt-4 max-w-md text-base leading-7 text-(--color-muted)">
-                  Type what you have. Get one realistic meal in the time you actually have — plus a copy-able list of what to grab next time.
+                  The same assistant that plans your workout can figure out tonight&apos;s dinner. Type what you have — get one realistic meal in the time you actually have, plus a copy-able list of what to grab next time.
                 </p>
                 <ul className="mt-6 grid gap-3 text-sm text-(--color-muted)">
                   {[
@@ -241,10 +256,10 @@ export default function Home() {
         {/* ── 6. FAQ — top 4 only ──────────────────────────────────── */}
         <Reveal>
           <section id="section-faq" className="scroll-mt-24 pt-16 lg:pt-24">
-            <p className="eyebrow mb-3 text-(--color-brand)">Quick answers</p>
+            <p className="eyebrow mb-3 text-(--color-brand)">Common questions</p>
             <h2 className="text-3xl tracking-tight sm:text-4xl">
-              <span className="font-light italic text-(--color-muted)">Before </span>
-              <span className="font-black text-foreground">you apply.</span>
+              <span className="font-light italic text-(--color-muted)">Things people </span>
+              <span className="font-black text-foreground">usually ask.</span>
             </h2>
             <div className="mt-6 max-w-3xl">
               <FaqAccordion items={FAQ} />
@@ -258,8 +273,8 @@ export default function Home() {
             <div className="overflow-hidden rounded-3xl border border-(--color-border) bg-(--color-bg-soft) shadow-(--shadow-card-strong)">
               <div className="p-6 sm:p-10">
                 <h2 className="text-3xl tracking-tight sm:text-4xl">
-                  <span className="font-light italic text-(--color-muted)">Prefer to </span>
-                  <span className="font-black text-foreground">talk first?</span>
+                  <span className="font-light italic text-(--color-muted)">Not ready to </span>
+                  <span className="font-black text-foreground">subscribe yet?</span>
                 </h2>
                 <div className="mt-5 rounded-2xl border border-(--color-border) bg-(--color-bg) p-4">
                   <p className="eyebrow mb-3 text-(--color-muted)">Quick check — three questions</p>
