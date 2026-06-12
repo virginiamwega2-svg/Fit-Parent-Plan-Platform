@@ -279,37 +279,25 @@ export default function Home() {
                 </div>
 
                 <div className="hidden flex-col justify-between bg-(--color-cream) p-10 lg:flex">
-                  <div>
-                    <div className="flex items-center gap-4">
-                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-(--color-brand)/20 ring-4 ring-white">
-                        <Image
-                          src="/images/team-maya.webp"
-                          alt="Maya Grant — Head Coach"
-                          width={80}
-                          height={80}
-                          quality={90}
-                          loading="lazy"
-                          className="object-cover"
-                        />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-(--color-brand)">NASM-CPT · Mom of 2</p>
-                        <p className="text-lg font-bold text-foreground">Maya Grant</p>
-                        <p className="text-sm text-(--color-muted)">Head Coach</p>
-                      </div>
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-(--color-brand)/20 ring-4 ring-white">
+                      <Image
+                        src="/images/team-maya.webp"
+                        alt="Maya Grant — Head Coach"
+                        width={80}
+                        height={80}
+                        quality={90}
+                        loading="lazy"
+                        className="object-cover"
+                      />
                     </div>
-                    <div className="mt-10 grid grid-cols-2 gap-4">
-                      <div className="rounded-2xl border border-(--color-border) bg-white p-4 text-center">
-                        <p className="tabular-price text-3xl font-black text-foreground">74</p>
-                        <p className="mt-0.5 text-xs text-(--color-muted)">parents coached</p>
-                      </div>
-                      <div className="rounded-2xl border border-(--color-border) bg-white p-4 text-center">
-                        <p className="tabular-price text-3xl font-black text-foreground">4.9</p>
-                        <p className="mt-0.5 text-xs text-(--color-muted)">avg. rating</p>
-                      </div>
+                    <div>
+                      <p className="text-sm font-semibold text-(--color-brand)">NASM-CPT · Mom of 2</p>
+                      <p className="text-lg font-bold text-foreground">Maya Grant</p>
+                      <p className="text-sm text-(--color-muted)">Head Coach</p>
                     </div>
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-8">
                     <blockquote className="text-sm leading-7 text-(--color-muted)">
                       &ldquo;I built this programme during my own 6am sessions with a toddler who kept waking up. If it survived that, it will survive your week.&rdquo;
                     </blockquote>
