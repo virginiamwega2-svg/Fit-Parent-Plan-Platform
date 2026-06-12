@@ -10,7 +10,7 @@ html {
   --color-bg: #f4ece1;            /* warm linen — page background */
   --color-bg-soft: #fdf8ee;       /* cream — card surfaces */
   --color-ink: #2a1a22;            /* deep plum-brown — body text */
-  --color-muted: #6b5560;          /* faded mulberry */
+  --color-muted: #5a4350;          /* faded mulberry — darkened for WCAG AA */
   --color-brand: #b5586a;          /* muted strawberry-jam — CTA & accent */
   --color-brand-strong: #8e3a4d;   /* crushed berry */
   --color-secondary: #7d8b76;      /* quiet thyme — calm secondary */
@@ -19,9 +19,10 @@ html {
   --color-cream: #ece0d0;          /* oat — section bands */
   --color-melon-soft: #f6e6dc;     /* jam-tinged warm — dashboard pages */
   --color-melon-glow: #efd2c9;
-  --color-mint-soft: #d8e1d2;      /* whisper of thyme — chip / pill tint */
+  --color-mint-soft: #f5e8e5;      /* warm rose-blush — chip / pill tint */
   --color-border: #e2d4c8;         /* warm hairline */
-  --color-clay: #b5586a;           /* strawberry accent — nudge strips, urgency */
+  --color-clay: #c4634e;           /* terra-cotta — nudge strips, urgency */
+  --space-section: clamp(4rem, 8vw, 6rem);
   --shadow-soft: 0 24px 60px -38px rgba(42, 26, 34, 0.14);
   --shadow-card: 0 18px 40px -28px rgba(42, 26, 34, 0.20);
   --shadow-card-strong: 0 18px 40px -28px rgba(42, 26, 34, 0.32);
@@ -43,15 +44,22 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans), "Segoe UI", sans-serif;
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 1.0625rem;
+  line-height: 1.7;
   min-height: 100vh;
   overflow-wrap: break-word;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 p {
   text-wrap: pretty;
   hyphens: auto;
+}
+
+/* Consistent section vertical rhythm — use pt-[--space-section] / py-[--space-section] */
+.section-y {
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
 }
 
 /* Grain texture — reinforces editorial paper feel */
@@ -78,7 +86,7 @@ h3 {
 
 h1 {
   letter-spacing: -0.04em;
-  line-height: 1.0;
+  line-height: 1.05;
 }
 
 /* (p rule merged below) */
