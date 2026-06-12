@@ -165,18 +165,25 @@ export default function Home() {
           <section id="section-pantry-card" className="scroll-mt-24 pt-16 lg:pt-24">
             <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">
               <div>
-                <p className="eyebrow mb-3 text-(--color-brand)">Also new · For dinner tonight</p>
+                <p className="eyebrow mb-3 text-(--color-brand)">Dinner, sorted</p>
                 <h2 className="text-3xl tracking-tight sm:text-4xl">
                   <span className="font-light italic text-(--color-muted)">What&apos;s in </span>
                   <span className="font-black text-foreground">your fridge?</span>
                 </h2>
                 <p className="mt-4 max-w-md text-base leading-7 text-(--color-muted)">
-                  The same assistant that plans your 20-minute window can plan your 20-minute dinner. Type what you have, get one realistic meal — plus a 1-tap list of what&apos;s missing.
+                  Type what you have. Get one realistic meal in the time you actually have — plus a copy-able list of what to grab next time.
                 </p>
                 <ul className="mt-6 grid gap-3 text-sm text-(--color-muted)">
-                  <li>· Built around what you actually have, not what a blog says you should</li>
-                  <li>· Honors the time you have, including prep</li>
-                  <li>· Picky-eater toggle for the kids</li>
+                  {[
+                    "Works with what's already in your kitchen",
+                    "Fits your time, prep included",
+                    "Picky-eater mode for the hard-to-please",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-brand)" aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <PantryAgent />
