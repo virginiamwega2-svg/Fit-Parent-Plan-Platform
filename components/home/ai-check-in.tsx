@@ -12,7 +12,7 @@ import {
   type GeneratePlanResponse,
 } from "@/app/actions/ai";
 import { useVoiceInput } from "@/hooks/use-voice-input";
-import type { Equipment } from "@/lib/ai/types";
+import type { AiPlan, Equipment } from "@/lib/ai/types";
 
 type Mode = "plan" | "workout" | "adapt";
 
@@ -502,7 +502,7 @@ function PlanCard({
       </div>
 
       {/* Soft email capture — converts non-buyers into leads */}
-      <EmailCaptureRow />
+      <EmailCaptureRow plan={plan} />
 
       {/* Pause-the-week — the brand-defining "no guilt" feature */}
       <PauseLink />
@@ -600,7 +600,7 @@ function PauseLink() {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function EmailCaptureRow() {
+function EmailCaptureRow({ plan }: { plan: AiPlan }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -610,7 +610,12 @@ function EmailCaptureRow() {
     if (!email.trim()) return;
     setError(null);
     startTransition(async () => {
-      const res = await savePlanEmailAction({ email: email.trim() });
+      const res = await savePlanEmailAction({
+        email: email.trim(),
+        headline: plan.headline,
+        steps: plan.steps,
+        nudge: plan.nudge,
+      });
       if (res.ok) {
         setStatus("sent");
         // Re-emit a log row so n8n associates this userKey with an email
@@ -635,11 +640,16 @@ function EmailCaptureRow() {
     const handler = () => {
       const trimmed = email.trim();
       if (status === "sent" || isPending || !EMAIL_RE.test(trimmed)) return;
-      void savePlanEmailAction({ email: trimmed });
+      void savePlanEmailAction({
+        email: trimmed,
+        headline: plan.headline,
+        steps: plan.steps,
+        nudge: plan.nudge,
+      });
     };
     window.addEventListener("pagehide", handler);
     return () => window.removeEventListener("pagehide", handler);
-  }, [email, status, isPending]);
+  }, [email, status, isPending, plan]);
 
   if (status === "sent") {
     return (

@@ -5,9 +5,15 @@ import { z } from "zod";
 import { adaptPlan, generatePantry, generatePlan, generateWorkout } from "@/lib/ai/adapter";
 import { rateLimit } from "@/lib/ai/rate-limit";
 import type { PantryResult, PlanResult } from "@/lib/ai/types";
+import { sendPlanEmail } from "@/lib/email";
 
+// Plan fields are optional so the lead-recovery path (pagehide fires with just
+// an email, no plan in hand) still validates and captures the lead.
 const emailSchema = z.object({
   email: z.string().trim().email("Use a valid email address."),
+  headline: z.string().trim().min(1).max(300).optional(),
+  steps: z.array(z.string().trim().min(1).max(400)).min(1).max(8).optional(),
+  nudge: z.string().trim().max(400).optional(),
 });
 
 export type SavePlanEmailResponse = { ok: true } | { ok: false; error: string };
@@ -186,15 +192,24 @@ export async function generatePantryAction(input: unknown): Promise<GeneratePant
 
 /**
  * Captures an email to send the generated plan to. Always responds optimistically
- * after validation — the actual send/queue is best-effort and shouldn't block
- * the conversion moment. Lead is logged server-side; wire to Resend later.
+ * after validation — the actual send is best-effort (degrades to a no-op when
+ * RESEND_API_KEY is unset) and shouldn't block the conversion moment. The lead
+ * is logged server-side either way.
  */
 export async function savePlanEmailAction(input: unknown): Promise<SavePlanEmailResponse> {
   const parsed = emailSchema.safeParse(input);
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid email." };
   }
+  const { email, headline, steps, nudge } = parsed.data;
   const ip = await getClientIp();
-  console.info(`[plan-email-capture] ${parsed.data.email} (ip=${ip})`);
+  console.info(`[plan-email-capture] ${email} (ip=${ip})`);
+
+  // Only the full-plan capture carries steps; the pagehide recovery path sends
+  // just the email, so there's nothing to mail then — we've still logged it.
+  if (headline && steps && steps.length > 0) {
+    await sendPlanEmail({ to: email, headline, steps, nudge });
+  }
+
   return { ok: true };
 }

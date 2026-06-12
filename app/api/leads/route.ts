@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { leadCaptureSchema } from "@/lib/validation";
 import { getDb } from "@/lib/db";
+import { sendLeadAdminNotification, sendLeadWelcomeEmail } from "@/lib/email";
 
 type LeadPayload = {
   name?: string;
@@ -104,40 +105,6 @@ function saveLead(lead: {
   }
 }
 
-async function sendAdminNotification(lead: {
-  name: string;
-  email: string;
-  challenge: string;
-  goal: string;
-  timePerDay: string;
-}) {
-  const resendApiKey = process.env.RESEND_API_KEY?.trim();
-  const adminEmail = process.env.ADMIN_EMAIL?.trim() ?? "support@fitparentplan.com";
-  if (!resendApiKey) return;
-
-  try {
-    const { Resend } = await import("resend");
-    const resend = new Resend(resendApiKey);
-    await resend.emails.send({
-      from: "Fit Parent Plan <notifications@fitparentplan.com>",
-      to: adminEmail,
-      subject: `New application from ${lead.name}`,
-      html: `
-        <h2>New coaching application</h2>
-        <p><strong>Name:</strong> ${lead.name}</p>
-        <p><strong>Email:</strong> ${lead.email}</p>
-        <p><strong>Goal:</strong> ${lead.goal}</p>
-        <p><strong>Time per day:</strong> ${lead.timePerDay} min</p>
-        <p><strong>Challenge:</strong><br>${lead.challenge}</p>
-      `,
-    });
-  } catch (error) {
-    if (process.env.NODE_ENV !== "production") {
-      console.error("Failed to send admin notification email", error);
-    }
-  }
-}
-
 export async function POST(request: Request) {
   try {
     const clientIp = getClientIp(request);
@@ -216,8 +183,12 @@ export async function POST(request: Request) {
     // Persist to database.
     saveLead(lead);
 
-    // Notify admin via email.
-    await sendAdminNotification(lead);
+    // Notify admin and welcome the applicant. Both are best-effort (no-op
+    // without RESEND_API_KEY) and run in parallel so neither blocks the other.
+    await Promise.all([
+      sendLeadAdminNotification(lead),
+      sendLeadWelcomeEmail({ to: email, name }),
+    ]);
 
     const webhookUrl = process.env.LEAD_WEBHOOK_URL?.trim();
     if (webhookUrl) {
