@@ -268,51 +268,32 @@ export default function Home() {
         <Reveal>
           <section id="apply" className="scroll-mt-24 mt-16 lg:mt-24">
             <div className="overflow-hidden rounded-3xl border border-(--color-border) bg-(--color-bg-soft) shadow-(--shadow-card-strong)">
-              <div className="grid lg:grid-cols-2">
-
-                <div className="p-6 sm:p-10">
-                  <h2 className="text-3xl tracking-tight sm:text-4xl">
-                    <span className="font-light italic text-(--color-muted)">Prefer to </span>
-                    <span className="font-black text-foreground">talk first?</span>
-                  </h2>
-                  <p className="mt-1 text-sm text-(--color-muted)">Send Maya a note — she replies personally within 24 hours.</p>
-                  <div className="mt-5 rounded-2xl border border-(--color-border) bg-(--color-bg) p-4">
-                    <p className="eyebrow mb-3 text-(--color-muted)">Quick check — three questions</p>
-                    <FitQuiz />
-                  </div>
-                  <div className="mt-5">
-                    <LeadCaptureForm />
-                  </div>
+              <div className="p-6 sm:p-10">
+                <h2 className="text-3xl tracking-tight sm:text-4xl">
+                  <span className="font-light italic text-(--color-muted)">Prefer to </span>
+                  <span className="font-black text-foreground">talk first?</span>
+                </h2>
+                <div className="mt-5 rounded-2xl border border-(--color-border) bg-(--color-bg) p-4">
+                  <p className="eyebrow mb-3 text-(--color-muted)">Quick check — three questions</p>
+                  <FitQuiz />
                 </div>
-
-                <div className="hidden flex-col justify-between bg-(--color-cream) p-10 lg:flex">
-                  <div className="flex items-center gap-4">
-                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-(--color-brand)/20 ring-4 ring-white">
-                      <Image
-                        src="/images/team-maya.webp"
-                        alt="Maya Grant — Head Coach"
-                        width={80}
-                        height={80}
-                        quality={90}
-                        loading="lazy"
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-(--color-brand)">NASM-CPT · Mom of 2</p>
-                      <p className="text-lg font-bold text-foreground">Maya Grant</p>
-                      <p className="text-sm text-(--color-muted)">Head Coach</p>
-                    </div>
-                  </div>
-                  <div className="mt-8">
-                    <blockquote className="text-sm leading-7 text-(--color-muted)">
-                      &ldquo;I built this programme during my own 6am sessions with a toddler who kept waking up. If it survived that, it will survive your week.&rdquo;
-                    </blockquote>
-                    <p className="mt-3 text-xs font-semibold text-foreground">— Maya Grant, Head Coach</p>
-                    <p className="mt-4 text-xs text-(--color-muted)/60">We reply to every application personally.</p>
-                  </div>
+                <div className="mt-5">
+                  <LeadCaptureForm />
                 </div>
-
+                <div className="mt-4 flex items-center gap-2.5">
+                  <div className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-(--color-brand)/20">
+                    <Image
+                      src="/images/team-maya.webp"
+                      alt="Maya Grant"
+                      width={28}
+                      height={28}
+                      quality={80}
+                      loading="lazy"
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs text-(--color-muted)">Maya reads every application personally — replies within 24 hours.</p>
+                </div>
               </div>
             </div>
           </section>
