@@ -2,14 +2,11 @@
 
 import dynamicImport from "next/dynamic";
 import Image from "next/image";
-import type React from "react";
-import { X, Star } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { StickyApplyCta } from "@/components/marketing/sticky-apply-cta";
 import { SubscribeButton } from "@/components/marketing/subscribe-button";
 import { HeroCta } from "@/components/home/hero-cta";
 import { HeroSlideshow } from "@/components/home/hero-slideshow";
-import { useCountUp } from "@/hooks/use-count-up";
 
 export const dynamic = "force-static";
 
@@ -114,23 +111,6 @@ const FAQ = [
   },
 ];
 
-/* ─── social proof stat block with count-up ─────────────────────── */
-function SocialProofStats() {
-  const { value: parentsCount, ref: parentsRef } = useCountUp(74, 0, 1400);
-  const { value: ratingVal, ref: ratingRef } = useCountUp(4.9, 1, 1200);
-
-  return (
-    <p
-      ref={parentsRef as React.RefObject<HTMLParagraphElement>}
-      className="mt-6 text-sm text-(--color-muted)"
-    >
-      <span className="font-semibold text-foreground">{parentsCount}</span>{" "}
-      parents coached since 2022 · rated{" "}
-      <span ref={ratingRef as React.RefObject<HTMLSpanElement>} className="font-semibold text-foreground">{ratingVal.toFixed(1)}</span> / 5 across 38 reviews
-    </p>
-  );
-}
-
 /* ─── page ───────────────────────────────────────────────────────── */
 export default function Home() {
   return (
@@ -162,18 +142,6 @@ export default function Home() {
               </span>
             </span>
           </h1>
-
-          {/* Inline social proof — above the fold */}
-          <div className="hero-line-4 mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-white/80">
-            <span className="flex items-center gap-0.5 text-(--color-brand)">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={13} fill="currentColor" strokeWidth={0} aria-hidden="true" />
-              ))}
-            </span>
-            <span className="font-semibold text-white">4.9</span>
-            <span className="text-white/50" aria-hidden="true">·</span>
-            <span>74 parents coached</span>
-          </div>
 
           <div className="hero-line-4 mt-6 flex flex-col items-center">
             <HeroCta />
@@ -217,94 +185,7 @@ export default function Home() {
         </Reveal>
       </div>
 
-      {/* ── 2. REAL RESULTS — proof before price ──────────────────── */}
-      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
-        <Reveal>
-          <section id="section-results" className="scroll-mt-24 pt-16 lg:pt-24">
-            <p className="eyebrow mb-3 text-(--color-brand)">Real result · No edits</p>
-            <h2 className="mb-8 text-3xl tracking-tight sm:text-4xl">
-              <span className="font-light italic text-(--color-muted)">One parent. </span>
-              <span className="font-black text-foreground">12 weeks.</span>
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {([
-                { week: "Week 1", quote: "I did two sessions. The third didn't happen — my youngest got sick.", note: "Maya's reply: 'Two is a win. See you Monday.'" },
-                { week: "Week 6", quote: "Down 4 lbs. The bigger thing was more energy at 3pm — when I always used to crash.", note: "First week she didn't miss a session." },
-                { week: "Month 3", quote: "11 lbs down. I forgot what it felt like to not be tired all the time.", note: "Sarah — mom of two. Still going." },
-              ] as const).map((entry) => (
-                <div key={entry.week} className="flex flex-col gap-3 rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-5">
-                  <p className="eyebrow text-(--color-brand)">{entry.week}</p>
-                  <blockquote className="flex-1 text-base font-semibold leading-snug text-foreground">&ldquo;{entry.quote}&rdquo;</blockquote>
-                  <p className="text-xs italic text-(--color-muted)">{entry.note}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="my-8 border-l-4 border-(--color-brand) pl-5">
-              <p className="font-display text-[clamp(1.3rem,2.5vw,2rem)] font-black leading-tight tracking-tight text-foreground">
-                11 lbs. 12 weeks.{" "}
-                <span className="font-thin italic text-(--color-muted)">Two sessions a week.</span>
-              </p>
-            </div>
-
-            <SocialProofStats />
-            <p className="mt-2 text-[10px] text-(--color-muted)/60">
-              * Names changed. Results representative; individual results vary.
-            </p>
-          </section>
-        </Reveal>
-      </div>
-
-      {/* ── 3. IS THIS YOU? + NOT FOR YOU — qualifier before price ── */}
-      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
-        <Reveal>
-          <section id="section-fit" className="scroll-mt-24 pt-16 lg:pt-24">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <p className="eyebrow mb-3 text-(--color-brand)">Built for you if</p>
-                <h2 className="text-3xl tracking-tight sm:text-4xl">
-                  <span className="font-black text-foreground">You&apos;re not alone.</span>
-                </h2>
-                <ul className="mt-6 grid gap-3">
-                  {([
-                    "You're a parent with less than 30 minutes a day",
-                    "Every plan you've tried didn't survive a messy week",
-                    "No gym, no equipment, no babysitter",
-                    "You keep starting over and want something that sticks",
-                  ] as const).map((item) => (
-                    <li key={item} className="flex items-start gap-3 rounded-2xl border border-(--color-border) bg-(--color-bg-soft) p-4">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-(--color-brand)" aria-hidden="true"><path d="M2 8.5l3 3 9-9"/></svg>
-                      <p className="text-sm leading-6 text-(--color-muted)">{item}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="eyebrow mb-3 text-(--color-muted)">Not for you if</p>
-                <h2 className="text-3xl tracking-tight sm:text-4xl">
-                  <span className="font-light italic text-(--color-muted)">This isn&apos;t </span>
-                  <span className="font-black text-foreground">your fit.</span>
-                </h2>
-                <ul className="mt-6 grid gap-3">
-                  {([
-                    "You want live group classes or in-person gym sessions",
-                    "You need strict calorie-counting or macro tracking",
-                    "You'd rather have an app than a real person checking in",
-                    "You want an 8-week transformation — this is steady progress",
-                  ] as const).map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-(--color-muted)">
-                      <X size={14} className="mt-0.5 shrink-0 text-(--color-border)" aria-hidden="true" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </section>
-        </Reveal>
-      </div>
-
-      {/* ── 4. PRICING — after qualifier so readers self-select first */}
+      {/* ── 2. PRICING ───────────────────────────────────────────── */}
       <div className="bg-(--color-cream)">
         <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
           <Reveal>
@@ -358,41 +239,6 @@ export default function Home() {
             </section>
           </Reveal>
         </div>
-      </div>
-
-      {/* ── 5. HOW IT WORKS — white now (pricing owns the cream band) */}
-      <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
-        <Reveal>
-            <section id="section-how" className="scroll-mt-24 pt-16 lg:pt-24">
-              <p className="eyebrow mb-3 text-(--color-brand)">How it starts</p>
-              <h2 className="mb-8 text-3xl tracking-tight sm:text-4xl">
-                <span className="font-light italic text-(--color-muted)">Three steps. </span>
-                <span className="font-black text-foreground">No waiting around.</span>
-              </h2>
-              <div className="grid gap-4 sm:grid-cols-3">
-                {([
-                  { n: "1", title: "Apply in 2 minutes", body: "No card needed." },
-                  { n: "2", title: "Maya replies in 24 hours", body: "Herself — not an autoresponder." },
-                  { n: "3", title: "Start Monday", body: "First plan arrives the same week." },
-                ] as const).map(({ n, title, body }, i) => (
-                  <div key={n} className="relative flex gap-4 rounded-2xl border border-(--color-border) bg-white p-5">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-(--color-brand) text-sm font-bold text-white">{n}</div>
-                    <div>
-                      <p className="font-bold text-foreground">{title}</p>
-                      <p className="mt-1 text-sm leading-6 text-(--color-muted)">{body}</p>
-                    </div>
-                    {i < 2 && (
-                      <span className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 text-(--color-brand) sm:block" aria-hidden="true">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </section>
-          </Reveal>
       </div>
 
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">

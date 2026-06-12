@@ -16,13 +16,11 @@ type AuthUser = {
 };
 
 const HOME_SECTIONS = [
-  { href: "#section-how",     label: "How it works" },
-  { href: "#section-results", label: "Results" },
   { href: "#section-offer",   label: "Price" },
   { href: "#section-faq",     label: "FAQ" },
 ];
 
-const SECTION_IDS = ["section-fit", "section-what", "section-results", "section-how", "section-team", "section-offer", "section-faq", "apply"];
+const SECTION_IDS = ["section-what", "section-team", "section-offer", "section-faq", "apply"];
 
 export function SiteHeader() {
   const router = useRouter();
@@ -88,8 +86,6 @@ export function SiteHeader() {
 
   function isSectionActive(href: string) {
     const id = href.replace("#", "");
-    if (id === "section-how") return activeSection === "section-how";
-    if (id === "section-results") return activeSection === "section-results";
     if (id === "section-offer") return activeSection === "section-offer";
     if (id === "section-faq") return activeSection === "section-faq" || activeSection === "apply";
     return false;
